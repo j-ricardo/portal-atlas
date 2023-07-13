@@ -83,10 +83,16 @@ export const DivTelaInicialCenter = styled.div`
 
 export const StyledRow = styled(Row)`
     margin: auto;
-`
+`;
 
 export const StyledCol = styled(Col)`
     margin: auto 0;
-`
+`;
+
+export const DivMap = styled.div`
+    width: 100%;
+    height: 500px;
+    display: flex;
+`;
 
 
