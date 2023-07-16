@@ -113,9 +113,12 @@ export const DivMap = styled.div`
     }
 `;
 
-
-
 export const StyledComposableMap = styled(ComposableMap)`
+`;
+
+export const StyledDivTwoColors = styled.div`
+    background: linear-gradient(180deg, #0A74A6 50%, #fff 50%);
+    height: auto;
 `;
 
 

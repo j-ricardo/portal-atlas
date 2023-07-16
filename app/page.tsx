@@ -8,7 +8,8 @@ import {
   DivMap,
   StyledRow,
   StyledCol,
-  StyledComposableMap
+  StyledComposableMap,
+  StyledDivTwoColors
 } from './antd_styled';
 import bg from './ico/IMAGEM-BANNER-INICIAL.png';
 import logoFinal from './ico/LOGO_logo final.png';
@@ -29,18 +30,8 @@ import Bologna from "./ico/BOLOGNA.png";
 import Sabanci_tuzla from "./ico/SABANCI.png";
 import Sul_australia_adelaide from "./ico/SUL-AUSTRALIA.png";
 import Apoio from "./ico/apoio.png";
-
-const markers = [
-  { name: "Cambridge", coordinates: [ -71.1185, 42.3759 ] },
-  { name: "Porto Alegre", coordinates: [ -51.2300, -30.0331 ] },
-  { name: "Rio de Janeiro", coordinates: [ -43.2056, -22.9111 ] },
-  { name: "Brasilia", coordinates: [ -47.8825, -15.7942 ] },
-  { name: "Goiania", coordinates: [ -49.2500, -16.6667 ] },
-  { name: "Milan", coordinates: [ 9.1900, 45.4669 ] },
-  { name: "Bologna", coordinates: [ 11.3428, 44.4939 ] },
-  { name: "Tuzla", coordinates: [ 29.3006, 40.8161 ] },
-  { name: "Adelaide", coordinates: [ 138.6000, -34.9275 ] }
-];
+import Colaboradores from "./ico/COLABORADORES.png";
+import Video from "./ico/VIDEO.png";
 
 const fatorMultPrinc: number = 0.40;
 const fatorMultSecond: number = 0.35;
@@ -177,6 +168,131 @@ export default function Home() {
     }
   }
 
+  const RetornaSaibaMais = () => {
+    if(windowSize[0] > 1030){
+      return (
+        <StyledRow
+          style={{ backgroundColor: '#01273C' }}
+        >
+          <StyledCol 
+            flex="50%"
+            style={{
+              paddingRight: '5%',
+              paddingLeft: '10%',
+            }}
+          >
+            <h1
+              style={{ color: '#1DC0A9', marginBottom: 80 }}
+            >
+              Perfil de dados
+            </h1>
+            <h2
+              style={{
+                textAlign: 'justify'
+              }}
+            >
+              O Atlas de Oportunidades integra uma vasta 
+              gama de dados provenientes de diversas fontes 
+              de pesquisa, como o IBGE, o REGIC, o Banco Central do Brasil, 
+              dentre outras. Analisamos, processamos e entregamos informações 
+              de qualidade em diferentes níveis geográficos, abrangendo estados, 
+              cidades e até mesmo dados censitários. Mas não paramos por aí. 
+              Para facilitar ainda mais a sua jornada de descoberta, utilizamos 
+              como base a classificação de Smart Cities do Urban Systems (2018). 
+              Essa classificação nos permite organizar as diversas variáveis 
+              disponíveis em nossa plataforma, proporcionando uma visualização 
+              aprimorada e facilitando a consulta por dados de seu interesse 
+              específico.
+            </h2>
+            <Button 
+              style={{
+                textTransform: 'uppercase',
+                marginTop: 80,
+                color: '#0A74A6',
+                fontSize: 14,
+                fontWeight: 500,
+              }}
+              type="primary" ghost
+            >
+              Saiba mais...
+            </Button>
+          </StyledCol>
+          <StyledCol
+            flex="50%"
+            style={{
+              height: '100%',
+              background: '#fff',
+              paddingLeft: 0,
+              paddingRight: 0
+            }}
+          >
+            <Image
+              src={Colaboradores}
+              width={0}
+              height={0}
+              sizes="100vw"
+              style={{ width: '100%', height: 'auto' }} 
+              alt="Logo atlas oportunidades"
+            />
+          </StyledCol>
+        </StyledRow>
+      );
+
+    } else {
+      return (
+        <StyledRow 
+          style={{ backgroundColor: '#01273C' }}
+        >
+          <StyledCol 
+            flex="80%"
+            style={{
+              marginRight: '10%',
+              marginLeft: '10%',
+              marginTop: '10%',
+              marginBottom: '10%',
+              backgroundColor: '#01273C',
+
+            }}
+          >
+            <h1 style={{ color: '#1DC0A9' }}>
+              Perfil de dados
+            </h1>
+            <h2
+              style={{
+                textAlign: 'justify'
+              }}
+            >
+              O Atlas de Oportunidades integra uma vasta 
+              gama de dados provenientes de diversas fontes 
+              de pesquisa, como o IBGE, o REGIC, o Banco Central do Brasil, 
+              dentre outras. Analisamos, processamos e entregamos informações 
+              de qualidade em diferentes níveis geográficos, abrangendo estados, 
+              cidades e até mesmo dados censitários. Mas não paramos por aí. 
+              Para facilitar ainda mais a sua jornada de descoberta, utilizamos 
+              como base a classificação de Smart Cities do Urban Systems (2018). 
+              Essa classificação nos permite organizar as diversas variáveis 
+              disponíveis em nossa plataforma, proporcionando uma visualização 
+              aprimorada e facilitando a consulta por dados de seu interesse 
+              específico.
+            </h2>
+            <Button 
+              style={{
+                textTransform: 'uppercase',
+                marginTop: 10,
+                color: '#0A74A6',
+                fontSize: 14,
+                fontWeight: 500,
+              }}
+              type="primary" ghost
+            >
+              Saiba mais...
+            </Button>
+          </StyledCol>
+        </StyledRow>
+      );
+    }
+  }
+
   const RetornaCor = (country: string) => {
     if (
       country === "Australia" ||
@@ -247,7 +363,7 @@ export default function Home() {
           projection="geoMercator"
           projectionConfig={{
             scale: 140,
-            center: [15, 25],
+            center: [5, 25],
           }}
         >
           <Geographies geography={geoUrl}>
@@ -375,6 +491,26 @@ export default function Home() {
           </Marker>
         </StyledComposableMap>
       </DivMap>
+      <DivTelaInicialCenter style={{ marginBottom: 0 }}>
+        {RetornaSaibaMais()}
+      </DivTelaInicialCenter>
+      <StyledDivTwoColors>
+        <Image
+          src={Video}
+          width={0}
+          height={0}
+          sizes="100vw"
+          style={{ 
+            width: '80%', 
+            height: 'auto', 
+            marginLeft: '10%', 
+            marginRight: '10%',
+            marginTop: 30,
+            marginBottom: 30
+          }} 
+          alt="Logo atlas oportunidades"
+        />
+      </StyledDivTwoColors>
     </>
   )
 }
