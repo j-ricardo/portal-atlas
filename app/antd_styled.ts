@@ -5,8 +5,13 @@ import {
     Drawer,
     Row,
     Col,
-    Button
 } from 'antd';
+import { 
+    ComposableMap, 
+    Geographies, 
+    Geography,
+    Marker
+} from 'react-simple-maps';
 
 export const GlobalStyle = createGlobalStyle`
   body {
@@ -54,7 +59,7 @@ export const StyledDrawer = styled(Drawer)`
 
 
 export const DivTelaInicial = styled.div`
-    height: 520px;
+    height: auto;
     padding: 150px 10% 20px 10%;
     margin: 0;
 `;
@@ -62,6 +67,7 @@ export const DivTelaInicial = styled.div`
 export const DivTelaInicialCenter = styled.div`
     font-family: 'Montserrat', sans-serif;
     color: #fff;
+    margin-bottom: 20px;
 
     h1{
         text-transform: uppercase;
@@ -91,8 +97,26 @@ export const StyledCol = styled(Col)`
 
 export const DivMap = styled.div`
     width: 100%;
-    height: 500px;
+    height: auto;
+    max-height: 650px;
     display: flex;
+
+    h1{
+        color: #fff;
+        text-transform: uppercase;
+        width: 100%;
+        text-align: center;
+        font-size: 22px;
+        font-weight: 700;
+        font-family: 'Montserrat', sans-serif;
+        margin-top: 15px;
+    }
 `;
+
+
+
+export const StyledComposableMap = styled(ComposableMap)`
+`;
+
 
 

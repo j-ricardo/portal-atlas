@@ -5,7 +5,7 @@ import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
 import { Montserrat } from 'next/font/google'
 import { Layout, Space, Button } from 'antd';
-import Icon, { GithubOutlined, MenuOutlined } from '@ant-design/icons';
+import Icon, { GithubOutlined, MenuOutlined, CloseOutlined } from '@ant-design/icons';
 import type { MenuProps } from 'antd';
 import { 
   DivHeader,
@@ -107,51 +107,55 @@ export default function RootLayout({
               >         
                 {
                   windowSize[0] > 1358?
-                  <StyledMenu
-                    mode={ "horizontal" }
-                    items={items}
-                  />
+                  <>
+                    <StyledMenu
+                      mode={ "horizontal" }
+                      items={items}
+                    />
+                    <Button
+                      style={{ background: '#0A74A638', border: 0 }}
+                      icon={
+                        <GithubOutlined
+                          style={{ color: '#fff' }} 
+                        />
+                      }
+                    />
+                    <Button
+                      style={{ 
+                        width: 32,
+                        height: 32,
+                        background: '#0A74A638', 
+                        border: 0,
+                      }}
+                      icon={
+                        <Image
+                          src={ptIcon}
+                          style={{ margin: 'auto' }}
+                          width={20}
+                          height={16}
+                          alt="Logo header"
+                        />
+                      }
+                    />
+                    <Button
+                      style={{
+                        background: '#0A74A6',
+                        textTransform: 'uppercase',
+                        color: '#fff',
+                        border: 0,
+                        paddingLeft: 30,
+                        paddingRight: 30,
+                        fontSize: 13 
+                      }}
+                    >
+                      Ir para o atlas
+                    </Button>
+                  </>
+                  
                   :
                   <></>
                 }
-                <Button
-                  style={{ background: '#0A74A638', border: 0 }}
-                  icon={
-                    <GithubOutlined
-                      style={{ color: '#fff' }} 
-                    />
-                  }
-                />
-                <Button
-                  style={{ 
-                    width: 32,
-                    height: 32,
-                    background: '#0A74A638', 
-                    border: 0,
-                  }}
-                  icon={
-                    <Image
-                      src={ptIcon}
-                      style={{ margin: 'auto' }}
-                      width={20}
-                      height={16}
-                      alt="Logo header"
-                    />
-                  }
-                />
-                <Button
-                  style={{
-                    background: '#0A74A6',
-                    textTransform: 'uppercase',
-                    color: '#fff',
-                    border: 0,
-                    paddingLeft: 30,
-                    paddingRight: 30,
-                    fontSize: 13 
-                  }}
-                >
-                  Ir para o atlas
-                </Button>
+                
                 {
                   windowSize[0] < 1359?
                   <>
@@ -168,11 +172,64 @@ export default function RootLayout({
                       width={500}
                       onClose={() => setOpenMenu(false)}
                       open={openMenu}
-                    >
-                      <StyledMenu
-                          mode={ "vertical" }
-                          items={items}
+                      headerStyle={{ backgroundColor: '#0d3559' }}
+                      closeIcon={
+                        <CloseOutlined 
+                          style={{ color: '#fff' }}
                         />
+                      }
+                      extra={
+                        <Space
+                          size="middle"
+                        >
+                          <Button
+                            style={{ background: '#0A74A638', border: 0 }}
+                            icon={
+                              <GithubOutlined
+                                style={{ color: '#fff' }} 
+                              />
+                            }
+                          />
+                          <Button
+                            style={{ 
+                              width: 32,
+                              height: 32,
+                              background: '#0A74A638', 
+                              border: 0,
+                            }}
+                            icon={
+                              <Image
+                                src={ptIcon}
+                                style={{ margin: 'auto' }}
+                                width={20}
+                                height={16}
+                                alt="Logo header"
+                              />
+                            }
+                          />
+                          <Button
+                            style={{
+                              background: '#0A74A6',
+                              textTransform: 'uppercase',
+                              color: '#fff',
+                              border: 0,
+                              paddingLeft: 30,
+                              paddingRight: 30,
+                              fontSize: 13 
+                            }}
+                          >
+                            Ir para o atlas
+                          </Button>
+                        </Space>
+                      }
+                    >                      
+                      
+                      <StyledMenu
+                        mode={ "vertical" }
+                        items={items}
+                      /> 
+                      
+
                     </StyledDrawer>
                   </>
                   :
