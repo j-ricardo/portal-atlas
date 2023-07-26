@@ -1,7 +1,8 @@
 'use client'
 import React, { useState, useEffect, useRef } from 'react';
 import Image from 'next/image';
-import { Button } from 'antd';
+import { Button, Card, Row, Col, Space } from 'antd';
+import Icon, { LeftOutlined, RightOutlined } from '@ant-design/icons';
 import { 
   DivTelaInicial,
   DivTelaInicialCenter,
@@ -9,10 +10,13 @@ import {
   StyledRow,
   StyledCol,
   StyledComposableMap,
-  StyledDivTwoColors
+  StyledDivTwoColors,
+  StyledDivPublicacoes
 } from './antd_styled';
 import bg from './ico/IMAGEM-BANNER-INICIAL.png';
-import logoFinal from './ico/LOGO_logo final.png';
+import logoFinal from './ico/pt/LOGO_logo final.png';
+import Colaboradores from "./ico/pt/COLABORADORES.png";
+import Video from "./ico/pt/VIDEO.png";
 import { 
   ComposableMap, 
   Geographies, 
@@ -30,22 +34,24 @@ import Bologna from "./ico/BOLOGNA.png";
 import Sabanci_tuzla from "./ico/SABANCI.png";
 import Sul_australia_adelaide from "./ico/SUL-AUSTRALIA.png";
 import Apoio from "./ico/apoio.png";
-import Colaboradores from "./ico/COLABORADORES.png";
-import Video from "./ico/VIDEO.png";
+
+
 
 const fatorMultPrinc: number = 0.40;
 const fatorMultSecond: number = 0.35;
 
 export default function Home() {
-  const [windowSize, setWindowSize] = useState([ window!.innerWidth!, window!.innerHeight! ]);
-  const mapRef = useRef<HTMLInputElement>();
+  const [windowSize, setWindowSize] = useState([ window!.innerWidth!, window!.innerHeight! ])
+  const mapRef = React.useRef<HTMLInputElement>() as React.MutableRefObject<HTMLInputElement>;
   const [heightMap, setHeightMap] = useState<number>(0);
+  const [widthMap, setWidthMap] = useState<number>(0);
 
   useEffect(() => {
     if(mapRef.current !== undefined ){
       setHeightMap(mapRef.current.clientHeight!);
+      setWidthMap(mapRef.current.clientWidth!);
     }
-  }, [mapRef]);
+  }, [windowSize]);
 
   useEffect(() => {
     const handleWindowResize = () => {
@@ -96,6 +102,7 @@ export default function Home() {
                 textTransform: 'uppercase',
                 marginTop: 10,
                 color: '#0A74A6',
+                borderColor: '#0A74A6',
                 fontSize: 14,
                 fontWeight: 500,
               }}
@@ -155,6 +162,7 @@ export default function Home() {
                 textTransform: 'uppercase',
                 marginTop: 10,
                 color: '#0A74A6',
+                borderColor: '#0A74A6',
                 fontSize: 14,
                 fontWeight: 500,
               }}
@@ -209,6 +217,7 @@ export default function Home() {
                 textTransform: 'uppercase',
                 marginTop: 80,
                 color: '#0A74A6',
+                borderColor: '#0A74A6',
                 fontSize: 14,
                 fontWeight: 500,
               }}
@@ -231,7 +240,7 @@ export default function Home() {
               width={0}
               height={0}
               sizes="100vw"
-              style={{ width: '100%', height: 'auto' }} 
+              style={{ width: '100%', height: 'auto' }}
               alt="Logo atlas oportunidades"
             />
           </StyledCol>
@@ -307,6 +316,92 @@ export default function Home() {
       return "#0d3559";
   }
 
+  const RetornaCardsPublicacoes = () => {
+    var quant = 3;
+    var flexSize = "33.33%";
+    if(widthMap >= 1250){
+      quant = 3;
+      flexSize = "33.33%";
+    } else if (widthMap >= 830 && widthMap <= 1249){
+      quant = 2;
+      flexSize = "50%";
+    } else {
+      quant = 1;
+      flexSize = "100%";
+    }
+
+    var listCards = [
+      <Col flex={flexSize} key={"card1"}>
+        <Card style={{ width: '100%', height: 260 }}>
+          <p>Disaggregating Sales Prediction: A Gravitational Approach.</p>
+          <span>EXPERT SYSTEMS WITH APPLICATIONS, v. 217, p. 119565, 2023.</span>
+          <Button
+            style={{
+              background: '#0A74A6',
+              textTransform: 'uppercase',
+              color: '#fff',
+              border: 0,
+              fontSize: 13,
+              marginTop: 20,
+              marginBottom: 'auto',
+              position: 'absolute',
+              left: 24,
+              bottom: 24
+            }}
+          >
+            Saiba mais
+          </Button>
+        </Card>
+      </Col>,
+      <Col flex={flexSize} key={"card2"}>
+        <Card style={{ width: '100%', height: 260 }}>
+          <p>Choice deferral: The interaction effects of visual boundaries and consumer knowledge</p>
+          <span>JOURNAL OF RETAILING AND CONSUMER SERVICES, v. 68, p. 103058, 2022</span>
+          <Button
+            style={{
+              background: '#0A74A6',
+              textTransform: 'uppercase',
+              color: '#fff',
+              border: 0,
+              fontSize: 13,
+              marginTop: 20,
+              marginBottom: 'auto',
+              position: 'absolute',
+              left: 24,
+              bottom: 24
+            }}
+          >
+            Saiba mais
+          </Button>
+        </Card>
+      </Col>,
+      <Col flex={flexSize} key={"card3"}>
+        <Card style={{ width: '100%', height: 260 }}>
+          <p>When repetitive consumption leads to predictions of faster adaptation</p>
+          <span>Journal of Consumer Behaviour, v. 19, p. 450-462, 2020</span>
+          <Button
+            style={{
+              background: '#0A74A6',
+              textTransform: 'uppercase',
+              color: '#fff',
+              border: 0,
+              fontSize: 13,
+              marginTop: 20,
+              marginBottom: 'auto',
+              position: 'absolute',
+              left: 24,
+              bottom: 24
+            }}
+          >
+            Saiba mais
+          </Button>
+        </Card>
+      </Col>
+    ];
+
+    return listCards.slice(0, quant);
+  }
+
   return (
     <>
       <DivTelaInicial
@@ -321,7 +416,9 @@ export default function Home() {
           {RetornaConteudoInicial()}
         </DivTelaInicialCenter>
       </DivTelaInicial>
-      <DivMap>
+      <DivMap
+        ref={mapRef}
+      >
         <div
           style={{ 
             position: 'absolute',
@@ -340,7 +437,7 @@ export default function Home() {
               textAlign: 'center', 
               position: 'absolute',      
               bottom: 0,
-              marginBottom: 15    
+              marginBottom: '2%'    
             }}
           >
             <Image
@@ -357,8 +454,7 @@ export default function Home() {
             />
           </div>
         </div>
-        <StyledComposableMap
-          ref={mapRef}
+        <StyledComposableMap          
           style={{ backgroundColor: "#00406e", width: '100%' }}
           projection="geoMercator"
           projectionConfig={{
@@ -511,10 +607,67 @@ export default function Home() {
           alt="Logo atlas oportunidades"
         />
       </StyledDivTwoColors>
+      <StyledDivPublicacoes>
+          <h1>
+            Publicações
+          </h1>
+          <Row gutter={24}>
+            {RetornaCardsPublicacoes()}
+          </Row>
+          <Row gutter={[16, 16]}>
+            <Col flex="80%">
+              <Button 
+                style={{
+                  marginTop: 30,
+                  textTransform: 'uppercase',                  
+                  color: '#0A74A6',
+                  borderColor: '#0A74A6',
+                  fontSize: 14,
+                  fontWeight: 500,
+                }}
+                type="primary" ghost
+              >
+                Ver todos
+              </Button>
+            </Col>
+            <Col flex="20%"
+              style={{ marginTop: 30 }}
+            >
+              <Space 
+                style={{
+                  position: 'absolute',
+                  right: 8,
+                  bottom: 0
+                }}
+              >
+                <Button 
+                  style={{ 
+                    background: '#fff', 
+                    borderColor: '#0A74A6', 
+                    padding: 6 
+                  }}
+                  icon={
+                    <LeftOutlined 
+                      style={{ color: '#0A74A6' }}
+                    />
+                  }
+                />
+                <Button 
+                  style={{ 
+                    background: '#fff', 
+                    borderColor: '#0A74A6', 
+                    padding: 6 
+                  }}
+                  icon={
+                    <RightOutlined
+                      style={{ color: '#0A74A6' }}
+                    />
+                  }
+                />
+              </Space>
+            </Col>
+          </Row>
+      </StyledDivPublicacoes>
     </>
   )
 }
-
-
-
-

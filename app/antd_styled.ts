@@ -47,6 +47,9 @@ export const StyledMenu = styled(Menu)`
     .ant-btn-icon{
         margin-top: 10px;
     }
+    .ant-menu-item:hover{
+        color: #fff !important;
+    }
 
 `
 export const StyledDrawer = styled(Drawer)`
@@ -109,7 +112,7 @@ export const DivMap = styled.div`
         font-size: 22px;
         font-weight: 700;
         font-family: 'Montserrat', sans-serif;
-        margin-top: 15px;
+        margin-top: 2%;
     }
 `;
 
@@ -121,5 +124,83 @@ export const StyledDivTwoColors = styled.div`
     height: auto;
 `;
 
+export const StyledDivPublicacoes = styled.div`
+    width: 100%;
+    max-height: 650px;
+    background: #fff;
+    margin: 0px;
+    padding: 0px 10% 40px 10%;
+    h1{
+        color: #0A74A6;
+        text-transform: uppercase;
+        width: 100%;
+        text-align: center;
+        font-size: 24px;
+        font-weight: 700;
+        font-family: 'Montserrat', sans-serif;
+        padding-top: 2%;
+        margin: 0 0 2% 0;
+    }
+    .ant-card-body{
+        height: 100%;
+    }
+    p {
+        color: #0A74A6;
+        text-transform: uppercase;
+        font-family: 'Montserrat', sans-serif;
+        font-size: 20px;
+        font-weight: 700;
+        line-height: 24.38px;
+        margin-top: 0px;
+    }
+    span{
+        text-transform: uppercase;
+        font-family: 'Montserrat', sans-serif;
+        font-size: 14px;
+        font-weight: 500;
+        line-height: 17.07px;
+        display: flex;
+    }
+`;
+
+export const StyledDivFooter = styled.div`
+    background: #01273C;
+    display: flex;
+    flex-direction: column;
+`;
+
+export const StyledDivFooterContent = styled.div`
+    height: 320px;
+    margin: 0 10%;
+    align-items: center;
+    padding: 50px 0;
+
+    p{
+        color: #fff;
+        font-family: 'Montserrat', sans-serif;
+        font-size: 12px;
+        font-weight: 500;
+        margin: 0;
+    }
+    .classEnd{
+        gap: 0px !important;
+    }
+`;
+
+export const StyledDivDireitosReservados = styled.div`
+    text-align: center;
+    height: 100px;
+    background: #0A74A6;
+    display: flex;
+    align-items: center;
+    p {
+        color: #fff;
+        font-family: 'Montserrat', sans-serif;
+        font-size: 12px;
+        font-weight: 500;
+        margin: 0;
+        width: 100%;
+    }
+`;
 
 
