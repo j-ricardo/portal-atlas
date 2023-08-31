@@ -1,0 +1,18 @@
+{
+    "app_title": "Atlas of Oportunidades",
+    "active_locale": "en",
+    "menu_1": "O projeto",
+    "menu_2": "Colaboradores",
+    "menu_3": "Perfil de dados",
+    "menu_4": "Tutorial",
+    "menu_5": "Grupo de pesquisa",
+    "btn_ir_atlas": "Ir para o atlas",
+    "btn_saiba_mais": "Saiba mais...",
+    "btn_ver_todos": "Ver todos",
+    "page_1_header": "Descubra o poder da ciência de dados e da Inteligência Artificial para impulsionar o desenvolvimento!",
+    "page_1_header_sub": "O Atlas de Oportunidades é um projeto open-source materializado num site gratuito de apoio à decisão que visa ajudar empreendedores, empresas, governos e outros púbicos interessados em identificar oportunidades de negócios. O projeto combina várias fontes de dados, processadas com ciência de dados espaciais e algoritmos de Inteligência Artificial. O Atlas traduz as teorias e métodos científicos mais avançados das áreas de administração, estatística e ciência da computação num site simples, intuitivo e interativo voltado à geração de empregos, renda e fomentar o desenvolvimento econômico sustentável.",
+    "page_1_rede_title": "Rede de colaboração",
+    "page_1_perfil_title": "O Atlas de Oportunidades integra uma vasta gama de dados provenientes de diversas fontes de pesquisa, como o IBGE, o REGIC, o Banco Central do Brasil, dentre outras. Analisamos, processamos e entregamos informações de qualidade em diferentes níveis geográficos, abrangendo estados, cidades e até mesmo dados censitários. Mas não paramos por aí. Para facilitar ainda mais a sua jornada de descoberta, utilizamos como base a classificação de Smart Cities do Urban Systems (2018). Essa classificação nos permite organizar as diversas variáveis disponíveis em nossa plataforma, proporcionando uma visualização aprimorada e facilitando a consulta por dados de seu interesse específico.",
+    "footer_contato": "Contato",
+    "footer_rights": "© 2023 Atlas de Oportunidades | Todos os direitos reservados."
+}

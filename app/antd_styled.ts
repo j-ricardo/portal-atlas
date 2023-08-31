@@ -22,9 +22,10 @@ export const GlobalStyle = createGlobalStyle`
 export const DivHeader = styled.div`
     padding-top: 10px;
     padding-bottom: 10px;
-    margin-left: 10%;
-    margin-right: 10%;
+    margin-left: auto;
+    margin-right: auto;
     width: 80%;
+    max-width: 1522px;
     border-bottom: 1px solid #1DC0A9;
     display: flex;
     flex-wrap: wrap;
@@ -63,14 +64,22 @@ export const StyledDrawer = styled(Drawer)`
 
 export const DivTelaInicial = styled.div`
     height: auto;
-    padding: 150px 10% 20px 10%;
+    padding: 150px 0 20px 0;
     margin: 0;
+`;
+
+export const DivTelaSplit = styled.div`
+    background: linear-gradient(90deg, #01273C 50%, #fff 50%);    
 `;
 
 export const DivTelaInicialCenter = styled.div`
     font-family: 'Montserrat', sans-serif;
     color: #fff;
     margin-bottom: 20px;
+    margin-left: auto;
+    margin-right: auto;
+    width: 80%;
+    max-width: 1522px;
 
     h1{
         text-transform: uppercase;
@@ -89,6 +98,8 @@ export const DivTelaInicialCenter = styled.div`
         line-height: 17.07px;
     }
 `;
+
+
 
 export const StyledRow = styled(Row)`
     margin: auto;
@@ -128,8 +139,10 @@ export const StyledDivPublicacoes = styled.div`
     width: 100%;
     max-height: 650px;
     background: #fff;
-    margin: 0px;
-    padding: 0px 10% 40px 10%;
+    margin-left: auto;
+    margin-right: auto;
+    width: 80%;
+    max-width: 1522px;
     h1{
         color: #0A74A6;
         text-transform: uppercase;
@@ -171,7 +184,9 @@ export const StyledDivFooter = styled.div`
 
 export const StyledDivFooterContent = styled.div`
     height: 320px;
-    margin: 0 10%;
+    margin: 0 auto;
+    width: 80%;
+    max-width: 1522px;
     align-items: center;
     padding: 50px 0;
 

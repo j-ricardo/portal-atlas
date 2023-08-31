@@ -10,6 +10,7 @@ import {
   StyledRow,
   StyledCol,
   StyledComposableMap,
+  DivTelaSplit,
   StyledDivTwoColors,
   StyledDivPublicacoes
 } from './antd_styled';
@@ -17,6 +18,7 @@ import bg from './ico/IMAGEM-BANNER-INICIAL.png';
 import logoFinal from './ico/pt/LOGO_logo final.png';
 import Colaboradores from "./ico/pt/COLABORADORES.png";
 import Video from "./ico/pt/VIDEO.png";
+import Apoio from "./ico/pt/apoio.png";
 import { 
   ComposableMap, 
   Geographies, 
@@ -33,14 +35,11 @@ import Bocconi_milan from "./ico/BOCCONI.png";
 import Bologna from "./ico/BOLOGNA.png";
 import Sabanci_tuzla from "./ico/SABANCI.png";
 import Sul_australia_adelaide from "./ico/SUL-AUSTRALIA.png";
-import Apoio from "./ico/apoio.png";
-
-
 
 const fatorMultPrinc: number = 0.40;
 const fatorMultSecond: number = 0.35;
 
-export default function Home() {
+function Home() {
   const [windowSize, setWindowSize] = useState([ window!.innerWidth!, window!.innerHeight! ])
   const mapRef = React.useRef<HTMLInputElement>() as React.MutableRefObject<HTMLInputElement>;
   const [heightMap, setHeightMap] = useState<number>(0);
@@ -114,7 +113,10 @@ export default function Home() {
           <StyledCol
             flex="50%"
             style={{
-              height: '100%'
+              height: '100%',
+              width: '100%',
+              display: 'flex',
+              flexDirection: 'row-reverse'
             }}
           >
             <Image
@@ -122,7 +124,7 @@ export default function Home() {
               width={0}
               height={0}
               sizes="100vw"
-              style={{ width: '100%', height: 'auto' }} 
+              style={{ width: '100%', maxWidth: 489, height: 'auto', marginRight: 0 }} 
               alt="Logo atlas oportunidades"
             />
           </StyledCol>
@@ -178,73 +180,72 @@ export default function Home() {
 
   const RetornaSaibaMais = () => {
     if(windowSize[0] > 1030){
-      return (
-        <StyledRow
-          style={{ backgroundColor: '#01273C' }}
-        >
-          <StyledCol 
-            flex="50%"
-            style={{
-              paddingRight: '5%',
-              paddingLeft: '10%',
-            }}
-          >
-            <h1
-              style={{ color: '#1DC0A9', marginBottom: 80 }}
-            >
-              Perfil de dados
-            </h1>
-            <h2
+      return (  
+        <DivTelaInicialCenter style={{ marginBottom: 0}}>
+          <StyledRow>
+            <StyledCol 
+              flex="50%"
               style={{
-                textAlign: 'justify'
+                paddingRight: '5%',
               }}
             >
-              O Atlas de Oportunidades integra uma vasta 
-              gama de dados provenientes de diversas fontes 
-              de pesquisa, como o IBGE, o REGIC, o Banco Central do Brasil, 
-              dentre outras. Analisamos, processamos e entregamos informações 
-              de qualidade em diferentes níveis geográficos, abrangendo estados, 
-              cidades e até mesmo dados censitários. Mas não paramos por aí. 
-              Para facilitar ainda mais a sua jornada de descoberta, utilizamos 
-              como base a classificação de Smart Cities do Urban Systems (2018). 
-              Essa classificação nos permite organizar as diversas variáveis 
-              disponíveis em nossa plataforma, proporcionando uma visualização 
-              aprimorada e facilitando a consulta por dados de seu interesse 
-              específico.
-            </h2>
-            <Button 
+              <h1
+                style={{ color: '#1DC0A9', marginBottom: 80 }}
+              >
+                Perfil de dados
+              </h1>
+              <h2
+                style={{
+                  textAlign: 'justify'
+                }}
+              >
+                O Atlas de Oportunidades integra uma vasta 
+                gama de dados provenientes de diversas fontes 
+                de pesquisa, como o IBGE, o REGIC, o Banco Central do Brasil, 
+                dentre outras. Analisamos, processamos e entregamos informações 
+                de qualidade em diferentes níveis geográficos, abrangendo estados, 
+                cidades e até mesmo dados censitários. Mas não paramos por aí. 
+                Para facilitar ainda mais a sua jornada de descoberta, utilizamos 
+                como base a classificação de Smart Cities do Urban Systems (2018). 
+                Essa classificação nos permite organizar as diversas variáveis 
+                disponíveis em nossa plataforma, proporcionando uma visualização 
+                aprimorada e facilitando a consulta por dados de seu interesse 
+                específico.
+              </h2>
+              <Button 
+                style={{
+                  textTransform: 'uppercase',
+                  marginTop: 80,
+                  color: '#0A74A6',
+                  borderColor: '#0A74A6',
+                  fontSize: 14,
+                  fontWeight: 500,
+                }}
+                type="primary" ghost
+              >
+                Saiba mais...
+              </Button>
+            </StyledCol>
+            <StyledCol
+              flex="50%"
               style={{
-                textTransform: 'uppercase',
-                marginTop: 80,
-                color: '#0A74A6',
-                borderColor: '#0A74A6',
-                fontSize: 14,
-                fontWeight: 500,
+                height: '100%',
+                paddingLeft: 0,
+                paddingRight: 0
               }}
-              type="primary" ghost
             >
-              Saiba mais...
-            </Button>
-          </StyledCol>
-          <StyledCol
-            flex="50%"
-            style={{
-              height: '100%',
-              background: '#fff',
-              paddingLeft: 0,
-              paddingRight: 0
-            }}
-          >
-            <Image
-              src={Colaboradores}
-              width={0}
-              height={0}
-              sizes="100vw"
-              style={{ width: '100%', height: 'auto' }}
-              alt="Logo atlas oportunidades"
-            />
-          </StyledCol>
-        </StyledRow>
+              <Image
+                src={Colaboradores}
+                width={0}
+                height={0}
+                sizes="100vw"
+                style={{ width: '100%', maxWidth: 489, height: 'auto', marginRight: 0 }} 
+                alt="Logo atlas oportunidades"
+              />
+            </StyledCol>
+          </StyledRow>
+        </DivTelaInicialCenter>
+        
       );
 
     } else {
@@ -587,87 +588,91 @@ export default function Home() {
           </Marker>
         </StyledComposableMap>
       </DivMap>
-      <DivTelaInicialCenter style={{ marginBottom: 0 }}>
+      <DivTelaSplit style={{ marginBottom: 0 }}>
         {RetornaSaibaMais()}
-      </DivTelaInicialCenter>
+      </DivTelaSplit>
       <StyledDivTwoColors>
-        <Image
-          src={Video}
-          width={0}
-          height={0}
-          sizes="100vw"
-          style={{ 
-            width: '80%', 
-            height: 'auto', 
-            marginLeft: '10%', 
-            marginRight: '10%',
-            marginTop: 30,
-            marginBottom: 30
-          }} 
-          alt="Logo atlas oportunidades"
-        />
+        <DivTelaInicialCenter style={{ marginBottom: 0 }}>
+          <Image
+            src={Video}
+            width={0}
+            height={0}
+            sizes="100vw"
+            style={{ 
+              width: '100%', 
+              height: 'auto', 
+              marginTop: 30,
+              marginBottom: 30
+            }} 
+            alt="Logo atlas oportunidades"
+          />
+        </DivTelaInicialCenter>        
       </StyledDivTwoColors>
-      <StyledDivPublicacoes>
-          <h1>
-            Publicações
-          </h1>
-          <Row gutter={24}>
-            {RetornaCardsPublicacoes()}
-          </Row>
-          <Row gutter={[16, 16]}>
-            <Col flex="80%">
-              <Button 
-                style={{
-                  marginTop: 30,
-                  textTransform: 'uppercase',                  
-                  color: '#0A74A6',
-                  borderColor: '#0A74A6',
-                  fontSize: 14,
-                  fontWeight: 500,
-                }}
-                type="primary" ghost
-              >
-                Ver todos
-              </Button>
-            </Col>
-            <Col flex="20%"
-              style={{ marginTop: 30 }}
-            >
-              <Space 
-                style={{
-                  position: 'absolute',
-                  right: 8,
-                  bottom: 0
-                }}
-              >
+      <div style={{ background: '#fff', paddingBottom: 20 }}>
+        <StyledDivPublicacoes>
+            <h1>
+              Publicações
+            </h1>
+            <Row gutter={24}>
+              {RetornaCardsPublicacoes()}
+            </Row>
+            <Row gutter={[16, 16]}>
+              <Col flex="80%">
                 <Button 
-                  style={{ 
-                    background: '#fff', 
-                    borderColor: '#0A74A6', 
-                    padding: 6 
+                  style={{
+                    marginTop: 30,
+                    textTransform: 'uppercase',                  
+                    color: '#0A74A6',
+                    borderColor: '#0A74A6',
+                    fontSize: 14,
+                    fontWeight: 500,
                   }}
-                  icon={
-                    <LeftOutlined 
-                      style={{ color: '#0A74A6' }}
-                    />
-                  }
-                />
-                <Button 
-                  style={{ 
-                    background: '#fff', 
-                    borderColor: '#0A74A6', 
-                    padding: 6 
+                  type="primary" ghost
+                >
+                  Ver todos
+                </Button>
+              </Col>
+              <Col flex="20%"
+                style={{ marginTop: 30 }}
+              >
+                <Space 
+                  style={{
+                    position: 'absolute',
+                    right: 8,
+                    bottom: 0
                   }}
-                  icon={
-                    <RightOutlined
-                      style={{ color: '#0A74A6' }}
-                    />
-                  }
-                />
-              </Space>
-            </Col>
-          </Row>
-      </StyledDivPublicacoes>
+                >
+                  <Button 
+                    style={{ 
+                      background: '#fff', 
+                      borderColor: '#0A74A6', 
+                      padding: 6 
+                    }}
+                    icon={
+                      <LeftOutlined 
+                        style={{ color: '#0A74A6' }}
+                      />
+                    }
+                  />
+                  <Button 
+                    style={{ 
+                      background: '#fff', 
+                      borderColor: '#0A74A6', 
+                      padding: 6 
+                    }}
+                    icon={
+                      <RightOutlined
+                        style={{ color: '#0A74A6' }}
+                      />
+                    }
+                  />
+                </Space>
+              </Col>
+            </Row>
+        </StyledDivPublicacoes>
+      </div>      
     </>
   )
 }
+
+export default Home;

@@ -11,7 +11,7 @@ import {
   GlobalStyle,
   DivHeader,
   StyledMenu,
-  StyledDrawer,  
+  StyledDrawer,
   StyledDivFooter,
   StyledDivFooterContent,
   StyledDivDireitosReservados
@@ -20,7 +20,6 @@ import headerIcon from './ico/pt/LOGO_TOPO_BRANCA.png';
 import logoFinal from './ico/pt/LOGO_logo final.png';
 import ptIcon from './ico/icon_pt.png';
 import enIcon from './ico/icon_en.png';
-
 
 const { Header, Content, Footer } = Layout;
 
@@ -373,4 +372,3 @@ export default function RootLayout({
     </html>
   )
 }
-
