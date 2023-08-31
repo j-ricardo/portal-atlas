@@ -133,8 +133,7 @@ function Home() {
 
     } else {
       return (
-        <StyledRow 
-        >
+        <StyledRow>
           <StyledCol 
             flex="100%"
             style={{
@@ -196,7 +195,8 @@ function Home() {
               </h1>
               <h2
                 style={{
-                  textAlign: 'justify'
+                  textAlign: 'justify',
+                  color: '#fff'
                 }}
               >
                 O Atlas de Oportunidades integra uma vasta 
@@ -244,61 +244,60 @@ function Home() {
               />
             </StyledCol>
           </StyledRow>
-        </DivTelaInicialCenter>
-        
+        </DivTelaInicialCenter>        
       );
 
     } else {
       return (
-        <StyledRow 
-          style={{ backgroundColor: '#01273C' }}
-        >
-          <StyledCol 
-            flex="80%"
-            style={{
-              marginRight: '10%',
-              marginLeft: '10%',
-              marginTop: '10%',
-              marginBottom: '10%',
-              backgroundColor: '#01273C',
-
-            }}
+        <DivTelaInicialCenter style={{ marginBottom: 0}}>
+          <StyledRow 
+            style={{ backgroundColor: '#01273C' }}
           >
-            <h1 style={{ color: '#1DC0A9' }}>
-              Perfil de dados
-            </h1>
-            <h2
+            <StyledCol 
+              flex="100%"
               style={{
-                textAlign: 'justify'
+                marginTop: '10%',
+                marginBottom: '10%',
               }}
             >
-              O Atlas de Oportunidades integra uma vasta 
-              gama de dados provenientes de diversas fontes 
-              de pesquisa, como o IBGE, o REGIC, o Banco Central do Brasil, 
-              dentre outras. Analisamos, processamos e entregamos informações 
-              de qualidade em diferentes níveis geográficos, abrangendo estados, 
-              cidades e até mesmo dados censitários. Mas não paramos por aí. 
-              Para facilitar ainda mais a sua jornada de descoberta, utilizamos 
-              como base a classificação de Smart Cities do Urban Systems (2018). 
-              Essa classificação nos permite organizar as diversas variáveis 
-              disponíveis em nossa plataforma, proporcionando uma visualização 
-              aprimorada e facilitando a consulta por dados de seu interesse 
-              específico.
-            </h2>
-            <Button 
-              style={{
-                textTransform: 'uppercase',
-                marginTop: 10,
-                color: '#0A74A6',
-                fontSize: 14,
-                fontWeight: 500,
-              }}
-              type="primary" ghost
-            >
-              Saiba mais...
-            </Button>
-          </StyledCol>
-        </StyledRow>
+              <h1 style={{ color: '#1DC0A9' }}>
+                Perfil de dados
+              </h1>
+              <h2
+                style={{
+                  textAlign: 'justify',
+                  color: '#fff'
+                }}
+              >
+                O Atlas de Oportunidades integra uma vasta 
+                gama de dados provenientes de diversas fontes 
+                de pesquisa, como o IBGE, o REGIC, o Banco Central do Brasil, 
+                dentre outras. Analisamos, processamos e entregamos informações 
+                de qualidade em diferentes níveis geográficos, abrangendo estados, 
+                cidades e até mesmo dados censitários. Mas não paramos por aí. 
+                Para facilitar ainda mais a sua jornada de descoberta, utilizamos 
+                como base a classificação de Smart Cities do Urban Systems (2018). 
+                Essa classificação nos permite organizar as diversas variáveis 
+                disponíveis em nossa plataforma, proporcionando uma visualização 
+                aprimorada e facilitando a consulta por dados de seu interesse 
+                específico.
+              </h2>
+              <Button 
+                style={{
+                  textTransform: 'uppercase',
+                  marginTop: 10,
+                  color: '#0A74A6',
+                  fontSize: 14,
+                  fontWeight: 500,
+                }}
+                type="primary" ghost
+              >
+                Saiba mais...
+              </Button>
+            </StyledCol>
+          </StyledRow>
+        </DivTelaInicialCenter>
+        
       );
     }
   }

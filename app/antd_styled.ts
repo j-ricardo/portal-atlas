@@ -69,7 +69,13 @@ export const DivTelaInicial = styled.div`
 `;
 
 export const DivTelaSplit = styled.div`
-    background: linear-gradient(90deg, #01273C 50%, #fff 50%);    
+    @media (min-width: 1031px) {
+        background: linear-gradient(90deg, #01273C 50%, #fff 50%);   
+    }
+
+    @media (max-width: 1030px) {
+        background: #01273C;   
+    }     
 `;
 
 export const DivTelaInicialCenter = styled.div`
