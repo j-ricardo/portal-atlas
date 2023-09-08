@@ -8,8 +8,19 @@ import {
   StyledDivDireitosReservados,
 } from "../../antd_styled";
 const { Footer } = Layout;
+import { useAppDispatch, useAppSelector } from "../../hooks";
+import { LocaleLang, changeLocale, langSelector } from "../../features/localeSlice";
+
 
 export default function FooterComponent(props: any) {
+    const [localeSel, setLocaleSel] = useState<LocaleLang>();
+    const selectedUsers = useAppSelector(langSelector);
+    const dispatch = useAppDispatch();
+
+    useEffect(() => {
+        setLocaleSel(selectedUsers);
+    }, [selectedUsers]);
+
     const retornaConteudoFooter = () => {
     var quant = 3;
     var flexSize = "33.33%";
@@ -140,7 +151,7 @@ export default function FooterComponent(props: any) {
                 </Row>
             </StyledDivFooterContent>
             <StyledDivDireitosReservados>
-                <p>© 2023 Atlas de Oportunidades | Todos os direitos reservados.</p>
+                <p>{localeSel?.languageJson.footer_rights}</p>
             </StyledDivDireitosReservados>
         </StyledDivFooter>
     </Footer>
