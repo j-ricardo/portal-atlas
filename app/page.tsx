@@ -15,7 +15,7 @@ import {
   StyledDivPublicacoes
 } from './antd_styled';
 import bg from './ico/IMAGEM-BANNER-INICIAL.png';
-import logoFinal from './ico/pt/LOGO_logo final.png';
+import logoFinal from './ico/pt/LOGO_logo_final.png';
 import Colaboradores from "./ico/pt/COLABORADORES.png";
 import Video from "./ico/pt/VIDEO.png";
 import Apoio from "./ico/pt/apoio.png";

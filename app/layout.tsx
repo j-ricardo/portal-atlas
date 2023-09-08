@@ -1,10 +1,10 @@
 'use client'
-
 import Head from 'next/head'
 import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
 import { Montserrat } from 'next/font/google'
 import { Layout, Space, Button, Col, Row } from 'antd';
+import FooterComponent from './components/footer/footerComponent';
 import Icon, { GithubOutlined, MenuOutlined, CloseOutlined } from '@ant-design/icons';
 import type { MenuProps } from 'antd';
 import { 
@@ -12,14 +12,12 @@ import {
   DivHeader,
   StyledMenu,
   StyledDrawer,
-  StyledDivFooter,
-  StyledDivFooterContent,
-  StyledDivDireitosReservados
 } from './antd_styled';
 import headerIcon from './ico/pt/LOGO_TOPO_BRANCA.png';
-import logoFinal from './ico/pt/LOGO_logo final.png';
+import logoFinal from './ico/pt/LOGO_logo_final.png';
 import ptIcon from './ico/icon_pt.png';
 import enIcon from './ico/icon_en.png';
+import { Providers } from './redux/provider';
 
 const { Header, Content, Footer } = Layout;
 
@@ -56,8 +54,7 @@ export default function RootLayout({
 }: {
   children: React.ReactNode
 }) {
-  const [ openMenu, setOpenMenu ] = useState<boolean>(false);
-
+  const [openMenu, setOpenMenu] = useState<boolean>(false);
   const [windowSize, setWindowSize] = useState([ window!.innerWidth!, window!.innerHeight! ]);
 
   useEffect(() => {    
@@ -192,180 +189,166 @@ export default function RootLayout({
         className={mont.className}
         style={{ margin: 0 }}
       >
-        <GlobalStyle />
-        <Layout className="layout">
-          <Header 
-            style={{ 
-              display: 'flex', 
-              alignItems: 'center', 
-              background: 'transparent',
-              width: '100%',
-              height: 120,
-              padding: 0,
-              position: 'absolute',
-              zIndex: 999
-            }
-          }>
-            <DivHeader>
-              <Image
-                src={headerIcon}
-                width={159}
-                height={80}
-                style={{ marginRight: 0 }}
-                alt="Logo header"
-              />
-              <Space 
-                size={'middle'}
-              >         
-                {
-                  windowSize[0] > 1358?
-                  <>
-                    <StyledMenu
-                      mode={ "horizontal" }
-                      items={items}
-                    />
-                    <Button
-                      style={{ background: '#0A74A638', border: 0 }}
-                      icon={
-                        <GithubOutlined
-                          style={{ color: '#fff' }} 
-                        />
-                      }
-                    />
-                    <Button
-                      style={{ 
-                        width: 32,
-                        height: 32,
-                        background: '#0A74A638', 
-                        border: 0,
-                      }}
-                      icon={
-                        <Image
-                          src={ptIcon}
-                          style={{ margin: 'auto' }}
-                          width={20}
-                          height={16}
-                          alt="Logo header"
-                        />
-                      }
-                    />
-                    <Button
-                      style={{
-                        background: '#0A74A6',
-                        textTransform: 'uppercase',
-                        color: '#fff',
-                        border: 0,
-                        paddingLeft: 30,
-                        paddingRight: 30,
-                        fontSize: 13 
-                      }}
-                    >
-                      Ir para o atlas
-                    </Button>
-                  </>                  
-                  :
-                  <></>
-                }                
-                {
-                  windowSize[0] < 1359?
-                  <>
-                    <Button 
-                      icon={
-                        <MenuOutlined 
-                          style={{ color: '#fff' }}
-                        />
-                      } 
-                      style={{ background: 'transparent' }}
-                      onClick={() => setOpenMenu(true)}
-                    />
-                    <StyledDrawer
-                      width={500}
-                      onClose={() => setOpenMenu(false)}
-                      open={openMenu}
-                      headerStyle={{ backgroundColor: '#0d3559' }}
-                      closeIcon={
-                        <CloseOutlined 
-                          style={{ color: '#fff' }}
-                        />
-                      }
-                      extra={
-                        <Space
-                          size="middle"
-                        >
-                          <Button
-                            style={{ background: '#0A74A638', border: 0 }}
-                            icon={
-                              <GithubOutlined
-                                style={{ color: '#fff' }} 
-                              />
-                            }
-                          />
-                          <Button
-                            style={{ 
-                              width: 32,
-                              height: 32,
-                              background: '#0A74A638', 
-                              border: 0,
-                            }}
-                            icon={
-                              <Image
-                                src={ptIcon}
-                                style={{ margin: 'auto' }}
-                                width={20}
-                                height={16}
-                                alt="Logo header"
-                              />
-                            }
-                          />
-                          <Button
-                            style={{
-                              background: '#0A74A6',
-                              textTransform: 'uppercase',
-                              color: '#fff',
-                              border: 0,
-                              paddingLeft: 30,
-                              paddingRight: 30,
-                              fontSize: 13 
-                            }}
-                          >
-                            Ir para o atlas
-                          </Button>
-                        </Space>
-                      }
-                    > 
+        <Providers>
+          <GlobalStyle />
+          <Layout className="layout">
+            <Header 
+              style={{ 
+                display: 'flex', 
+                alignItems: 'center', 
+                background: 'transparent',
+                width: '100%',
+                height: 120,
+                padding: 0,
+                position: 'absolute',
+                zIndex: 999
+              }
+            }>
+              <DivHeader>
+                <Image
+                  src={headerIcon}
+                  width={159}
+                  height={80}
+                  style={{ marginRight: 0 }}
+                  alt="Logo header"
+                />
+                <Space 
+                  size={'middle'}
+                >         
+                  {
+                    windowSize[0] > 1358?
+                    <>
                       <StyledMenu
-                        mode={ "vertical" }
+                        mode={ "horizontal" }
                         items={items}
-                      /> 
-                    </StyledDrawer>
-                  </>
-                  :
-                  <></>
-                }                
-              </Space>
-            </DivHeader>
-          </Header>
-          <Content style={{ width: '100%', height: '100%' }}>
-            {children}
-          </Content>
-          <Footer style={{ padding: 0 }}>
-            <StyledDivFooter>
-              <StyledDivFooterContent>
-                <Row 
-                  gutter={40} 
-                  style={{ margin: 0}} 
-                  align='middle' 
-                  justify={"space-between"}
-                >
-                  {retornaConteudoFooter()}
-                </Row>
-              </StyledDivFooterContent>              
-              <StyledDivDireitosReservados>
-                <p>© 2023 Atlas de Oportunidades | Todos os direitos reservados.</p>
-              </StyledDivDireitosReservados>
-            </StyledDivFooter>            
-          </Footer>
-        </Layout>
+                      />
+                      <Button
+                        style={{ background: '#0A74A638', border: 0 }}
+                        icon={
+                          <GithubOutlined
+                            style={{ color: '#fff' }} 
+                          />
+                        }
+                      />
+                      <Button
+                        style={{ 
+                          width: 32,
+                          height: 32,
+                          background: '#0A74A638', 
+                          border: 0,
+                        }}
+                        icon={
+                          <Image
+                            src={ptIcon}
+                            style={{ margin: 'auto' }}
+                            width={20}
+                            height={16}
+                            alt="Logo header"
+                          />
+                        }
+                      />
+                      <Button
+                        style={{
+                          background: '#0A74A6',
+                          textTransform: 'uppercase',
+                          color: '#fff',
+                          border: 0,
+                          paddingLeft: 30,
+                          paddingRight: 30,
+                          fontSize: 13 
+                        }}
+                      >
+                        Ir para o atlas
+                      </Button>
+                    </>                  
+                    :
+                    <></>
+                  }                
+                  {
+                    windowSize[0] < 1359?
+                    <>
+                      <Button 
+                        icon={
+                          <MenuOutlined 
+                            style={{ color: '#fff' }}
+                          />
+                        } 
+                        style={{ background: 'transparent' }}
+                        onClick={() => setOpenMenu(true)}
+                      />
+                      <StyledDrawer
+                        width={500}
+                        onClose={() => setOpenMenu(false)}
+                        open={openMenu}
+                        headerStyle={{ backgroundColor: '#0d3559' }}
+                        closeIcon={
+                          <CloseOutlined 
+                            style={{ color: '#fff' }}
+                          />
+                        }
+                        extra={
+                          <Space
+                            size="middle"
+                          >
+                            <Button
+                              style={{ background: '#0A74A638', border: 0 }}
+                              icon={
+                                <GithubOutlined
+                                  style={{ color: '#fff' }} 
+                                />
+                              }
+                            />
+                            <Button
+                              style={{ 
+                                width: 32,
+                                height: 32,
+                                background: '#0A74A638', 
+                                border: 0,
+                              }}
+                              icon={
+                                <Image
+                                  src={ptIcon}
+                                  style={{ margin: 'auto' }}
+                                  width={20}
+                                  height={16}
+                                  alt="Logo header"
+                                />
+                              }
+                            />
+                            <Button
+                              style={{
+                                background: '#0A74A6',
+                                textTransform: 'uppercase',
+                                color: '#fff',
+                                border: 0,
+                                paddingLeft: 30,
+                                paddingRight: 30,
+                                fontSize: 13 
+                              }}
+                            >
+                              Ir para o atlas
+                            </Button>
+                          </Space>
+                        }
+                      > 
+                        <StyledMenu
+                          mode={ "vertical" }
+                          items={items}
+                        /> 
+                      </StyledDrawer>
+                    </>
+                    :
+                    <></>
+                  }                
+                </Space>
+              </DivHeader>
+            </Header>
+            <Content style={{ width: '100%', height: '100%' }}>
+              {children}
+            </Content>
+            <FooterComponent windows={windowSize} />
+          </Layout>
+        </Providers>        
       </body>
     </html>
   )
