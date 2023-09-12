@@ -35,8 +35,6 @@ export const DivHeader = styled.div`
 export const StyledMenu = styled(Menu)`
     margin-top: auto;
     margin-bottom: auto;
-    margin-top: 10px;
-    margin-bottom: 10px;
     background-color: transparent;
     text-transform: uppercase;
     font-family: 'Montserrat', sans-serif;
@@ -44,6 +42,7 @@ export const StyledMenu = styled(Menu)`
     font-weight: 500;
     color: #fff;
     border-bottom: 0px solid transparent !important;
+    min-width: 560px;
 
     .ant-btn-icon{
         margin-top: 10px;
@@ -129,7 +128,7 @@ export const DivMap = styled.div`
         font-size: 22px;
         font-weight: 700;
         font-family: 'Montserrat', sans-serif;
-        margin-top: 2%;
+        margin-top: 20px;
     }
 `;
 

@@ -15,10 +15,14 @@ import {
   StyledDivPublicacoes
 } from './antd_styled';
 import bg from './ico/IMAGEM-BANNER-INICIAL.png';
-import logoFinal from './ico/pt/LOGO_logo_final.png';
-import Colaboradores from "./ico/pt/COLABORADORES.png";
-import Video from "./ico/pt/VIDEO.png";
-import Apoio from "./ico/pt/apoio.png";
+import logoFinalPt from './ico/pt/LOGO_logo_final.png';
+import ColaboradoresPt from "./ico/pt/COLABORADORES.png";
+import VideoPt from "./ico/pt/VIDEO.png";
+import ApoioPt from "./ico/pt/apoio.png";
+import logoFinalEn from './ico/en/LOGO_logo_final.png';
+import ColaboradoresEn from "./ico/en/COLABORADORES.png";
+import VideoEn from "./ico/en/VIDEO.png";
+import ApoioEn from "./ico/en/apoio.png";
 import { 
   ComposableMap, 
   Geographies, 
@@ -35,6 +39,8 @@ import Bocconi_milan from "./ico/BOCCONI.png";
 import Bologna from "./ico/BOLOGNA.png";
 import Sabanci_tuzla from "./ico/SABANCI.png";
 import Sul_australia_adelaide from "./ico/SUL-AUSTRALIA.png";
+import { useAppDispatch, useAppSelector } from "./hooks";
+import { LocaleLang, changeLocale, langSelector } from "./features/localeSlice";
 
 const fatorMultPrinc: number = 0.40;
 const fatorMultSecond: number = 0.35;
@@ -44,6 +50,14 @@ function Home() {
   const mapRef = React.useRef<HTMLInputElement>() as React.MutableRefObject<HTMLInputElement>;
   const [heightMap, setHeightMap] = useState<number>(0);
   const [widthMap, setWidthMap] = useState<number>(0);
+  const [localeSel, setLocaleSel] = useState<LocaleLang>();
+  const selectedLocale = useAppSelector(langSelector);
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    console.log('alterado...');
+    setLocaleSel(selectedLocale);
+  }, [selectedLocale]);
 
   useEffect(() => {
     if(mapRef.current !== undefined ){
@@ -78,23 +92,14 @@ function Home() {
               marginRight: 0
             }}
           >
-            <h1>
-              Descubra o poder da ciência de dados e da Inteligência Artificial 
-              para impulsionar o desenvolvimento!
-            </h1>
+            <h1>{localeSel?.languageJson.page_1_header}</h1>
             <h2
               style={{
-                textAlign: 'justify'
+                textAlign: 'justify',
+                lineHeight: 1.50,
               }}
             >
-              O Atlas de Oportunidades é um projeto open-source materializado num 
-              site gratuito de apoio à decisão que visa ajudar empreendedores, empresas, 
-              governos e outros púbicos interessados em identificar oportunidades de negócios. 
-              O projeto combina várias fontes de dados, processadas com ciência de dados espaciais e 
-              algoritmos de Inteligência Artificial. O Atlas traduz as teorias e métodos científicos 
-              mais avançados das áreas de administração, estatística e ciência da computação num site 
-              simples, intuitivo e interativo voltado à geração de empregos, renda e fomentar o desenvolvimento 
-              econômico sustentável.
+              {localeSel?.languageJson.page_1_header_sub}
             </h2>
             <Button 
               style={{
@@ -107,7 +112,7 @@ function Home() {
               }}
               type="primary" ghost
             >
-              Saiba mais...
+              {localeSel?.languageJson.btn_saiba_mais}
             </Button>
           </StyledCol>
           <StyledCol
@@ -120,7 +125,7 @@ function Home() {
             }}
           >
             <Image
-              src={logoFinal}
+              src={(localeSel?.language === 'en'? logoFinalEn : logoFinalPt)}
               width={0}
               height={0}
               sizes="100vw"
@@ -140,23 +145,14 @@ function Home() {
               marginRight: 0
             }}
           >
-            <h1>
-              Descubra o poder da ciência de dados e da Inteligência Artificial 
-              para impulsionar o desenvolvimento!
-            </h1>
+            <h1>{localeSel?.languageJson.page_1_header}</h1>
             <h2
               style={{
-                textAlign: 'justify'
+                textAlign: 'justify',
+                lineHeight: 1.50,
               }}
             >
-              O Atlas de Oportunidades é um projeto open-source materializado num 
-              site gratuito de apoio à decisão que visa ajudar empreendedores, empresas, 
-              governos e outros púbicos interessados em identificar oportunidades de negócios. 
-              O projeto combina várias fontes de dados, processadas com ciência de dados espaciais e 
-              algoritmos de Inteligência Artificial. O Atlas traduz as teorias e métodos científicos 
-              mais avançados das áreas de administração, estatística e ciência da computação num site 
-              simples, intuitivo e interativo voltado à geração de empregos, renda e fomentar o desenvolvimento 
-              econômico sustentável.
+              {localeSel?.languageJson.page_1_header_sub}
             </h2>
             <Button 
               style={{
@@ -169,7 +165,7 @@ function Home() {
               }}
               type="primary" ghost
             >
-              Saiba mais...
+              {localeSel?.languageJson.btn_saiba_mais}
             </Button>
           </StyledCol>
         </StyledRow>
@@ -185,32 +181,31 @@ function Home() {
             <StyledCol 
               flex="50%"
               style={{
-                paddingRight: '5%',
+                paddingRight: '65px',
               }}
             >
               <h1
                 style={{ color: '#1DC0A9', marginBottom: 80 }}
               >
-                Perfil de dados
+                {localeSel?.languageJson.menu_3}
               </h1>
               <h2
                 style={{
                   textAlign: 'justify',
-                  color: '#fff'
+                  color: '#fff',
+                  lineHeight: 1.50,
                 }}
               >
-                O Atlas de Oportunidades integra uma vasta 
-                gama de dados provenientes de diversas fontes 
-                de pesquisa, como o IBGE, o REGIC, o Banco Central do Brasil, 
-                dentre outras. Analisamos, processamos e entregamos informações 
-                de qualidade em diferentes níveis geográficos, abrangendo estados, 
-                cidades e até mesmo dados censitários. Mas não paramos por aí. 
-                Para facilitar ainda mais a sua jornada de descoberta, utilizamos 
-                como base a classificação de Smart Cities do Urban Systems (2018). 
-                Essa classificação nos permite organizar as diversas variáveis 
-                disponíveis em nossa plataforma, proporcionando uma visualização 
-                aprimorada e facilitando a consulta por dados de seu interesse 
-                específico.
+                {localeSel?.languageJson.page_1_perfil_title_1}
+              </h2>
+              <h2
+                style={{
+                  textAlign: 'justify',
+                  color: '#fff',
+                  lineHeight: 1.50,
+                }}
+              >
+                {localeSel?.languageJson.page_1_perfil_title_2}
               </h2>
               <Button 
                 style={{
@@ -223,7 +218,7 @@ function Home() {
                 }}
                 type="primary" ghost
               >
-                Saiba mais...
+                {localeSel?.languageJson.btn_saiba_mais}
               </Button>
             </StyledCol>
             <StyledCol
@@ -235,11 +230,11 @@ function Home() {
               }}
             >
               <Image
-                src={Colaboradores}
+                src={(localeSel?.language === 'en'? ColaboradoresEn : ColaboradoresPt)}
                 width={0}
                 height={0}
                 sizes="100vw"
-                style={{ width: '100%', maxWidth: 489, height: 'auto', marginRight: 0 }} 
+                style={{ width: '100%', maxWidth: 637, height: 'auto', marginRight: 0 }} 
                 alt="Logo atlas oportunidades"
               />
             </StyledCol>
@@ -261,7 +256,7 @@ function Home() {
               }}
             >
               <h1 style={{ color: '#1DC0A9' }}>
-                Perfil de dados
+              {localeSel?.languageJson.menu_3}
               </h1>
               <h2
                 style={{
@@ -269,18 +264,7 @@ function Home() {
                   color: '#fff'
                 }}
               >
-                O Atlas de Oportunidades integra uma vasta 
-                gama de dados provenientes de diversas fontes 
-                de pesquisa, como o IBGE, o REGIC, o Banco Central do Brasil, 
-                dentre outras. Analisamos, processamos e entregamos informações 
-                de qualidade em diferentes níveis geográficos, abrangendo estados, 
-                cidades e até mesmo dados censitários. Mas não paramos por aí. 
-                Para facilitar ainda mais a sua jornada de descoberta, utilizamos 
-                como base a classificação de Smart Cities do Urban Systems (2018). 
-                Essa classificação nos permite organizar as diversas variáveis 
-                disponíveis em nossa plataforma, proporcionando uma visualização 
-                aprimorada e facilitando a consulta por dados de seu interesse 
-                específico.
+                {localeSel?.languageJson.page_1_perfil_title}
               </h2>
               <Button 
                 style={{
@@ -292,7 +276,7 @@ function Home() {
                 }}
                 type="primary" ghost
               >
-                Saiba mais...
+                {localeSel?.languageJson.btn_saiba_mais}
               </Button>
             </StyledCol>
           </StyledRow>
@@ -393,7 +377,7 @@ function Home() {
               bottom: 24
             }}
           >
-            Saiba mais
+            {localeSel?.languageJson.btn_saiba_mais}
           </Button>
         </Card>
       </Col>
@@ -427,9 +411,7 @@ function Home() {
             height: heightMap
           }}
         >
-          <h1>
-            Rede de colaboração
-          </h1>
+          <h1>{localeSel?.languageJson.page_1_rede_title}</h1>
           <div
             style={{
               width: '100%',
@@ -437,11 +419,11 @@ function Home() {
               textAlign: 'center', 
               position: 'absolute',      
               bottom: 0,
-              marginBottom: '2%'    
+              marginBottom: '20px'    
             }}
           >
             <Image
-              src={Apoio}
+              src={(localeSel?.language === 'en'? ApoioEn : ApoioPt)}
               width={0}
               height={0}
               style={{ 
@@ -593,7 +575,7 @@ function Home() {
       <StyledDivTwoColors>
         <DivTelaInicialCenter style={{ marginBottom: 0 }}>
           <Image
-            src={Video}
+            src={(localeSel?.language === 'en'? VideoEn : VideoPt)}
             width={0}
             height={0}
             sizes="100vw"
@@ -609,9 +591,7 @@ function Home() {
       </StyledDivTwoColors>
       <div style={{ background: '#fff', paddingBottom: 20 }}>
         <StyledDivPublicacoes>
-            <h1>
-              Publicações
-            </h1>
+            <h1>{localeSel?.languageJson.page_1_publications}</h1>
             <Row gutter={24}>
               {RetornaCardsPublicacoes()}
             </Row>
@@ -628,7 +608,7 @@ function Home() {
                   }}
                   type="primary" ghost
                 >
-                  Ver todos
+                  {localeSel?.languageJson.btn_ver_todos}
                 </Button>
               </Col>
               <Col flex="20%"
@@ -645,7 +625,7 @@ function Home() {
                     style={{ 
                       background: '#fff', 
                       borderColor: '#0A74A6', 
-                      padding: 6 
+                      padding: 7 
                     }}
                     icon={
                       <LeftOutlined 
@@ -657,7 +637,7 @@ function Home() {
                     style={{ 
                       background: '#fff', 
                       borderColor: '#0A74A6', 
-                      padding: 6 
+                      padding: 7 
                     }}
                     icon={
                       <RightOutlined

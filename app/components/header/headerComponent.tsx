@@ -1,42 +1,75 @@
 import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
-import { Layout, Space, Button, Col, Row } from 'antd';
+import Link from 'next/link';
+import { Layout, Space, Button } from 'antd';
 import { 
     DivHeader,
     StyledMenu,
     StyledDrawer,
 } from '../../antd_styled';
 const { Header } = Layout;
-import headerIcon from '../../ico/pt/LOGO_TOPO_BRANCA.png';
+import headerIconPt from '../../ico/pt/LOGO_TOPO_BRANCA.png';
+import headerIconEn from '../../ico/en/LOGO_TOPO_BRANCA.png';
 import Icon, { GithubOutlined, MenuOutlined, CloseOutlined } from '@ant-design/icons';
 import type { MenuProps } from 'antd';
 import ptIcon from "../../ico/icon_pt.png";
 import enIcon from "../../ico/icon_en.png";
+import { useAppDispatch, useAppSelector } from "../../hooks";
+import { LocaleLang, changeLocale, langSelector } from "../../features/localeSlice";
+import en from "../../../public/static/locales/en.json";
+import pt from "../../../public/static/locales/pt.json";
+
 
 export default function HeaderComponent(props: any){
     const [openMenu, setOpenMenu] = useState<boolean>(false);
+    const [localeSel, setLocaleSel] = useState<LocaleLang>();
+    const selectedUsers = useAppSelector(langSelector);
+    const dispatch = useAppDispatch();
+
+    useEffect(() => {
+        setLocaleSel(selectedUsers);
+    }, [selectedUsers]);
+
     const items: MenuProps['items'] = [
         {
-          label: 'O projeto',
+          label: localeSel?.languageJson.menu_1,
           key: 'projeto'
         },
         {
-          label: 'Colaboradores',
+          label: localeSel?.languageJson.menu_2,
           key: 'colaboradores'
         },
         {
-          label: 'Perfil de dados',
+          label: localeSel?.languageJson.menu_3,
           key: 'perfil'
         },
         {
-          label: 'Tutorial',
+          label: localeSel?.languageJson.menu_4,
           key: 'tutorial'
         },
         {
-          label: 'Grupo de pesquisa',
+          label: localeSel?.languageJson.menu_5,
           key: 'grupo_pesquisa'
         },
     ];
+
+    const onClickChangeLocale = () => {
+        if(localeSel?.language === 'en'){
+            console.log('pt');
+            const loc: LocaleLang = {
+                language : 'pt',
+                languageJson : pt
+            };
+            dispatch(changeLocale(loc));
+        } else {
+            console.log('en');
+            const loc: LocaleLang = {
+                language : 'en',
+                languageJson : en
+            };
+            dispatch(changeLocale(loc));
+        }
+    }
 
     return (
         <Header
@@ -53,7 +86,7 @@ export default function HeaderComponent(props: any){
         >
             <DivHeader>
                 <Image
-                    src={headerIcon}
+                    src={(localeSel?.language === 'en'? headerIconEn : headerIconPt)}
                     width={159}
                     height={80}
                     style={{ marginRight: 0 }}
@@ -64,44 +97,53 @@ export default function HeaderComponent(props: any){
                     props.windows[0] > 1358 ? (
                     <>
                         <StyledMenu mode={"horizontal"} items={items} />
-                            <Button
-                                style={{ background: "#0A74A638", border: 0 }}
-                                icon={<GithubOutlined style={{ color: "#fff" }} />}
-                            />
+                            <Link href="https://github.com/gpmc-lab-ufrgs/atlas-of-opportunity" rel="noopener noreferrer" target="_blank">
+                                <Button
+                                    style={{ background: "#0A74A638", border: 0 }}
+                                    icon={<GithubOutlined style={{ color: "#fff" }} />}
+                                />
+                            </Link>
                             <Button
                                 style={{
                                     width: 32,
                                     height: 32,
                                     background: "#0A74A638",
                                     border: 0,
+                                    padding: 0,
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                    justifyContent: 'space-between'
                                 }}
-                                icon={
-                                    <Image
-                                        src={ptIcon}
-                                        style={{ margin: "auto" }}
-                                        width={20}
-                                        height={16}
-                                        alt="Logo header"
-                                    />
-                                }
-                            />
-                            <Button
-                                style={{
-                                    background: "#0A74A6",
-                                    textTransform: "uppercase",
-                                    color: "#fff",
-                                    border: 0,
-                                    paddingLeft: 30,
-                                    paddingRight: 30,
-                                    fontSize: 13,
-                                }}
+                                onClick={onClickChangeLocale}
                             >
-                                Ir para o atlas
+                                <Image
+                                    src={(localeSel?.language === 'en'? enIcon : ptIcon)}
+                                    width={21}
+                                    height={18.7}
+                                    style={{ 
+                                        marginLeft: 'auto',
+                                        marginRight: 'auto'
+                                    }}
+                                    alt="Logo header"
+                                />
                             </Button>
+                            <Link href="http://3.92.188.34:3000/" rel="noopener noreferrer" target="_blank">
+                                <Button
+                                    style={{
+                                        background: "#0A74A6",
+                                        textTransform: "uppercase",
+                                        color: "#fff",
+                                        border: 0,
+                                        paddingLeft: 30,
+                                        paddingRight: 30,
+                                        fontSize: 13,
+                                    }}
+                                >
+                                    {localeSel?.languageJson.btn_ir_atlas}
+                                </Button>
+                            </Link>
                         </>
-                    ) : (
-                        <></>
-                    )
+                    ) : ( <></> )
                 }
                 {
                     props.windows[0] < 1359 ? (
@@ -119,40 +161,51 @@ export default function HeaderComponent(props: any){
                             closeIcon={<CloseOutlined style={{ color: "#fff" }} />}
                             extra={
                                 <Space size="middle">
-                                    <Button
-                                        style={{ background: "#0A74A638", border: 0 }}
-                                        icon={<GithubOutlined style={{ color: "#fff" }} />}
-                                    />
+                                    <Link href="https://github.com/gpmc-lab-ufrgs/atlas-of-opportunity" rel="noopener noreferrer" target="_blank">
+                                        <Button
+                                            style={{ background: "#0A74A638", border: 0 }}
+                                            icon={<GithubOutlined style={{ color: "#fff" }} />}
+                                        />
+                                    </Link>
                                     <Button
                                         style={{
                                             width: 32,
                                             height: 32,
                                             background: "#0A74A638",
                                             border: 0,
+                                            padding: 0,
+                                            display: 'flex',
+                                            alignItems: 'center',
+                                            justifyContent: 'space-between'
                                         }}
-                                        icon={
-                                            <Image
-                                                src={ptIcon}
-                                                style={{ margin: "auto" }}
-                                                width={20}
-                                                height={16}
-                                                alt="Logo header"
-                                            />
-                                        }
-                                    />
-                                    <Button
-                                        style={{
-                                        background: "#0A74A6",
-                                        textTransform: "uppercase",
-                                        color: "#fff",
-                                        border: 0,
-                                        paddingLeft: 30,
-                                        paddingRight: 30,
-                                        fontSize: 13,
-                                        }}
+                                        onClick={onClickChangeLocale}
                                     >
-                                        Ir para o atlas
+                                        <Image
+                                            src={(localeSel?.language === 'en'? enIcon : ptIcon)}
+                                            width={21}
+                                            height={18.7}
+                                            style={{ 
+                                                marginLeft: 'auto',
+                                                marginRight: 'auto'
+                                            }}
+                                            alt="Logo header"
+                                        />
                                     </Button>
+                                    <Link href="http://3.92.188.34:3000/" rel="noopener noreferrer" target="_blank">
+                                        <Button
+                                            style={{
+                                            background: "#0A74A6",
+                                            textTransform: "uppercase",
+                                            color: "#fff",
+                                            border: 0,
+                                            paddingLeft: 30,
+                                            paddingRight: 30,
+                                            fontSize: 13,
+                                            }}
+                                        >
+                                            {localeSel?.languageJson.btn_ir_atlas}
+                                        </Button>
+                                    </Link>
                                 </Space>
                             }
                         >
