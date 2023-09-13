@@ -1,27 +1,17 @@
-/** @type {import('next').NextConfig} */
-// const nextConfig = {
-//     webpack(config) {
-//       config.module.rules.push({
-//         test: /\.svg$/i,
-//         issuer: /\.[jt]sx?$/,
-//         use: ['@svgr/webpack'],
-//       });
-  
-//       return config;
-//     },
-//     i18n: {
-//       locales: ['en', 'pt'], // Add the locales you want to support
-//       defaultLocale: 'en', // Set the default locale
-//     },
-//   };
-  
-//   module.exports = nextConfig;
-
-
-module.exports = {
-  reactStrictMode: true,
-  i18n: {
-    locales: ['en', 'pt'], // Add the locales you want to support
-    defaultLocale: 'en', // Set the default locale
-  },
-};
+/**
+ * @type {import('next').NextConfig}
+ */
+const nextConfig = {
+  output: 'export',
+ 
+  // Optional: Change links `/me` -> `/me/` and emit `/me.html` -> `/me/index.html`
+  // trailingSlash: true,
+ 
+  // Optional: Prevent automatic `/me` -> `/me/`, instead preserve `href`
+  // skipTrailingSlashRedirect: true,
+ 
+  // Optional: Change the output directory `out` -> `dist`
+  // distDir: 'dist',
+}
+ 
+module.exports = nextConfig

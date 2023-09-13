@@ -40,16 +40,18 @@ import Bologna from "./ico/BOLOGNA.png";
 import Sabanci_tuzla from "./ico/SABANCI.png";
 import Sul_australia_adelaide from "./ico/SUL-AUSTRALIA.png";
 import { useAppDispatch, useAppSelector } from "./hooks";
-import { LocaleLang, changeLocale, langSelector } from "./features/localeSlice";
+import { LocaleLang, langSelector } from "./features/localeSlice";
+import useWindowDimensions from './helper/useWindowDimension';
+
 
 const fatorMultPrinc: number = 0.40;
 const fatorMultSecond: number = 0.35;
 
 function Home() {
-  const [windowSize, setWindowSize] = useState([ window!.innerWidth!, window!.innerHeight! ])
+  const { width, height } = useWindowDimensions();
   const mapRef = React.useRef<HTMLInputElement>() as React.MutableRefObject<HTMLInputElement>;
-  const [heightMap, setHeightMap] = useState<number>(0);
-  const [widthMap, setWidthMap] = useState<number>(0);
+  const [heightMap, setHeightMap] = useState<number | null>(null);
+  const [widthMap, setWidthMap] = useState<number | null>(null);
   const [localeSel, setLocaleSel] = useState<LocaleLang>();
   const selectedLocale = useAppSelector(langSelector);
   const dispatch = useAppDispatch();
@@ -63,24 +65,11 @@ function Home() {
     if(mapRef.current !== undefined ){
       setHeightMap(mapRef.current.clientHeight!);
       setWidthMap(mapRef.current.clientWidth!);
-    }
-  }, [windowSize]);
-
-  useEffect(() => {
-    const handleWindowResize = () => {
-      setWindowSize([window.innerWidth, window.innerHeight]);
-    };
-
-    window.addEventListener('resize', handleWindowResize);
-
-    return () => {
-      window.removeEventListener('resize', handleWindowResize);
-    };
-
-  }, []);
+    }    
+  }, [width, height]);
 
   const RetornaConteudoInicial = () => {
-    if(windowSize[0] > 1030){
+    if(width! > 1030){
       return (
         <StyledRow 
           gutter={[ 64, 16 ]}
@@ -174,7 +163,7 @@ function Home() {
   }
 
   const RetornaSaibaMais = () => {
-    if(windowSize[0] > 1030){
+    if(width! > 1030){
       return (  
         <DivTelaInicialCenter style={{ marginBottom: 0}}>
           <StyledRow>
@@ -303,10 +292,10 @@ function Home() {
   const RetornaCardsPublicacoes = () => {
     var quant = 3;
     var flexSize = "33.33%";
-    if(widthMap >= 1250){
+    if(widthMap! >= 1250){
       quant = 3;
       flexSize = "33.33%";
-    } else if (widthMap >= 830 && widthMap <= 1249){
+    } else if (widthMap! >= 830 && widthMap! <= 1249){
       quant = 2;
       flexSize = "50%";
     } else {
@@ -408,7 +397,7 @@ function Home() {
             position: 'absolute',
             zIndex: 999,
             width: '100%',
-            height: heightMap
+            height: heightMap!,
           }}
         >
           <h1>{localeSel?.languageJson.page_1_rede_title}</h1>

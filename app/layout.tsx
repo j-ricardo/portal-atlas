@@ -9,6 +9,8 @@ import {
   GlobalStyle,
 } from './antd_styled';
 import { Providers } from './redux/provider';
+import useWindowDimensions from './helper/useWindowDimension';
+import { Spin } from 'antd';
 
 const { Content } = Layout;
 
@@ -22,19 +24,7 @@ export default function RootLayout({
 }: {
   children: React.ReactNode
 }) {
-  const [windowSize, setWindowSize] = useState([ window!.innerWidth!, window!.innerHeight! ]);
-
-  useEffect(() => {    
-    const handleWindowResize = () => {
-      if (typeof window !== "undefined") {
-        setWindowSize([window.innerWidth, window.innerHeight]);
-      }      
-    };
-    window.addEventListener('resize', handleWindowResize);
-    return () => {
-      window.removeEventListener('resize', handleWindowResize);
-    };
-  }, []);
+  const { width, height, ready } = useWindowDimensions();
 
   return (
     <html lang="pt">
@@ -48,11 +38,11 @@ export default function RootLayout({
         <Providers>
           <GlobalStyle />
           <Layout className="layout">
-            <HeaderComponent windows={windowSize} />
+            <HeaderComponent windows={[width, height]} />
             <Content style={{ width: '100%', height: '100%' }}>
-              {children}
+              {children}              
             </Content>
-            <FooterComponent windows={windowSize} />
+            <FooterComponent windows={[width, height]} />
           </Layout>
         </Providers>        
       </body>
