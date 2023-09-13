@@ -8,17 +8,16 @@ import {
     StyledDrawer,
 } from '../../antd_styled';
 const { Header } = Layout;
-import headerIconPt from '../../ico/pt/LOGO_TOPO_BRANCA.png';
-import headerIconEn from '../../ico/en/LOGO_TOPO_BRANCA.png';
+import headerIconPt from '../../../public/ico/pt/LOGO_TOPO_BRANCA.png'
+import headerIconEn from '../../../public/ico/en/LOGO_TOPO_BRANCA.png';
 import Icon, { GithubOutlined, MenuOutlined, CloseOutlined } from '@ant-design/icons';
 import type { MenuProps } from 'antd';
-import ptIcon from "../../ico/icon_pt.png";
-import enIcon from "../../ico/icon_en.png";
+import ptIcon from "../../../public/ico/icon_pt.png";
+import enIcon from "../../../public/ico/icon_en.png";
 import { useAppDispatch, useAppSelector } from "../../hooks";
 import { LocaleLang, changeLocale, langSelector } from "../../features/localeSlice";
 import en from "../../../public/static/locales/en.json";
 import pt from "../../../public/static/locales/pt.json";
-
 
 export default function HeaderComponent(props: any){
     const [openMenu, setOpenMenu] = useState<boolean>(false);

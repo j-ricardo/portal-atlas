@@ -14,15 +14,15 @@ import {
   StyledDivTwoColors,
   StyledDivPublicacoes
 } from './antd_styled';
-import bg from './ico/IMAGEM-BANNER-INICIAL.png';
-import logoFinalPt from './ico/pt/LOGO_logo_final.png';
-import ColaboradoresPt from "./ico/pt/COLABORADORES.png";
-import VideoPt from "./ico/pt/VIDEO.png";
-import ApoioPt from "./ico/pt/apoio.png";
-import logoFinalEn from './ico/en/LOGO_logo_final.png';
-import ColaboradoresEn from "./ico/en/COLABORADORES.png";
-import VideoEn from "./ico/en/VIDEO.png";
-import ApoioEn from "./ico/en/apoio.png";
+import bg from '../public/ico/IMAGEM-BANNER-INICIAL.png';
+import logoFinalPt from '../public/ico/pt/LOGO_logo_final.png';
+import ColaboradoresPt from "../public/ico/pt/COLABORADORES.png";
+import VideoPt from "../public/ico/pt/VIDEO.png";
+import ApoioPt from "../public/ico/pt/apoio.png";
+import logoFinalEn from '../public/ico/en/LOGO_logo_final.png';
+import ColaboradoresEn from "../public/ico/en/COLABORADORES.png";
+import VideoEn from "../public/ico/en/VIDEO.png";
+import ApoioEn from "../public/ico/en/apoio.png";
 import { 
   ComposableMap, 
   Geographies, 
@@ -30,15 +30,15 @@ import {
   Marker
 } from 'react-simple-maps';
 const geoUrl = "/features_old.json";
-import Mit_cambridge from "./ico/MIT.png";
-import Ufrgs_porto_alegre from "./ico/UFRGS.png";
-import Fgv_rio_de_janeiro from "./ico/FGV.png";
-import Ubn_brasilia from "./ico/UNB.png";
-import Ufg_goiania from "./ico/UFG.png";
-import Bocconi_milan from "./ico/BOCCONI.png";
-import Bologna from "./ico/BOLOGNA.png";
-import Sabanci_tuzla from "./ico/SABANCI.png";
-import Sul_australia_adelaide from "./ico/SUL-AUSTRALIA.png";
+import Mit_cambridge from "../public/ico/MIT.png";
+import Ufrgs_porto_alegre from "../public/ico/UFRGS.png";
+import Fgv_rio_de_janeiro from "../public/ico/FGV.png";
+import Ubn_brasilia from "../public/ico/UNB.png";
+import Ufg_goiania from "../public/ico/UFG.png";
+import Bocconi_milan from "../public/ico/BOCCONI.png";
+import Bologna from "../public/ico/BOLOGNA.png";
+import Sabanci_tuzla from "../public/ico/SABANCI.png";
+import Sul_australia_adelaide from "../public/ico/SUL-AUSTRALIA.png";
 import { useAppDispatch, useAppSelector } from "./hooks";
 import { LocaleLang, langSelector } from "./features/localeSlice";
 import useWindowDimensions from './helper/useWindowDimension';

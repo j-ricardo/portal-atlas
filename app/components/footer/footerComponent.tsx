@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { Layout, Space, Button, Col, Row } from "antd";
 import Image from 'next/image';
-import logoFinal_pt from '../../ico/pt/LOGO_logo_final.png';
-import logoFinal_en from '../../ico/en/LOGO_logo_final.png';
+import logoFinal_pt from '../../../public/ico/pt/LOGO_logo_final.png';
+import logoFinal_en from '../../../public/ico/en/LOGO_logo_final.png';
 import {
   StyledDivFooter,
   StyledDivFooterContent,
