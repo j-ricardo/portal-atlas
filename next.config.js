@@ -2,8 +2,11 @@
  * @type {import('next').NextConfig}
  */
 const nextConfig = {
-  output: 'export'
-  //assetPrefix: '.',
+  output: 'export',
+  distDir: 'out',
+  trailingSlash: true,
+  skipTrailingSlashRedirect: true,
+  assetPrefix: ".",
  
   // Optional: Change links `/me` -> `/me/` and emit `/me.html` -> `/me/index.html`
   // trailingSlash: true,
@@ -11,8 +14,7 @@ const nextConfig = {
   // Optional: Prevent automatic `/me` -> `/me/`, instead preserve `href`
   // skipTrailingSlashRedirect: true,
  
-  // Optional: Change the output directory `out` -> `dist`
-  // distDir: 'dist',
+  // Optional: Change the output directory `out` -> `dist`  
 }
  
 module.exports = nextConfig

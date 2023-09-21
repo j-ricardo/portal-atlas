@@ -60,7 +60,6 @@ export const StyledDrawer = styled(Drawer)`
     }
 `;
 
-
 export const DivTelaInicial = styled.div`
     height: auto;
     padding: 150px 0 20px 0;
@@ -90,7 +89,6 @@ export const DivTelaInicialCenter = styled.div`
         text-transform: uppercase;
         font-weight: 700;
         font-size: 23px;
-        text-align: justify;
         font-family: 'Montserrat', sans-serif;
         line-height: 26.82px;
     }
@@ -104,14 +102,19 @@ export const DivTelaInicialCenter = styled.div`
     }
 `;
 
-
-
 export const StyledRow = styled(Row)`
     margin: auto;
 `;
 
 export const StyledCol = styled(Col)`
-    margin: auto 0;
+    margin: auto auto;
+`;
+
+export const StyledDivImg = styled.div`
+    display: flex;
+    justify-content: space-around;
+    margin-left: auto;
+    margin-right: auto;
 `;
 
 export const DivMap = styled.div`
@@ -164,12 +167,12 @@ export const StyledDivPublicacoes = styled.div`
     }
     p {
         color: #0A74A6;
-        text-transform: uppercase;
         font-family: 'Montserrat', sans-serif;
         font-size: 20px;
         font-weight: 700;
         line-height: 24.38px;
         margin-top: 0px;
+        text-align: justify;
     }
     span{
         text-transform: uppercase;
@@ -178,6 +181,7 @@ export const StyledDivPublicacoes = styled.div`
         font-weight: 500;
         line-height: 17.07px;
         display: flex;
+        text-align: justify;
     }
 `;
 

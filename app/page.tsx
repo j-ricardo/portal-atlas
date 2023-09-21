@@ -1,6 +1,7 @@
 'use client'
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useLayoutEffect, useRef } from 'react';
 import Image from 'next/image';
+import Link from 'next/link';
 import { Button, Card, Row, Col, Space } from 'antd';
 import Icon, { LeftOutlined, RightOutlined } from '@ant-design/icons';
 import { 
@@ -12,59 +13,81 @@ import {
   StyledComposableMap,
   DivTelaSplit,
   StyledDivTwoColors,
-  StyledDivPublicacoes
+  StyledDivPublicacoes,
+  StyledDivImg
 } from './antd_styled';
-import bg from '../public/ico/IMAGEM-BANNER-INICIAL.png';
-import logoFinalPt from '../public/ico/pt/LOGO_logo_final.png';
-import ColaboradoresPt from "../public/ico/pt/COLABORADORES.png";
-import VideoPt from "../public/ico/pt/VIDEO.png";
-import ApoioPt from "../public/ico/pt/apoio.png";
-import logoFinalEn from '../public/ico/en/LOGO_logo_final.png';
-import ColaboradoresEn from "../public/ico/en/COLABORADORES.png";
-import VideoEn from "../public/ico/en/VIDEO.png";
-import ApoioEn from "../public/ico/en/apoio.png";
+import bg from './../public/ico/IMAGEM-BANNER-INICIAL.png';
+import logoFinalPt from './../public/ico/pt/LOGO_logo_final.png';
+import ColaboradoresPt from "./../public/ico/pt/COLABORADORES.png";
+import VideoPt from "./../public/ico/pt/VIDEO.png";
+import ApoioPt from "./../public/ico/pt/apoio.png";
+import logoFinalEn from './../public/ico/en/LOGO_logo_final.png';
+import ColaboradoresEn from "./../public/ico/en/COLABORADORES.png";
+import VideoEn from "./../public/ico/en/VIDEO.png";
+import ApoioEn from "./../public/ico/en/apoio.png";
 import { 
   ComposableMap, 
   Geographies, 
   Geography,
   Marker
 } from 'react-simple-maps';
-const geoUrl = "/features_old.json";
-import Mit_cambridge from "../public/ico/MIT.png";
-import Ufrgs_porto_alegre from "../public/ico/UFRGS.png";
-import Fgv_rio_de_janeiro from "../public/ico/FGV.png";
-import Ubn_brasilia from "../public/ico/UNB.png";
-import Ufg_goiania from "../public/ico/UFG.png";
-import Bocconi_milan from "../public/ico/BOCCONI.png";
-import Bologna from "../public/ico/BOLOGNA.png";
-import Sabanci_tuzla from "../public/ico/SABANCI.png";
+import { Tooltip } from 'react-tooltip';
+import Mit_cambridge from "./../public/ico/MIT.png";
+import Ufrgs_porto_alegre from "./../public/ico/UFRGS.png";
+import Fgv_rio_de_janeiro from "./../public/ico/FGV.png";
+import Ubn_brasilia from "./../public/ico/UNB.png";
+import Ufg_goiania from "./../public/ico/UFG.png";
+import Bocconi_milan from "./../public/ico/BOCCONI.png";
+import Bologna from "./../public/ico/BOLOGNA.png";
+import Sabanci_tuzla from "./../public/ico/SABANCI.png";
 import Sul_australia_adelaide from "../public/ico/SUL-AUSTRALIA.png";
 import { useAppDispatch, useAppSelector } from "./hooks";
 import { LocaleLang, langSelector } from "./features/localeSlice";
 import useWindowDimensions from './helper/useWindowDimension';
+import geoUrl from './../public/features_old.json';
 
 
 const fatorMultPrinc: number = 0.40;
 const fatorMultSecond: number = 0.35;
+
+const Mit_cambridge_pt: string = 'Instituto de Tecnologia de Massachusetts - USA';
+const Ufrgs_porto_alegre_pt: string = 'Universidade Federal do Rio Grande do Sul - BR';
+const Fgv_rio_de_janeiro_pt: string = 'Fundação Getúlio Vargas - BR';
+const Ubn_brasilia_pt: string = 'Universidade de Brasília - BR';
+const Ufg_goiania_pt: string = 'Universidade Federal de Goiás - BR';
+const Bocconi_milan_pt: string = 'Universidade Comercial Luigi Bocconi - IT';
+const Bologna_pt: string = 'Universidade de Bolonha - IT';
+const Sabanci_tuzla_pt: string = 'Universidade Sabanci - TR';
+const Sul_australia_adelaide_pt: string = 'Governo do Sul da Austrália - AU';
+
+const Mit_cambridge_en: string = 'Massachusetts Institute of Technology - USA';
+const Ufrgs_porto_alegre_en: string = 'Federal University of Rio Grande do Sul - BR';
+const Fgv_rio_de_janeiro_en: string = 'Fundação Getúlio Vargas - BR';
+const Ubn_brasilia_en: string = 'University of Brasilia - BR';
+const Ufg_goiania_en: string = 'Federal University of Goiás - BR';
+const Bocconi_milan_en: string = 'Bocconi University - IT';
+const Bologna_en: string = 'University of Bologna - IT';
+const Sabanci_tuzla_en: string = 'Sabancı University - TR';
+const Sul_australia_adelaide_en: string = 'Government of South Australia - AU';
 
 function Home() {
   const { width, height } = useWindowDimensions();
   const mapRef = React.useRef<HTMLInputElement>() as React.MutableRefObject<HTMLInputElement>;
   const [heightMap, setHeightMap] = useState<number | null>(null);
   const [widthMap, setWidthMap] = useState<number | null>(null);
+  const [position, setPosition] = useState<number>(0);
   const [localeSel, setLocaleSel] = useState<LocaleLang>();
   const selectedLocale = useAppSelector(langSelector);
-  const dispatch = useAppDispatch();
 
-  useEffect(() => {
-    console.log('alterado...');
+  useLayoutEffect(() => {
     setLocaleSel(selectedLocale);
   }, [selectedLocale]);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     if(mapRef.current !== undefined ){
       setHeightMap(mapRef.current.clientHeight!);
       setWidthMap(mapRef.current.clientWidth!);
+      setPosition(mapRef.current.clientHeight!*(-1));
     }    
   }, [width, height]);
 
@@ -113,14 +136,20 @@ function Home() {
               flexDirection: 'row-reverse'
             }}
           >
-            <Image
-              src={(localeSel?.language === 'en'? logoFinalEn : logoFinalPt)}
+            <img
+              src={(localeSel?.language === 'en'? logoFinalEn.src : logoFinalPt.src)}
+              style={{ 
+                width: '100%', maxWidth: 489, height: 'auto', marginRight: 0
+              }}
+            />
+            {/* <Image
+              src={(localeSel?.language === 'en'? logoFinalEn.src : logoFinalPt.src)}
               width={0}
               height={0}
               sizes="100vw"
               style={{ width: '100%', maxWidth: 489, height: 'auto', marginRight: 0 }} 
               alt="Logo atlas oportunidades"
-            />
+            /> */}
           </StyledCol>
         </StyledRow>
       );
@@ -166,7 +195,7 @@ function Home() {
     if(width! > 1030){
       return (  
         <DivTelaInicialCenter style={{ marginBottom: 0}}>
-          <StyledRow>
+          <StyledRow style={{ paddingTop: 20, paddingBottom: 20 }}>
             <StyledCol 
               flex="50%"
               style={{
@@ -186,15 +215,6 @@ function Home() {
                 }}
               >
                 {localeSel?.languageJson.page_1_perfil_title_1}
-              </h2>
-              <h2
-                style={{
-                  textAlign: 'justify',
-                  color: '#fff',
-                  lineHeight: 1.50,
-                }}
-              >
-                {localeSel?.languageJson.page_1_perfil_title_2}
               </h2>
               <Button 
                 style={{
@@ -218,14 +238,25 @@ function Home() {
                 paddingRight: 0
               }}
             >
-              <Image
-                src={(localeSel?.language === 'en'? ColaboradoresEn : ColaboradoresPt)}
+              <StyledDivImg>
+                <img
+                  src={(localeSel?.language === 'en'? ColaboradoresEn.src : ColaboradoresPt.src)}
+                  style={{ 
+                    width: '100%', 
+                    maxWidth: 637, 
+                    height: 'auto',
+                  }}
+                />
+              </StyledDivImg>
+              
+              {/* <Image
+                src={(localeSel?.language === 'en'? ColaboradoresEn.src : ColaboradoresPt.src)}
                 width={0}
                 height={0}
                 sizes="100vw"
                 style={{ width: '100%', maxWidth: 637, height: 'auto', marginRight: 0 }} 
                 alt="Logo atlas oportunidades"
-              />
+              /> */}
             </StyledCol>
           </StyledRow>
         </DivTelaInicialCenter>        
@@ -235,7 +266,7 @@ function Home() {
       return (
         <DivTelaInicialCenter style={{ marginBottom: 0}}>
           <StyledRow 
-            style={{ backgroundColor: '#01273C' }}
+            style={{ backgroundColor: '#01273C'}}
           >
             <StyledCol 
               flex="100%"
@@ -250,10 +281,11 @@ function Home() {
               <h2
                 style={{
                   textAlign: 'justify',
-                  color: '#fff'
+                  color: '#fff',
+                  lineHeight: 1.50
                 }}
               >
-                {localeSel?.languageJson.page_1_perfil_title}
+                {localeSel?.languageJson.page_1_perfil_title_1}
               </h2>
               <Button 
                 style={{
@@ -289,90 +321,79 @@ function Home() {
       return "#0d3559";
   }
 
+  const [ positionMobile, setPositionMobile ] = useState<number>(0);
+
+  const onClickPublish = (increment: number) => {
+    console.log(positionMobile + increment);
+    if( 
+        ((positionMobile + increment) < localeSel?.publish.length - 1) &&
+        (positionMobile + increment) > 0    
+    ){
+      console.log('entrou');
+      console.log('pos', (positionMobile + increment))
+      setPositionMobile((positionMobile + increment))
+    }
+  }
+
   const RetornaCardsPublicacoes = () => {
-    var quant = 3;
+    var init = 0;
+    var quant = localeSel?.publish.length;
+    var limit = 3;
     var flexSize = "33.33%";
     if(widthMap! >= 1250){
-      quant = 3;
+      init = 0;
+      limit = 3;
       flexSize = "33.33%";
     } else if (widthMap! >= 830 && widthMap! <= 1249){
-      quant = 2;
+      init = positionMobile;
+      limit = 2;
       flexSize = "50%";
     } else {
-      quant = 1;
+      init = positionMobile;
+      limit = 1;
       flexSize = "100%";
     }
 
-    var listCards = [
-      <Col flex={flexSize} key={"card1"}>
-        <Card style={{ width: '100%', height: 260 }}>
-          <p>Disaggregating Sales Prediction: A Gravitational Approach.</p>
-          <span>EXPERT SYSTEMS WITH APPLICATIONS, v. 217, p. 119565, 2023.</span>
-          <Button
-            style={{
-              background: '#0A74A6',
-              textTransform: 'uppercase',
-              color: '#fff',
-              border: 0,
-              fontSize: 13,
-              marginTop: 20,
-              marginBottom: 'auto',
-              position: 'absolute',
-              left: 24,
-              bottom: 24
-            }}
-          >
-            Saiba mais
-          </Button>
-        </Card>
-      </Col>,
-      <Col flex={flexSize} key={"card2"}>
-        <Card style={{ width: '100%', height: 260 }}>
-          <p>Choice deferral: The interaction effects of visual boundaries and consumer knowledge</p>
-          <span>JOURNAL OF RETAILING AND CONSUMER SERVICES, v. 68, p. 103058, 2022</span>
-          <Button
-            style={{
-              background: '#0A74A6',
-              textTransform: 'uppercase',
-              color: '#fff',
-              border: 0,
-              fontSize: 13,
-              marginTop: 20,
-              marginBottom: 'auto',
-              position: 'absolute',
-              left: 24,
-              bottom: 24
-            }}
-          >
-            Saiba mais
-          </Button>
-        </Card>
-      </Col>,
-      <Col flex={flexSize} key={"card3"}>
-        <Card style={{ width: '100%', height: 260 }}>
-          <p>When repetitive consumption leads to predictions of faster adaptation</p>
-          <span>Journal of Consumer Behaviour, v. 19, p. 450-462, 2020</span>
-          <Button
-            style={{
-              background: '#0A74A6',
-              textTransform: 'uppercase',
-              color: '#fff',
-              border: 0,
-              fontSize: 13,
-              marginTop: 20,
-              marginBottom: 'auto',
-              position: 'absolute',
-              left: 24,
-              bottom: 24
-            }}
-          >
-            {localeSel?.languageJson.btn_saiba_mais}
-          </Button>
-        </Card>
-      </Col>
-    ];
+    var listCards = [];
+    for (var i = init; i < quant; i++){
+      listCards.push(
+        <Col flex={flexSize} key={`card${i}`}>
+          <Card style={{ width: '100%', height: 340 }}>
+            <p>{localeSel?.publish[i].title_publish}</p>
+            <span>{localeSel?.publish[i].description_publish}</span>
+            {
+              localeSel?.publish[i].link_publish !== ""?
+              <Link href={localeSel?.publish[i].link_publish} rel="noopener noreferrer" target="_blank">
+                <Button
+                  style={{
+                    background: '#0A74A6',
+                    textTransform: 'uppercase',
+                    color: '#fff',
+                    border: 0,
+                    fontSize: 13,
+                    marginTop: 20,
+                    marginBottom: 'auto',
+                    position: 'absolute',
+                    left: 24,
+                    bottom: 24
+                  }}
+                >
+                  {localeSel?.languageJson.btn_saiba_mais}
+                </Button> 
+              </Link>
+            :
+            <></>
+          }          
+          </Card>
+        </Col>
+      );
 
-    return listCards.slice(0, quant);
+      if(listCards.length === limit){
+        break;
+      }
+    }
+
+    return listCards;
   }
 
   return (
@@ -397,34 +418,50 @@ function Home() {
             position: 'absolute',
             zIndex: 999,
             width: '100%',
-            height: heightMap!,
+            //height: heightMap!,
           }}
         >
-          <h1>{localeSel?.languageJson.page_1_rede_title}</h1>
-          <div
-            style={{
-              width: '100%',
-              margin: 'auto',
-              textAlign: 'center', 
-              position: 'absolute',      
-              bottom: 0,
-              marginBottom: '20px'    
-            }}
-          >
-            <Image
-              src={(localeSel?.language === 'en'? ApoioEn : ApoioPt)}
-              width={0}
-              height={0}
-              style={{ 
-                width: '60%',
-                maxWidth: 500,
-                height: 'auto',
-                bottom: 0
-              }} 
-              alt="apoio"
-            />
-          </div>
+          <h1>{localeSel?.languageJson.page_1_rede_title}</h1>          
         </div>
+        <div
+          style={{
+            width: '100%',
+            textAlign: 'center', 
+            position: 'absolute',  
+            marginTop: heightMap! - 55,  
+            // marginLeft: 'auto',
+            // marginRight: 'auto',            
+            // marginBottom: 20,
+            // bottom: 0,
+            // left: 0    
+          }}
+        >
+          <img
+            src={(localeSel?.language === 'en'? ApoioEn.src : ApoioPt.src)}
+            style={{ 
+              width: '60%',
+              maxWidth: 500,
+              maxHeight: 35
+            }}
+          />
+          {/* <Image
+            src={(localeSel?.language === 'en'? ApoioEn.src : ApoioPt.src)}
+            width={0}
+            height={0}
+            style={{ 
+              width: '60%',
+              maxWidth: 500,
+              height: 'auto',
+              bottom: 0
+            }} 
+            alt="apoio"
+          /> */}
+        </div>
+
+        <Tooltip 
+          id="my-tooltip" 
+          arrowColor="transparent"
+        />
         <StyledComposableMap          
           style={{ backgroundColor: "#00406e", width: '100%' }}
           projection="geoMercator"
@@ -447,21 +484,31 @@ function Home() {
                 );
               })
             }
-          </Geographies>          
+          </Geographies> 
+
           <Marker
             key="marker1"
+            data-tooltip-id="my-tooltip" 
+            data-tooltip-content={(localeSel?.language === 'en'? Mit_cambridge_en : Mit_cambridge_pt)}
+            data-tooltip-place="top-start"
+            data-tooltip-offset="-10"
             coordinates={[ -71.1185 - 74, 42.3759 + 2 ]}
-          > 
-            <svg xmlns="/#pattern">
-             <image
+          >   
+            <svg xmlns="/#pattern">              
+              <image
                 href={Mit_cambridge.src}
                 height={312*fatorMultPrinc}
                 width={465*fatorMultPrinc}
               />
+                        
             </svg>
           </Marker>          
           <Marker
             key="marker2"
+            data-tooltip-id="my-tooltip"
+            data-tooltip-content={(localeSel?.language === 'en'? Ufrgs_porto_alegre_en : Ufrgs_porto_alegre_pt)}
+            data-tooltip-place="top-start"
+            data-tooltip-offset="-10"
             coordinates={[ -51.2300 - 96, -30.0331 + 29 ]}
           > 
             <svg xmlns="/#pattern">
@@ -474,6 +521,10 @@ function Home() {
           </Marker>          
           <Marker
             key="marker3"
+            data-tooltip-id="my-tooltip"
+            data-tooltip-content={(localeSel?.language === 'en'? Fgv_rio_de_janeiro_en : Fgv_rio_de_janeiro_pt)}
+            data-tooltip-place="top-start"
+            data-tooltip-offset="-10"
             coordinates={[ -43.2056 - 25, -22.9111 + 2]}
           > 
             <svg xmlns="/#pattern">
@@ -486,6 +537,10 @@ function Home() {
           </Marker>
           <Marker
             key="marker4"
+            data-tooltip-id="my-tooltip"
+            data-tooltip-content={(localeSel?.language === 'en'? Ubn_brasilia_en : Ubn_brasilia_pt)}
+            data-tooltip-place="top-start"
+            data-tooltip-offset="-10"
             coordinates={[ -47.8825 - 1, -15.7942 + 2]}
           > 
             <svg xmlns="/#pattern">
@@ -498,6 +553,10 @@ function Home() {
           </Marker>                 
           <Marker
             key="marker5"
+            data-tooltip-id="my-tooltip"
+            data-tooltip-content={(localeSel?.language === 'en'? Ufg_goiania_en : Ufg_goiania_pt)}
+            data-tooltip-place="top-start"
+            data-tooltip-offset="-10"
             coordinates={[ -49.2500 - 1, -16.6667 + 1 ]}
           > 
             <svg xmlns="/#pattern">
@@ -510,6 +569,10 @@ function Home() {
           </Marker>           
           <Marker
             key="marker6"
+            data-tooltip-id="my-tooltip"
+            data-tooltip-content={(localeSel?.language === 'en'? Bocconi_milan_en : Bocconi_milan_pt)}
+            data-tooltip-place="top-start"
+            data-tooltip-offset="-10"
             coordinates={[ 9.1900 - 32, 45.4669 + 380 ]}
           > 
             <svg xmlns="/#pattern">
@@ -522,6 +585,10 @@ function Home() {
           </Marker>
           <Marker
             key="marker7"
+            data-tooltip-id="my-tooltip"
+            data-tooltip-content={(localeSel?.language === 'en'? Bologna_en : Bologna_pt)}
+            data-tooltip-place="top-start"
+            data-tooltip-offset="-10"
             coordinates={[ 11.3428 - 5, 44.4939 + 381 ]}
           > 
             <svg xmlns="/#pattern">
@@ -534,6 +601,10 @@ function Home() {
           </Marker>
           <Marker
             key="marker8"
+            data-tooltip-id="my-tooltip"
+            data-tooltip-content={(localeSel?.language === 'en'? Sabanci_tuzla_en : Sabanci_tuzla_pt)}
+            data-tooltip-place="top-start"
+            data-tooltip-offset="-10"
             coordinates={[ 29.3006 + 0, 40.8161 + 384.5]}
           > 
             <svg xmlns="/#pattern">
@@ -546,6 +617,10 @@ function Home() {
           </Marker>
           <Marker
             key="marker9"
+            data-tooltip-id="my-tooltip"
+            data-tooltip-content={(localeSel?.language === 'en'? Sul_australia_adelaide_en : Sul_australia_adelaide_pt)}
+            data-tooltip-place="top-start"
+            data-tooltip-offset="-10"
             coordinates={[ 138.6000 - 35, -34.9275 + 4 ]}
           > 
             <svg xmlns="/#pattern">
@@ -563,8 +638,17 @@ function Home() {
       </DivTelaSplit>
       <StyledDivTwoColors>
         <DivTelaInicialCenter style={{ marginBottom: 0 }}>
-          <Image
-            src={(localeSel?.language === 'en'? VideoEn : VideoPt)}
+          <img
+            src={(localeSel?.language === 'en'? VideoEn.src : VideoPt.src)}
+            style={{ 
+              width: '100%', 
+              height: 'auto', 
+              marginTop: 30,
+              marginBottom: 30
+            }}
+          />
+          {/* <Image
+            src={(localeSel?.language === 'en'? VideoEn.src : VideoPt.src)}
             width={0}
             height={0}
             sizes="100vw"
@@ -575,7 +659,7 @@ function Home() {
               marginBottom: 30
             }} 
             alt="Logo atlas oportunidades"
-          />
+          /> */}
         </DivTelaInicialCenter>        
       </StyledDivTwoColors>
       <div style={{ background: '#fff', paddingBottom: 20 }}>
@@ -586,19 +670,21 @@ function Home() {
             </Row>
             <Row gutter={[16, 16]}>
               <Col flex="80%">
-                <Button 
-                  style={{
-                    marginTop: 30,
-                    textTransform: 'uppercase',                  
-                    color: '#0A74A6',
-                    borderColor: '#0A74A6',
-                    fontSize: 14,
-                    fontWeight: 500,
-                  }}
-                  type="primary" ghost
-                >
-                  {localeSel?.languageJson.btn_ver_todos}
-                </Button>
+                <Link href="https://www.ufrgs.br/gpmc/papers-in-journals/" rel="noopener noreferrer" target="_blank">
+                  <Button 
+                    style={{
+                      marginTop: 30,
+                      textTransform: 'uppercase',                  
+                      color: '#0A74A6',
+                      borderColor: '#0A74A6',
+                      fontSize: 14,
+                      fontWeight: 500,
+                    }}
+                    type="primary" ghost
+                  >
+                    {localeSel?.languageJson.btn_ver_todos}
+                  </Button>
+                </Link>
               </Col>
               <Col flex="20%"
                 style={{ marginTop: 30 }}
@@ -621,6 +707,7 @@ function Home() {
                         style={{ color: '#0A74A6' }}
                       />
                     }
+                    onClick={() => onClickPublish(-1)}
                   />
                   <Button 
                     style={{ 
@@ -633,6 +720,7 @@ function Home() {
                         style={{ color: '#0A74A6' }}
                       />
                     }
+                    onClick={() => onClickPublish(1)}
                   />
                 </Space>
               </Col>

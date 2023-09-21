@@ -1,16 +1,16 @@
 import React, { useState, useEffect } from "react";
 import { Layout, Space, Button, Col, Row } from "antd";
 import Image from 'next/image';
-import logoFinal_pt from '../../../public/ico/pt/LOGO_logo_final.png';
-import logoFinal_en from '../../../public/ico/en/LOGO_logo_final.png';
+import logoFinal_pt from './../../../public/ico/pt/LOGO_logo_final.png';
+import logoFinal_en from './../../../public/ico/en/LOGO_logo_final.png';
 import {
   StyledDivFooter,
   StyledDivFooterContent,
   StyledDivDireitosReservados,
 } from "../../antd_styled";
 const { Footer } = Layout;
-import { useAppDispatch, useAppSelector } from "../../hooks";
-import { LocaleLang, changeLocale, langSelector } from "../../features/localeSlice";
+import { useAppDispatch, useAppSelector } from "./../../hooks";
+import { LocaleLang, changeLocale, langSelector } from "./../../features/localeSlice";
 
 export default function FooterComponent(props: any) {
     const [localeSel, setLocaleSel] = useState<LocaleLang>();
@@ -37,13 +37,19 @@ export default function FooterComponent(props: any) {
 
         var columnsFooter = [
             <Col key={"colmain1"}>
-                <Image
-                    src={(localeSel?.language === 'en'? logoFinal_en : logoFinal_pt)}
+                <img
+                    src={(localeSel?.language === 'en'? logoFinal_en.src : logoFinal_pt.src)}
+                    style={{ 
+                        width: "auto", height: 198 
+                    }}
+                />
+                {/* <Image
+                    src={(localeSel?.language === 'en'? logoFinal_en.src : logoFinal_pt.src)}
                     width={0}
                     height={0}
                     style={{ width: "auto", height: 198 }}
                     alt="Logo atlas oportunidades"
-                />
+                /> */}
             </Col>,
             <Col key={"colmain2"}>
                 <Space direction="vertical" size="small">
