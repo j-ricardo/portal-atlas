@@ -1,5 +1,5 @@
 'use client'
-import React, { useState, useLayoutEffect, useRef } from 'react';
+import React, { useState, useLayoutEffect, useRef, useEffect } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { Button, Card, Row, Col, Space } from 'antd';
@@ -16,15 +16,17 @@ import {
   StyledDivPublicacoes,
   StyledDivImg
 } from './antd_styled';
-import bg from './../public/ico/IMAGEM-BANNER-INICIAL.png';
-import logoFinalPt from './../public/ico/pt/LOGO_logo_final.png';
-import ColaboradoresPt from "./../public/ico/pt/COLABORADORES.png";
-import VideoPt from "./../public/ico/pt/VIDEO.png";
-import ApoioPt from "./../public/ico/pt/apoio.png";
-import logoFinalEn from './../public/ico/en/LOGO_logo_final.png';
-import ColaboradoresEn from "./../public/ico/en/COLABORADORES.png";
-import VideoEn from "./../public/ico/en/VIDEO.png";
-import ApoioEn from "./../public/ico/en/apoio.png";
+import { useAppDispatch, useAppSelector } from "@/app/hooks";
+import { MenuSelected, changePage, menuSelector } from '@/app/features/menuSlice';
+import bg from '@/public/ico/IMAGEM-BANNER-INICIAL.png';
+import logoFinalPt from '@/public/ico/pt/LOGO_logo_final.png';
+import ColaboradoresPt from "@/public/ico/pt/COLABORADORES.png";
+import VideoPt from "@/public/ico/pt/VIDEO.png";
+import ApoioPt from "@/public/ico/pt/apoio.png";
+import logoFinalEn from '@/public/ico/en/LOGO_logo_final.png';
+import ColaboradoresEn from "@/public/ico/en/COLABORADORES.png";
+import VideoEn from "@/public/ico/en/VIDEO.png";
+import ApoioEn from "@/public/ico/en/apoio.png";
 import { 
   ComposableMap, 
   Geographies, 
@@ -32,20 +34,18 @@ import {
   Marker
 } from 'react-simple-maps';
 import { Tooltip } from 'react-tooltip';
-import Mit_cambridge from "./../public/ico/MIT.png";
-import Ufrgs_porto_alegre from "./../public/ico/UFRGS.png";
-import Fgv_rio_de_janeiro from "./../public/ico/FGV.png";
-import Ubn_brasilia from "./../public/ico/UNB.png";
-import Ufg_goiania from "./../public/ico/UFG.png";
-import Bocconi_milan from "./../public/ico/BOCCONI.png";
-import Bologna from "./../public/ico/BOLOGNA.png";
-import Sabanci_tuzla from "./../public/ico/SABANCI.png";
-import Sul_australia_adelaide from "../public/ico/SUL-AUSTRALIA.png";
-import { useAppDispatch, useAppSelector } from "./hooks";
-import { LocaleLang, langSelector } from "./features/localeSlice";
-import useWindowDimensions from './helper/useWindowDimension';
-import geoUrl from './../public/features_old.json';
-
+import Mit_cambridge from "@/public/ico/MIT.png";
+import Ufrgs_porto_alegre from "@/public/ico/UFRGS.png";
+import Fgv_rio_de_janeiro from "@/public/ico/FGV.png";
+import Ubn_brasilia from "@/public/ico/UNB.png";
+import Ufg_goiania from "@/public/ico/UFG.png";
+import Bocconi_milan from "@/public/ico/BOCCONI.png";
+import Bologna from "@/public/ico/BOLOGNA.png";
+import Sabanci_tuzla from "@/public/ico/SABANCI.png";
+import Sul_australia_adelaide from "@/public/ico/SUL-AUSTRALIA.png";
+import { LocaleLang, langSelector } from "@/app/features/localeSlice";
+import useWindowDimensions from '@/app/helper/useWindowDimension';
+import geoUrl from '@/public/features_old.json';
 
 const fatorMultPrinc: number = 0.40;
 const fatorMultSecond: number = 0.35;
@@ -78,6 +78,17 @@ function Home() {
   const [position, setPosition] = useState<number>(0);
   const [localeSel, setLocaleSel] = useState<LocaleLang>();
   const selectedLocale = useAppSelector(langSelector);
+  const dispatch = useAppDispatch();
+  const [menuS, setMenuS] = useState<MenuSelected>();
+  const menuSel = useAppSelector(menuSelector);
+  
+  useEffect(() => {
+    const m: MenuSelected = {
+      idMenu: 1,
+      keyName: 'projeto'
+    };
+    dispatch(changePage(m));
+  }, [])
 
   useLayoutEffect(() => {
     setLocaleSel(selectedLocale);
@@ -136,20 +147,20 @@ function Home() {
               flexDirection: 'row-reverse'
             }}
           >
-            <img
+            {/* <img
               src={(localeSel?.language === 'en'? logoFinalEn.src : logoFinalPt.src)}
               style={{ 
                 width: '100%', maxWidth: 489, height: 'auto', marginRight: 0
               }}
-            />
-            {/* <Image
+            /> */}
+            <Image
               src={(localeSel?.language === 'en'? logoFinalEn.src : logoFinalPt.src)}
               width={0}
               height={0}
               sizes="100vw"
               style={{ width: '100%', maxWidth: 489, height: 'auto', marginRight: 0 }} 
               alt="Logo atlas oportunidades"
-            /> */}
+            />
           </StyledCol>
         </StyledRow>
       );
@@ -239,24 +250,25 @@ function Home() {
               }}
             >
               <StyledDivImg>
-                <img
+                {/* <img
                   src={(localeSel?.language === 'en'? ColaboradoresEn.src : ColaboradoresPt.src)}
                   style={{ 
                     width: '100%', 
                     maxWidth: 637, 
                     height: 'auto',
                   }}
+                /> */}
+                <Image
+                  src={(localeSel?.language === 'en'? ColaboradoresEn.src : ColaboradoresPt.src)}
+                  width={0}
+                  height={0}
+                  sizes="100vw"
+                  style={{ width: '100%', maxWidth: 637, height: 'auto', marginRight: 0 }} 
+                  alt="Logo atlas oportunidades"
                 />
               </StyledDivImg>
               
-              {/* <Image
-                src={(localeSel?.language === 'en'? ColaboradoresEn.src : ColaboradoresPt.src)}
-                width={0}
-                height={0}
-                sizes="100vw"
-                style={{ width: '100%', maxWidth: 637, height: 'auto', marginRight: 0 }} 
-                alt="Logo atlas oportunidades"
-              /> */}
+              
             </StyledCol>
           </StyledRow>
         </DivTelaInicialCenter>        

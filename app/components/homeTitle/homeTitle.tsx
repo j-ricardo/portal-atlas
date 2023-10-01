@@ -1,8 +1,8 @@
 import Head from 'next/head'
 import React, { useState, useEffect } from "react";
 
-import { useAppDispatch, useAppSelector } from "./../../hooks";
-import { LocaleLang, changeLocale, langSelector } from "./../../features/localeSlice";
+import { useAppDispatch, useAppSelector } from "@/app/hooks";
+import { LocaleLang, changeLocale, langSelector } from "@/app/features/localeSlice";
 
  
 export function HomeTitleComponent() {

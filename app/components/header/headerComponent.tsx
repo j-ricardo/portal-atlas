@@ -6,30 +6,38 @@ import {
     DivHeader,
     StyledMenu,
     StyledDrawer,
-} from './../../antd_styled';
+} from '@/app/antd_styled';
 const { Header } = Layout;
-import headerIconPt from './../../../public/ico/pt/LOGO_TOPO_BRANCA.png'
-import headerIconEn from './../../../public/ico/en/LOGO_TOPO_BRANCA.png';
-import ptIcon from "./../../../public/ico/icon_pt.png";
-import enIcon from "./../../../public/ico/icon_en.png";
+import headerIconPt from '@/public/ico/pt/LOGO_TOPO_BRANCA.png'
+import headerIconEn from '@/public/ico/en/LOGO_TOPO_BRANCA.png';
+import ptIcon from "@/public/ico/icon_pt.png";
+import enIcon from "@/public/ico/icon_en.png";
 import Icon, { GithubOutlined, MenuOutlined, CloseOutlined } from '@ant-design/icons';
 import type { MenuProps } from 'antd';
-import { useAppDispatch, useAppSelector } from "./../../hooks";
-import { LocaleLang, changeLocale, langSelector } from "./../../features/localeSlice";
-import en from "./../../../public/static/locales/en.json";
-import pt from "./../../../public/static/locales/pt.json";
-import en_pu from "./../../../public/static/publications/en.json";
-import pt_pu from "./../../../public/static/publications/pt.json";
+import { useAppDispatch, useAppSelector } from "@/app/hooks";
+import { LocaleLang, changeLocale, langSelector } from "@/app/features/localeSlice";
+import { MenuSelected, changePage, menuSelector } from '@/app/features/menuSlice';
+import en from "@/public/static/locales/en.json";
+import pt from "@/public/static/locales/pt.json";
+import en_pu from "@/public/static/publications/en.json";
+import pt_pu from "@/public/static/publications/pt.json";
 
 export default function HeaderComponent(props: any){
+    const [current, setCurrent] = useState('projeto');
     const [openMenu, setOpenMenu] = useState<boolean>(false);
     const [localeSel, setLocaleSel] = useState<LocaleLang>();
+    const [menuS, setMenuS] = useState<MenuSelected>();
     const selectedUsers = useAppSelector(langSelector);
+    const menuSel = useAppSelector(menuSelector);
     const dispatch = useAppDispatch();
 
     useEffect(() => {
         setLocaleSel(selectedUsers);
     }, [selectedUsers]);
+
+    useEffect(() => {
+        setMenuS(menuSel);        
+    }, [menuSel])
 
     const items: MenuProps['items'] = [
         {
@@ -94,25 +102,26 @@ export default function HeaderComponent(props: any){
             }}
         >
             <DivHeader>
-                <img
+                {/* <img
                     src={(localeSel?.language === 'en'? headerIconEn.src : headerIconPt.src)}
                     style={{
                         width: 159,
                         height: 80
                     }}
-                />                
-                {/* <Image
-                    src=
+                />                 */}
+                <Image
+                    src={(localeSel?.language === 'en'? headerIconEn.src : headerIconPt.src)}
                     width={159}
                     height={80}
                     style={{ marginRight: 0 }}
                     alt="Logo header"
-                /> */}
+                />
                 <Space size={"middle"}>
                 {
                     props.windows[0] > 1300 ? (
                     <>
                         <StyledMenu 
+                            selectedKeys={[menuS!.keyName]}
                             mode={"horizontal"} 
                             items={items}
                             onClick={(e: any) => onClickMenu(e.key)}
@@ -136,7 +145,7 @@ export default function HeaderComponent(props: any){
                                 }}
                                 onClick={onClickChangeLocale}
                             >
-                                <img
+                                {/* <img
                                     src={(localeSel?.language === 'en'? enIcon.src : ptIcon.src)}
                                     style={{ 
                                         marginLeft: 'auto',
@@ -144,8 +153,8 @@ export default function HeaderComponent(props: any){
                                         width: 21,
                                         height: 18.7
                                     }}
-                                />
-                                {/* <Image
+                                /> */}
+                                <Image
                                     src={(localeSel?.language === 'en'? enIcon.src : ptIcon.src)}
                                     width={21}
                                     height={18.7}
@@ -154,7 +163,7 @@ export default function HeaderComponent(props: any){
                                         marginRight: 'auto'
                                     }}
                                     alt="Logo header"
-                                /> */}
+                                />
                             </Button>
                             <Link href="http://3.92.188.34:3000/" rel="noopener noreferrer" target="_blank">
                                 <Button
@@ -210,7 +219,7 @@ export default function HeaderComponent(props: any){
                                         }}
                                         onClick={onClickChangeLocale}
                                     >
-                                        <img
+                                        {/* <img
                                             src={(localeSel?.language === 'en'? enIcon.src : ptIcon.src)}
                                             style={{ 
                                                 marginLeft: 'auto',
@@ -218,8 +227,8 @@ export default function HeaderComponent(props: any){
                                                 width: 21,
                                                 height: 18.7
                                             }}
-                                        />
-                                        {/* <Image
+                                        /> */}
+                                        <Image
                                             src={(localeSel?.language === 'en'? enIcon.src : ptIcon.src)}
                                             width={21}
                                             height={18.7}
@@ -228,7 +237,7 @@ export default function HeaderComponent(props: any){
                                                 marginRight: 'auto'
                                             }}
                                             alt="Logo header"
-                                        /> */}
+                                        />
                                     </Button>
                                     <Link href="http://3.92.188.34:3000/" rel="noopener noreferrer" target="_blank">
                                         <Button
@@ -249,6 +258,7 @@ export default function HeaderComponent(props: any){
                             }
                         >
                             <StyledMenu 
+                                selectedKeys={[menuS!.keyName]}
                                 mode={"vertical"} 
                                 items={items}
                                 onClick={(e: any) => onClickMenu(e.key)}
