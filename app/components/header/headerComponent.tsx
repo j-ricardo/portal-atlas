@@ -23,6 +23,7 @@ import pt from "@/public/static/locales/pt.json";
 import en_pu from "@/public/static/publications/en.json";
 import pt_pu from "@/public/static/publications/pt.json";
 
+
 export default function HeaderComponent(props: any){
     const router = useRouter();
     const [openMenu, setOpenMenu] = useState<boolean>(false);
