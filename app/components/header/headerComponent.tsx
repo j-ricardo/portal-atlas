@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { useRouter } from 'next/navigation';
+import { useRouter, usePathname } from 'next/navigation';
 import { Layout, Space, Button } from 'antd';
 import { 
     DivHeader,
@@ -23,9 +23,9 @@ import pt from "@/public/static/locales/pt.json";
 import en_pu from "@/public/static/publications/en.json";
 import pt_pu from "@/public/static/publications/pt.json";
 
-
 export default function HeaderComponent(props: any){
     const router = useRouter();
+    const pathname = usePathname();
     const [openMenu, setOpenMenu] = useState<boolean>(false);
     const [localeSel, setLocaleSel] = useState<LocaleLang>();
     const [menuS, setMenuS] = useState<MenuSelected>();
@@ -88,9 +88,11 @@ export default function HeaderComponent(props: any){
         if(key == 'grupo_pesquisa'){
             window.location.assign('https://www.ufrgs.br/gpmc/');
         } else if (key == 'projeto'){
-            router.push('/');
-        } else if (key == 'colaboradores'){
-            router.push('/colaboradores');
+            //router.push('/');
+            //router.push(pathname);
+            router.push(`${pathname.substring(0, pathname.lastIndexOf("/") + 1)}index`);
+        } else if (key == 'colaboradores'){            
+            router.push(`${pathname.substring(0, pathname.lastIndexOf("/") + 1)}colaboradores`);
         }
     }
 

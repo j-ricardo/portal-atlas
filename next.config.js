@@ -4,15 +4,14 @@
 const nextConfig = {
   output: 'export',
   distDir: 'out',
-  skipTrailingSlashRedirect: true,
   assetPrefix: ".",
-  images: { unoptimized: true }
+  images: { unoptimized: true },
  
   // Optional: Change links `/me` -> `/me/` and emit `/me.html` -> `/me/index.html`
-  // trailingSlash: true,
+  trailingSlash: false,
  
   // Optional: Prevent automatic `/me` -> `/me/`, instead preserve `href`
-  // skipTrailingSlashRedirect: true,
+  skipTrailingSlashRedirect: true,
  
   // Optional: Change the output directory `out` -> `dist`  
 }
