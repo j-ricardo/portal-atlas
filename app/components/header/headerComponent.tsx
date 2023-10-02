@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import { Layout, Space, Button } from 'antd';
 import { 
     DivHeader,
@@ -23,7 +24,7 @@ import en_pu from "@/public/static/publications/en.json";
 import pt_pu from "@/public/static/publications/pt.json";
 
 export default function HeaderComponent(props: any){
-    const [current, setCurrent] = useState('projeto');
+    const router = useRouter();
     const [openMenu, setOpenMenu] = useState<boolean>(false);
     const [localeSel, setLocaleSel] = useState<LocaleLang>();
     const [menuS, setMenuS] = useState<MenuSelected>();
@@ -36,7 +37,7 @@ export default function HeaderComponent(props: any){
     }, [selectedUsers]);
 
     useEffect(() => {
-        setMenuS(menuSel);        
+        setMenuS(menuSel!);        
     }, [menuSel])
 
     const items: MenuProps['items'] = [
@@ -85,6 +86,10 @@ export default function HeaderComponent(props: any){
     const onClickMenu = (key: any) => {
         if(key == 'grupo_pesquisa'){
             window.location.assign('https://www.ufrgs.br/gpmc/');
+        } else if (key == 'projeto'){
+            router.push('/');
+        } else if (key == 'colaboradores'){
+            router.push('/colaboradores');
         }
     }
 
@@ -102,13 +107,6 @@ export default function HeaderComponent(props: any){
             }}
         >
             <DivHeader>
-                {/* <img
-                    src={(localeSel?.language === 'en'? headerIconEn.src : headerIconPt.src)}
-                    style={{
-                        width: 159,
-                        height: 80
-                    }}
-                />                 */}
                 <Image
                     src={(localeSel?.language === 'en'? headerIconEn.src : headerIconPt.src)}
                     width={159}

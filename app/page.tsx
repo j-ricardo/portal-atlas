@@ -18,6 +18,8 @@ import {
 } from './antd_styled';
 import { useAppDispatch, useAppSelector } from "@/app/hooks";
 import { MenuSelected, changePage, menuSelector } from '@/app/features/menuSlice';
+import { LocaleLang, langSelector } from "@/app/features/localeSlice";
+
 import bg from '@/public/ico/IMAGEM-BANNER-INICIAL.png';
 import logoFinalPt from '@/public/ico/pt/LOGO_logo_final.png';
 import ColaboradoresPt from "@/public/ico/pt/COLABORADORES.png";
@@ -43,7 +45,7 @@ import Bocconi_milan from "@/public/ico/BOCCONI.png";
 import Bologna from "@/public/ico/BOLOGNA.png";
 import Sabanci_tuzla from "@/public/ico/SABANCI.png";
 import Sul_australia_adelaide from "@/public/ico/SUL-AUSTRALIA.png";
-import { LocaleLang, langSelector } from "@/app/features/localeSlice";
+
 import useWindowDimensions from '@/app/helper/useWindowDimension';
 import geoUrl from '@/public/features_old.json';
 
@@ -448,15 +450,7 @@ function Home() {
             // left: 0    
           }}
         >
-          <img
-            src={(localeSel?.language === 'en'? ApoioEn.src : ApoioPt.src)}
-            style={{ 
-              width: '60%',
-              maxWidth: 500,
-              maxHeight: 35
-            }}
-          />
-          {/* <Image
+          <Image
             src={(localeSel?.language === 'en'? ApoioEn.src : ApoioPt.src)}
             width={0}
             height={0}
@@ -464,10 +458,12 @@ function Home() {
               width: '60%',
               maxWidth: 500,
               height: 'auto',
-              bottom: 0
+              bottom: 0,
+              marginLeft: 'auto',
+              marginRight: 'auto'
             }} 
             alt="apoio"
-          /> */}
+          />
         </div>
 
         <Tooltip 
@@ -650,16 +646,7 @@ function Home() {
       </DivTelaSplit>
       <StyledDivTwoColors>
         <DivTelaInicialCenter style={{ marginBottom: 0 }}>
-          <img
-            src={(localeSel?.language === 'en'? VideoEn.src : VideoPt.src)}
-            style={{ 
-              width: '100%', 
-              height: 'auto', 
-              marginTop: 30,
-              marginBottom: 30
-            }}
-          />
-          {/* <Image
+          <Image
             src={(localeSel?.language === 'en'? VideoEn.src : VideoPt.src)}
             width={0}
             height={0}
@@ -667,11 +654,11 @@ function Home() {
             style={{ 
               width: '100%', 
               height: 'auto', 
-              marginTop: 30,
-              marginBottom: 30
+              paddingTop: 30,
+              paddingBottom: 30
             }} 
             alt="Logo atlas oportunidades"
-          /> */}
+          />
         </DivTelaInicialCenter>        
       </StyledDivTwoColors>
       <div style={{ background: '#fff', paddingBottom: 20 }}>

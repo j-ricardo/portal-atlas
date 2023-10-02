@@ -66,6 +66,13 @@ export const DivTelaInicial = styled.div`
     margin: 0;
 `;
 
+export const DivTelaInicialColaboradores = styled.div`
+    height: auto;
+    background: #00406F;
+    padding: 92px 0 20px 0;
+    margin: 0;
+`;
+
 export const DivTelaSplit = styled.div`
     @media (min-width: 1031px) {
         background: linear-gradient(90deg, #01273C 50%, #fff 50%);   
@@ -74,6 +81,56 @@ export const DivTelaSplit = styled.div`
     @media (max-width: 1030px) {
         background: #01273C;   
     }     
+`;
+
+export const DivColaboradoresCenter = styled.div`
+    font-family: 'Montserrat', sans-serif;
+    color: #fff;
+    margin-bottom: 20px;
+    margin-left: auto;
+    margin-right: auto;
+    width: 80%;
+    max-width: 1522px;
+
+    h1{
+        color: #0A74A6;
+        font-family: 'Montserrat', sans-serif;
+        font-size: 24px;
+        font-weight: 700;
+        line-height: 29px;
+        letter-spacing: 0em;
+        text-align: center;
+    }
+
+    h2{
+        /* font-family: Montserrat;
+        font-size: 14px;
+        font-weight: 500;
+        line-height: 17px;
+        letter-spacing: 0em;
+        text-align: left; */
+        color: #00406F;
+        font-family: 'Montserrat', sans-serif;
+        font-size: 16px;
+        font-weight: 800;
+        line-height: 20px;
+        letter-spacing: 0em;
+        text-align: left;
+
+    }
+    span{
+        color: #00406F;
+        font-family: 'Montserrat', sans-serif;
+        font-size: 14px;
+        font-weight: 500;
+        line-height: 19.5px;
+        letter-spacing: 0em;
+        text-align: left;
+    }
+`;
+
+export const DivColaborador = styled.div`
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
 `;
 
 export const DivTelaInicialCenter = styled.div`

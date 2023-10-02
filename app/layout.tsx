@@ -11,13 +11,9 @@ import {
 } from './antd_styled';
 import { Providers } from './redux/provider';
 import useWindowDimensions from './helper/useWindowDimension';
+import "@/app/globals.css";
 
 const { Content } = Layout;
-
-// const mont = Montserrat({ 
-//   subsets: ['latin'], 
-//   weight: ['100', '200', '300', '400', '500', '600', '700', '800', '900'] 
-// });
 
 export default function RootLayout({
   children,

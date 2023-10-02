@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { RootState } from "./../../app/store";
-import en from "./../../public/static/locales/en.json";
-import pu_en from "./../../public/static/publications/en.json";
+import pt from "./../../public/static/locales/pt.json";
+import pu_pt from "./../../public/static/publications/pt.json";
 
 export interface LocaleLang {
     language: string;
@@ -10,9 +10,9 @@ export interface LocaleLang {
 }
 
 const initialState: LocaleLang = {
-    language: 'en',
-    languageJson: en,
-    publish: pu_en
+    language: 'pt',
+    languageJson: pt,
+    publish: pu_pt
 }
 
 export const localeSlice = createSlice({
