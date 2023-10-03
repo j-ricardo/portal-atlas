@@ -140,7 +140,7 @@
     "cv_col": "http://lattes.cnpq.br/2193830278065530",
     "email_col": "andy.s.fec@gmail.com",
     "posicao": "atual",
-    "foto_src": ""
+    "foto_src": "@/public/fotos_colaboradores/andrea_fechner.jpg"
   },
   {
     "id":"14",
@@ -151,7 +151,7 @@
     "cv_col": "http://lattes.cnpq.br/3983853774869725",
     "email_col": "iand.vecchia@gmail.com",
     "posicao": "atual",
-    "foto_src": ""
+    "foto_src": "@/public/fotos_colaboradores/ian_dalla.jpeg"
   },
   {
     "id":"15",
@@ -162,7 +162,7 @@
     "cv_col": "http://lattes.cnpq.br/2977643431752840",
     "email_col": "eduardo.hippler@proton.me",
     "posicao": "atual",
-    "foto_src": ""
+    "foto_src": "@/public/fotos_colaboradores/eduardo_hippler"
   },
   {
     "id":"16",
@@ -173,7 +173,7 @@
     "cv_col": "http://lattes.cnpq.br/1131661295484485",
     "email_col": "edvan.aguiar@uaac.ufcg.edu.br",
     "posicao": "atual",
-    "foto_src": ""
+    "foto_src": "@/public/fotos_colaboradores/edvan_aguiar.jpg"
   },
   {
     "id":"17",
@@ -228,7 +228,7 @@
     "cv_col": "",
     "email_col": "bengusu.nar@studbocconi.it",
     "posicao": "atual",
-    "foto_src": ""
+    "foto_src": "@/public/fotos_colaboradores/bengusu_nar.jpeg"
   },
   {
     "id":"22",
@@ -276,7 +276,7 @@
   },
   {
     "id":"26",
-    "nome_col": "Eduardo de Rezende Francisco",
+    "nome_col": "Eduardo de Rezende",
     "funcao_col": "Reseacher",
     "instituicao_col": "FGV",
     "link_linkedin": "https://www.linkedin.com/in/eduardo-de-rezende-francisco-416300/",
@@ -305,7 +305,7 @@
     "cv_col": "https://lattes.cnpq.br/1583654759584875",
     "email_col": "ruth.armstrong.br@gmail.com",
     "posicao": "ex",
-    "foto_src": ""
+    "foto_src": "@/public/fotos_colaboradores/ruth_selina.png"
   },
   {
     "id":"29",

@@ -28,6 +28,12 @@ import selim_balcisoy from "@/public/fotos_colaboradores/selim_balcisoy.png";
 import timothee_stumpf from "@/public/fotos_colaboradores/timothee_stumpf.png";
 import valderson_junior from "@/public/fotos_colaboradores/valderson_junior.png";
 import vinicius_brei from "@/public/fotos_colaboradores/vinicius_brei.png";
+import andrea_fechner from "@/public/fotos_colaboradores/andrea_fechner.jpg";
+import bengusu_nar from "@/public/fotos_colaboradores/bengusu_nar.jpeg";
+import eduardo_hippler from "@/public/fotos_colaboradores/eduardo_hippler.jpeg";
+import edvan_aguiar from "@/public/fotos_colaboradores/edvan_aguiar.jpg";
+import ian_dalla from "@/public/fotos_colaboradores/ian_dalla.jpeg";
+
 
 export default function RetornaFoto(id: string){
     switch(id){
@@ -56,13 +62,13 @@ export default function RetornaFoto(id: string){
         case "12":
             return giseli_cassiano;
         case "13":
-            return vinicius_brei;
+            return andrea_fechner;
         case "14":
-            return vinicius_brei;
+            return ian_dalla;
         case "15":
-            return vinicius_brei;
+            return eduardo_hippler;
         case "16":
-            return vinicius_brei;
+            return edvan_aguiar;
         case "17":
             return carla_netto;
         case "18":
@@ -72,7 +78,7 @@ export default function RetornaFoto(id: string){
         case "20":
             return atra_zeynep;
         case "21":
-            return vinicius_brei;
+            return bengusu_nar;
         case "22":
             return rafael_albuquerque;
         case "23":
@@ -86,7 +92,7 @@ export default function RetornaFoto(id: string){
         case "27":
             return andre_demori;
         case "28":
-            return vinicius_brei;
+            return ruth_selina;
         case "29":
             return leonardo_gomes;
         case "30":

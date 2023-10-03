@@ -6,12 +6,14 @@ import {
     DivColaborador
 } from "@/app/antd_styled";
 import Image, { StaticImageData } from 'next/image';
-import Icon, { LinkedinFilled } from '@ant-design/icons';
+import Link from 'next/link';
+import Icon, { LinkedinFilled, MailFilled } from '@ant-design/icons';
+import ico_lattes from '@/public/ico/ico_lattes.png';
 import { useAppDispatch, useAppSelector } from "@/app/hooks";
 import { MenuSelected, changePage, menuSelector } from '@/app/features/menuSlice';
 import { LocaleLang, langSelector } from "@/app/features/localeSlice";
 import RetornaFoto from '../helper/returnFotoById';
-
+import { Button } from 'antd';
 interface Colaboradores {
     id: string;
     nome_col: string;
@@ -32,6 +34,7 @@ function Colaboradores(){
     const dispatch = useAppDispatch();
     const [menuS, setMenuS] = useState<MenuSelected>();
     const menuSel = useAppSelector(menuSelector);
+    const [hoverId, setHoverId] = useState<string>("0");
 
     const lstColaboradoresAtuais = () => {
         var l: Colaboradores[] = ListaColaboradores as Colaboradores[];
@@ -79,7 +82,8 @@ function Colaboradores(){
                             lstColaboradoresAtuais().map((colaborador: Colaboradores) => (
                                 <DivColaborador key={`M${colaborador.id}`}>
                                     <div key={colaborador.id} className="group relative">
-                                        <div className="aspect-h-1 aspect-w-1 w-full overflow-hidden bg-gray-200 lg:aspect-none group-hover:opacity-75"
+                                        <div 
+                                            className="aspect-h-1 aspect-w-1 w-full overflow-hidden lg:aspect-none"
                                             style={{ 
                                                 height: 340,
                                                 borderTopRightRadius: 6,
@@ -87,7 +91,76 @@ function Colaboradores(){
                                                 borderBottomRightRadius: 0,
                                                 borderBottomLeftRadius: 0
                                             }}
-                                        >
+                                        >   
+                                            <div
+                                                className='hover:bg-gradient-to-t from-blue-500 from-15%'
+                                                onMouseEnter={e => setHoverId(colaborador.id)}
+                                                onMouseLeave={e => setHoverId("0")}
+                                                style={{ 
+                                                    width: '100%',
+                                                    display: 'flex', 
+                                                    flexDirection: 'row',
+                                                    position: 'absolute',
+                                                    zIndex: 999,
+                                                    paddingLeft: 20,
+                                                    paddingBottom: 20,
+                                                    paddingTop: 290,
+                                                }}
+                                            >
+                                                {
+                                                    colaborador.link_linkedin !== "" && hoverId === colaborador.id?
+                                                    <Link href={colaborador.link_linkedin} rel="noopener noreferrer" target="_blank">
+                                                        <Button
+                                                            style={{ background: "transparent", border: 0, padding: 0, marginRight: 10 }}
+                                                            icon={<LinkedinFilled style={{ color: "#fff", fontSize: '25px' }} />}
+                                                        />
+                                                    </Link>
+                                                    :
+                                                    <></>
+                                                }
+                                                {
+                                                    colaborador.cv_col !== "" && hoverId === colaborador.id?
+                                                    <Link href={colaborador.cv_col} rel="noopener noreferrer" target="_blank">
+                                                        <Button
+                                                            style={{
+                                                                width: 32,
+                                                                height: 32,
+                                                                background: "transparent",
+                                                                border: 0,
+                                                                padding: 0,
+                                                                display: 'flex',
+                                                                alignItems: 'center',
+                                                                justifyContent: 'space-between',
+                                                                marginRight: 10 
+                                                            }}
+                                                        >
+                                                            <Image
+                                                                src={ico_lattes}
+                                                                width={22}
+                                                                height={22}
+                                                                style={{ 
+                                                                    marginLeft: 'auto',
+                                                                    marginRight: 'auto'
+                                                                }}
+                                                                alt="Logo header"
+                                                            />
+                                                        </Button>     
+                                                    </Link>
+                                                    :
+                                                    <></>
+                                                }
+                                                {
+                                                    colaborador.email_col !== "" && hoverId === colaborador.id?
+                                                    <Link href={`mailto:${colaborador.email_col}`} rel="noopener noreferrer" target="_blank">
+                                                        <Button
+                                                            style={{ background: "transparent", border: 0, padding: 0 }}
+                                                            icon={<MailFilled style={{ color: "#fff", fontSize: '25px' }} />}
+                                                        />
+                                                    </Link>
+                                                    :
+                                                    <></>
+                                                }
+                                            </div>
                                             <Image
                                                 src={RetornaFoto(colaborador.id)!.src}
                                                 alt={`Foto ${colaborador.nome_col}`}
@@ -96,13 +169,13 @@ function Colaboradores(){
                                                 className="h-full w-full object-cover object-top lg:h-full lg:w-full"
                                             />
                                         </div>
-                                        <div style={{ height: 94 }}>
+                                        <div style={{ height: 94, background: '#FBFBFB' }}>
                                             <div
                                                 style={{
                                                     display: 'flex',
                                                     flexDirection: 'column',
                                                     paddingTop: 18,
-                                                    paddingLeft: 15
+                                                    paddingLeft: 15                                                    
                                                 }}
                                             >
                                                 <h2>
@@ -114,6 +187,7 @@ function Colaboradores(){
                                                 <span>
                                                     {colaborador.instituicao_col}
                                                 </span>
+                                                
                                             </div>
                                         </div>
                                     </div>
@@ -138,7 +212,7 @@ function Colaboradores(){
                             lstColaboradoresEx().map((colaborador: Colaboradores) => (
                                 <DivColaborador key={`M${colaborador.id}`}>
                                     <div key={colaborador.id} className="group relative">
-                                        <div className="aspect-h-1 aspect-w-1 w-full overflow-hidden bg-gray-200 lg:aspect-none group-hover:opacity-75"
+                                        <div className="aspect-h-1 aspect-w-1 w-full overflow-hidden lg:aspect-none"
                                             style={{ 
                                                 height: 340,
                                                 borderTopRightRadius: 6,
@@ -146,7 +220,76 @@ function Colaboradores(){
                                                 borderBottomRightRadius: 0,
                                                 borderBottomLeftRadius: 0
                                             }}
-                                        >
+                                        >   
+                                            <div
+                                                className='hover:bg-gradient-to-t from-blue-500 from-15%'
+                                                onMouseEnter={e => setHoverId(colaborador.id)}
+                                                onMouseLeave={e => setHoverId("0")}
+                                                style={{ 
+                                                    width: '100%',
+                                                    display: 'flex', 
+                                                    flexDirection: 'row',
+                                                    position: 'absolute',
+                                                    zIndex: 999,
+                                                    paddingLeft: 20,
+                                                    paddingBottom: 20,
+                                                    paddingTop: 290,
+                                                }}
+                                            >
+                                                {
+                                                    colaborador.link_linkedin !== "" && hoverId === colaborador.id?
+                                                    <Link href={colaborador.link_linkedin} rel="noopener noreferrer" target="_blank">
+                                                        <Button
+                                                            style={{ background: "transparent", border: 0, padding: 0, marginRight: 10 }}
+                                                            icon={<LinkedinFilled style={{ color: "#fff", fontSize: '25px' }} />}
+                                                        />
+                                                    </Link>
+                                                    :
+                                                    <></>
+                                                }
+                                                {
+                                                    colaborador.cv_col !== "" && hoverId === colaborador.id?
+                                                    <Link href={colaborador.cv_col} rel="noopener noreferrer" target="_blank">
+                                                        <Button
+                                                            style={{
+                                                                width: 32,
+                                                                height: 32,
+                                                                background: "transparent",
+                                                                border: 0,
+                                                                padding: 0,
+                                                                display: 'flex',
+                                                                alignItems: 'center',
+                                                                justifyContent: 'space-between',
+                                                                marginRight: 10 
+                                                            }}
+                                                        >
+                                                            <Image
+                                                                src={ico_lattes}
+                                                                width={22}
+                                                                height={22}
+                                                                style={{ 
+                                                                    marginLeft: 'auto',
+                                                                    marginRight: 'auto'
+                                                                }}
+                                                                alt="Logo header"
+                                                            />
+                                                        </Button>     
+                                                    </Link>
+                                                    :
+                                                    <></>
+                                                }
+                                                {
+                                                    colaborador.email_col !== "" && hoverId === colaborador.id?
+                                                    <Link href={`mailto:${colaborador.email_col}`} rel="noopener noreferrer" target="_blank">
+                                                        <Button
+                                                            style={{ background: "transparent", border: 0, padding: 0 }}
+                                                            icon={<MailFilled style={{ color: "#fff", fontSize: '25px' }} />}
+                                                        />
+                                                    </Link>
+                                                    :
+                                                    <></>
+                                                }
+                                            </div>
                                             <Image
                                                 src={RetornaFoto(colaborador.id)!.src}
                                                 alt={`Foto ${colaborador.nome_col}`}
@@ -155,13 +298,13 @@ function Colaboradores(){
                                                 className="h-full w-full object-cover object-top lg:h-full lg:w-full"
                                             />
                                         </div>
-                                        <div style={{ height: 94 }}>
+                                        <div style={{ height: 94, background: '#FBFBFB' }}>
                                             <div
                                                 style={{
                                                     display: 'flex',
                                                     flexDirection: 'column',
                                                     paddingTop: 18,
-                                                    paddingLeft: 15
+                                                    paddingLeft: 15                                                    
                                                 }}
                                             >
                                                 <h2>
@@ -173,6 +316,7 @@ function Colaboradores(){
                                                 <span>
                                                     {colaborador.instituicao_col}
                                                 </span>
+                                                
                                             </div>
                                         </div>
                                     </div>

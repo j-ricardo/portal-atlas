@@ -103,12 +103,6 @@ export const DivColaboradoresCenter = styled.div`
     }
 
     h2{
-        /* font-family: Montserrat;
-        font-size: 14px;
-        font-weight: 500;
-        line-height: 17px;
-        letter-spacing: 0em;
-        text-align: left; */
         color: #00406F;
         font-family: 'Montserrat', sans-serif;
         font-size: 16px;
