@@ -13,7 +13,7 @@ import { useAppDispatch, useAppSelector } from "@/app/hooks";
 import { MenuSelected, changePage, menuSelector } from '@/app/features/menuSlice';
 import { LocaleLang, langSelector } from "@/app/features/localeSlice";
 import RetornaFoto from '../helper/returnFotoById';
-import { Button } from 'antd';
+import { Button, Space } from 'antd';
 interface Colaboradores {
     id: string;
     nome_col: string;
@@ -82,8 +82,7 @@ function Colaboradores(){
                             lstColaboradoresAtuais().map((colaborador: Colaboradores) => (
                                 <DivColaborador key={`M${colaborador.id}`}>
                                     <div key={colaborador.id} className="group relative">
-                                        <div 
-                                            className="aspect-h-1 aspect-w-1 w-full overflow-hidden lg:aspect-none"
+                                        <div className="aspect-h-1 aspect-w-1 w-full overflow-hidden lg:aspect-none"
                                             style={{ 
                                                 height: 340,
                                                 borderTopRightRadius: 6,
@@ -93,7 +92,6 @@ function Colaboradores(){
                                             }}
                                         >   
                                             <div
-                                                className='hover:bg-gradient-to-t from-blue-500 from-15%'
                                                 onMouseEnter={e => setHoverId(colaborador.id)}
                                                 onMouseLeave={e => setHoverId("0")}
                                                 style={{ 
@@ -102,16 +100,28 @@ function Colaboradores(){
                                                     flexDirection: 'row',
                                                     position: 'absolute',
                                                     zIndex: 999,
-                                                    paddingLeft: 20,
-                                                    paddingBottom: 20,
                                                     paddingTop: 290,
                                                 }}
                                             >
                                                 {
+                                                    hoverId === colaborador.id?
+                                                    <div
+                                                        className='bg-gradient-to-t from-blue-500 from-15%'
+                                                        style={{ 
+                                                            width: '100%',                                                        
+                                                            position: 'absolute',
+                                                            height: 50,
+                                                        }}
+                                                    />
+                                                    :
+                                                    <></>
+                                                }
+                                                <Space style={{ marginBottom: 20, marginLeft: 20 }}>                                               
+                                                {
                                                     colaborador.link_linkedin !== "" && hoverId === colaborador.id?
                                                     <Link href={colaborador.link_linkedin} rel="noopener noreferrer" target="_blank">
                                                         <Button
-                                                            style={{ background: "transparent", border: 0, padding: 0, marginRight: 10 }}
+                                                            style={{ background: "transparent", border: 0, padding: 0 }}
                                                             icon={<LinkedinFilled style={{ color: "#fff", fontSize: '25px' }} />}
                                                         />
                                                     </Link>
@@ -130,8 +140,7 @@ function Colaboradores(){
                                                                 padding: 0,
                                                                 display: 'flex',
                                                                 alignItems: 'center',
-                                                                justifyContent: 'space-between',
-                                                                marginRight: 10 
+                                                                justifyContent: 'space-between'
                                                             }}
                                                         >
                                                             <Image
@@ -154,12 +163,13 @@ function Colaboradores(){
                                                     <Link href={`mailto:${colaborador.email_col}`} rel="noopener noreferrer" target="_blank">
                                                         <Button
                                                             style={{ background: "transparent", border: 0, padding: 0 }}
-                                                            icon={<MailFilled style={{ color: "#fff", fontSize: '25px' }} />}
+                                                            icon={<MailFilled style={{ color: "#fff", fontSize: '25px'}} />}
                                                         />
                                                     </Link>
                                                     :
                                                     <></>
                                                 }
+                                                </Space>
                                             </div>
                                             <Image
                                                 src={RetornaFoto(colaborador.id)!.src}
@@ -222,7 +232,6 @@ function Colaboradores(){
                                             }}
                                         >   
                                             <div
-                                                className='hover:bg-gradient-to-t from-blue-500 from-15%'
                                                 onMouseEnter={e => setHoverId(colaborador.id)}
                                                 onMouseLeave={e => setHoverId("0")}
                                                 style={{ 
@@ -231,16 +240,28 @@ function Colaboradores(){
                                                     flexDirection: 'row',
                                                     position: 'absolute',
                                                     zIndex: 999,
-                                                    paddingLeft: 20,
-                                                    paddingBottom: 20,
                                                     paddingTop: 290,
                                                 }}
                                             >
                                                 {
+                                                    hoverId === colaborador.id?
+                                                    <div
+                                                        className='bg-gradient-to-t from-blue-500 from-15%'
+                                                        style={{ 
+                                                            width: '100%',                                                        
+                                                            position: 'absolute',
+                                                            height: 50,
+                                                        }}
+                                                    />
+                                                    :
+                                                    <></>
+                                                }
+                                                <Space style={{ marginBottom: 20, marginLeft: 20 }}>                                               
+                                                {
                                                     colaborador.link_linkedin !== "" && hoverId === colaborador.id?
                                                     <Link href={colaborador.link_linkedin} rel="noopener noreferrer" target="_blank">
                                                         <Button
-                                                            style={{ background: "transparent", border: 0, padding: 0, marginRight: 10 }}
+                                                            style={{ background: "transparent", border: 0, padding: 0 }}
                                                             icon={<LinkedinFilled style={{ color: "#fff", fontSize: '25px' }} />}
                                                         />
                                                     </Link>
@@ -259,8 +280,7 @@ function Colaboradores(){
                                                                 padding: 0,
                                                                 display: 'flex',
                                                                 alignItems: 'center',
-                                                                justifyContent: 'space-between',
-                                                                marginRight: 10 
+                                                                justifyContent: 'space-between'
                                                             }}
                                                         >
                                                             <Image
@@ -283,12 +303,13 @@ function Colaboradores(){
                                                     <Link href={`mailto:${colaborador.email_col}`} rel="noopener noreferrer" target="_blank">
                                                         <Button
                                                             style={{ background: "transparent", border: 0, padding: 0 }}
-                                                            icon={<MailFilled style={{ color: "#fff", fontSize: '25px' }} />}
+                                                            icon={<MailFilled style={{ color: "#fff", fontSize: '25px'}} />}
                                                         />
                                                     </Link>
                                                     :
                                                     <></>
                                                 }
+                                                </Space>
                                             </div>
                                             <Image
                                                 src={RetornaFoto(colaborador.id)!.src}
