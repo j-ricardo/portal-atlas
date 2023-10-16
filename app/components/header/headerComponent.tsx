@@ -14,7 +14,6 @@ import headerIconEn from '@/public/ico/en/LOGO_TOPO_BRANCA.png';
 import ptIcon from "@/public/ico/icon_pt.png";
 import enIcon from "@/public/ico/icon_en.png";
 import Icon, { GithubOutlined, MenuOutlined, CloseOutlined } from '@ant-design/icons';
-import type { MenuProps } from 'antd';
 import { useAppDispatch, useAppSelector } from "@/app/hooks";
 import { LocaleLang, changeLocale, langSelector } from "@/app/features/localeSlice";
 import { MenuSelected, changePage, menuSelector } from '@/app/features/menuSlice';
@@ -23,45 +22,74 @@ import pt from "@/public/static/locales/pt.json";
 import en_pu from "@/public/static/publications/en.json";
 import pt_pu from "@/public/static/publications/pt.json";
 
+import type { MenuProps, MenuTheme } from 'antd/es/menu';
+
+type MenuItem = Required<MenuProps>['items'][number];
+
+function getItem(
+    label: React.ReactNode,
+    key?: React.Key | null,
+    icon?: React.ReactNode,
+    children?: MenuItem[],
+): MenuItem {
+    return {
+        key,
+        icon,
+        children,
+        label,
+    } as MenuItem;
+}
+
 export default function HeaderComponent(props: any){
-    const router = useRouter();
-    const pathname = usePathname();
+    const pathname_src = usePathname();
     const [openMenu, setOpenMenu] = useState<boolean>(false);
     const [localeSel, setLocaleSel] = useState<LocaleLang>();
     const [menuS, setMenuS] = useState<MenuSelected>();
-    const selectedUsers = useAppSelector(langSelector);
+    const selectedLang = useAppSelector(langSelector);
     const menuSel = useAppSelector(menuSelector);
     const dispatch = useAppDispatch();
 
     useEffect(() => {
-        setLocaleSel(selectedUsers);
-    }, [selectedUsers]);
+        setLocaleSel(selectedLang);
+    }, [selectedLang]);
 
     useEffect(() => {
         setMenuS(menuSel!);        
     }, [menuSel])
 
-    const items: MenuProps['items'] = [
-        {
-          label: localeSel?.languageJson.menu_1,
-          key: 'projeto'
-        },
-        {
-          label: localeSel?.languageJson.menu_2,
-          key: 'colaboradores'
-        },
-        {
-          label: localeSel?.languageJson.menu_3,
-          key: 'perfil'
-        },
-        {
-          label: localeSel?.languageJson.menu_4,
-          key: 'tutorial'
-        },
-        {
-          label:  localeSel?.languageJson.menu_5,
-          key: 'grupo_pesquisa'
-        },
+    const items: MenuItem[] = [
+        getItem(
+            <>
+                <a href={`${pathname_src.substring(0, pathname_src.lastIndexOf("/") + 1)}index.html`}>
+                    {localeSel?.languageJson.menu_1}
+                </a>
+            </>,
+            'projeto'
+        ),
+        getItem(
+            <>
+                <a href={`${pathname_src.substring(0, pathname_src.lastIndexOf("/") + 1)}colaboradores.html`}>
+                    {localeSel?.languageJson.menu_2}
+                </a>
+            </>,
+            'colaboradores'
+        ),
+        getItem(
+            <>
+                <a href={`${pathname_src.substring(0, pathname_src.lastIndexOf("/") + 1)}colaboradores.html`}>
+                    {localeSel?.languageJson.menu_3}
+                </a>
+            </>,
+            'perfil_dados'
+        ),
+        getItem(
+            localeSel?.languageJson.menu_4,
+            'tutorial'
+        ),
+        getItem(
+            localeSel?.languageJson.menu_5,
+            'grupo_pesquisa'
+        )
     ];
 
     const onClickChangeLocale = () => {
@@ -81,18 +109,6 @@ export default function HeaderComponent(props: any){
                 publish: en_pu
             };
             dispatch(changeLocale(loc));
-        }
-    }
-
-    const onClickMenu = (key: any) => {
-        if(key == 'grupo_pesquisa'){
-            window.location.assign('https://www.ufrgs.br/gpmc/');
-        } else if (key == 'projeto'){
-            //router.push('/');
-            //router.push(pathname);
-            router.push(`${pathname.substring(0, pathname.lastIndexOf("/") + 1)}index`);
-        } else if (key == 'colaboradores'){            
-            router.push(`${pathname.substring(0, pathname.lastIndexOf("/") + 1)}colaboradores`);
         }
     }
 
@@ -125,7 +141,6 @@ export default function HeaderComponent(props: any){
                             selectedKeys={[menuS!.keyName]}
                             mode={"horizontal"} 
                             items={items}
-                            onClick={(e: any) => onClickMenu(e.key)}
                         />
                             <Link href="https://github.com/gpmc-lab-ufrgs/atlas-of-opportunity" rel="noopener noreferrer" target="_blank">
                                 <Button
@@ -146,15 +161,6 @@ export default function HeaderComponent(props: any){
                                 }}
                                 onClick={onClickChangeLocale}
                             >
-                                {/* <img
-                                    src={(localeSel?.language === 'en'? enIcon.src : ptIcon.src)}
-                                    style={{ 
-                                        marginLeft: 'auto',
-                                        marginRight: 'auto',
-                                        width: 21,
-                                        height: 18.7
-                                    }}
-                                /> */}
                                 <Image
                                     src={(localeSel?.language === 'en'? enIcon.src : ptIcon.src)}
                                     width={21}
@@ -185,7 +191,7 @@ export default function HeaderComponent(props: any){
                     ) : ( <></> )
                 }
                 {
-                    props.windows[0] < 1359 ? (
+                    props.windows[0] <= 1300 ? (
                     <>
                         <Button
                             icon={<MenuOutlined style={{ color: "#fff" }} />}
@@ -220,15 +226,6 @@ export default function HeaderComponent(props: any){
                                         }}
                                         onClick={onClickChangeLocale}
                                     >
-                                        {/* <img
-                                            src={(localeSel?.language === 'en'? enIcon.src : ptIcon.src)}
-                                            style={{ 
-                                                marginLeft: 'auto',
-                                                marginRight: 'auto',
-                                                width: 21,
-                                                height: 18.7
-                                            }}
-                                        /> */}
                                         <Image
                                             src={(localeSel?.language === 'en'? enIcon.src : ptIcon.src)}
                                             width={21}
@@ -262,7 +259,7 @@ export default function HeaderComponent(props: any){
                                 selectedKeys={[menuS!.keyName]}
                                 mode={"vertical"} 
                                 items={items}
-                                onClick={(e: any) => onClickMenu(e.key)}
+                                // onClick={(e: any) => onClickMenu(e.key)}
                             />
                         </StyledDrawer>
                     </>

@@ -15,7 +15,7 @@ import {
   StyledDivTwoColors,
   StyledDivPublicacoes,
   StyledDivImg
-} from './antd_styled';
+} from '@/app/antd_styled';
 import { useAppDispatch, useAppSelector } from "@/app/hooks";
 import { MenuSelected, changePage, menuSelector } from '@/app/features/menuSlice';
 import { LocaleLang, langSelector } from "@/app/features/localeSlice";
@@ -442,12 +442,7 @@ function Home() {
             width: '100%',
             textAlign: 'center', 
             position: 'absolute',  
-            marginTop: heightMap! - 55,  
-            // marginLeft: 'auto',
-            // marginRight: 'auto',            
-            // marginBottom: 20,
-            // bottom: 0,
-            // left: 0    
+            marginTop: `calc(${heightMap!}px - 6vh)`,  
           }}
         >
           <Image

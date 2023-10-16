@@ -182,7 +182,7 @@ export const DivMap = styled.div`
         font-size: 22px;
         font-weight: 700;
         font-family: 'Montserrat', sans-serif;
-        margin-top: 20px;
+        margin-top: 2vh;
     }
 `;
 
