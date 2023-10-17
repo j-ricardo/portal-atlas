@@ -76,7 +76,7 @@ export default function HeaderComponent(props: any){
         ),
         getItem(
             <>
-                <a href={`${pathname_src.substring(0, pathname_src.lastIndexOf("/") + 1)}colaboradores.html`}>
+                <a href={`${pathname_src.substring(0, pathname_src.lastIndexOf("/") + 1)}perfil_dados.html`}>
                     {localeSel?.languageJson.menu_3}
                 </a>
             </>,

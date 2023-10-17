@@ -278,4 +278,44 @@ export const StyledDivDireitosReservados = styled.div`
     }
 `;
 
+export const DivDimensoesDados = styled.div`
+    font-family: 'Montserrat', sans-serif;
+    color: #fff;
+    margin-left: auto;
+    margin-right: auto;
+    width: 80%;
+    max-width: 1522px;
+
+    h1{
+        color: #0A74A6;
+        font-family: 'Montserrat', sans-serif;
+        font-size: 24px;
+        font-weight: 700;
+        line-height: 29px;
+        letter-spacing: 0em;
+        text-align: left;
+        text-transform: uppercase;
+    }
+
+    h2{
+        color: #4E4E4E;
+        font-family: 'Montserrat', sans-serif;
+        font-size: 18px;
+        font-weight: 500;
+        line-height: 20px;
+        letter-spacing: 0em;
+        text-align: justify;
+    }
+
+    span{
+        color: #4E4E4E;
+        text-align: justify;
+        font-family: 'Montserrat', sans-serif;
+        font-size: 18px;
+        font-style: normal;
+        font-weight: 500;
+        line-height: normal;
+    }
+`;
+
 
