@@ -2,6 +2,7 @@
 import React, { useState, useLayoutEffect, useRef, useEffect } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
+import { useRouter, usePathname } from 'next/navigation';
 import { Button, Card, Row, Col, Space } from 'antd';
 import Icon, { LeftOutlined, RightOutlined } from '@ant-design/icons';
 import { 
@@ -73,6 +74,7 @@ const Sabanci_tuzla_en: string = 'Sabancı University - TR';
 const Sul_australia_adelaide_en: string = 'Government of South Australia - AU';
 
 function Home() {
+  const pathname_src = usePathname();
   const { width, height } = useWindowDimensions();
   const mapRef = React.useRef<HTMLInputElement>() as React.MutableRefObject<HTMLInputElement>;
   const [heightMap, setHeightMap] = useState<number | null>(null);
@@ -117,7 +119,7 @@ function Home() {
               marginRight: 0
             }}
           >
-            <h1>{localeSel?.languageJson.page_1_header}</h1>
+            <h1 style={{ marginBottom: 15 }}>{localeSel?.languageJson.page_1_header}</h1>
             <h2
               style={{
                 textAlign: 'justify',
@@ -229,19 +231,22 @@ function Home() {
               >
                 {localeSel?.languageJson.page_1_perfil_title_1}
               </h2>
-              <Button 
-                style={{
-                  textTransform: 'uppercase',
-                  marginTop: 80,
-                  color: '#0A74A6',
-                  borderColor: '#0A74A6',
-                  fontSize: 14,
-                  fontWeight: 500,
-                }}
-                type="primary" ghost
-              >
-                {localeSel?.languageJson.btn_saiba_mais}
-              </Button>
+              <a href={`${pathname_src.substring(0, pathname_src.lastIndexOf("/") + 1)}perfil_dados.html`}>
+                <Button 
+                  style={{
+                    textTransform: 'uppercase',
+                    marginTop: 80,
+                    color: '#0A74A6',
+                    borderColor: '#0A74A6',
+                    fontSize: 14,
+                    fontWeight: 500,
+                  }}
+                  type="primary" ghost
+                >
+                  {localeSel?.languageJson.btn_saiba_mais}
+                </Button>
+              </a>
+              
             </StyledCol>
             <StyledCol
               flex="50%"

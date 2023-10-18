@@ -87,14 +87,15 @@ export default function HeaderComponent(props: any){
             'tutorial'
         ),
         getItem(
-            localeSel?.languageJson.menu_5,
+            <Link href="https://www.ufrgs.br/gpmc/papers-in-journals/" rel="noopener noreferrer" target="_blank">
+                {localeSel?.languageJson.menu_5}
+            </Link>,
             'grupo_pesquisa'
         )
     ];
 
     const onClickChangeLocale = () => {
         if(localeSel?.language === 'en'){
-            console.log('pt');
             const loc: LocaleLang = {
                 language : 'pt',
                 languageJson : pt,
@@ -102,7 +103,6 @@ export default function HeaderComponent(props: any){
             };
             dispatch(changeLocale(loc));
         } else {
-            console.log('en');
             const loc: LocaleLang = {
                 language : 'en',
                 languageJson : en,

@@ -161,6 +161,16 @@ export const StyledCol = styled(Col)`
     margin: auto auto;
 `;
 
+export const StyledRowDimensoes = styled(Row)`
+    margin: 0 !important;
+    padding: 0;
+`;
+
+export const StyledColDimensoes = styled(Col)`
+    margin: 0 !important;
+    padding: 0;
+`;
+
 export const StyledDivImg = styled.div`
     display: flex;
     justify-content: space-around;

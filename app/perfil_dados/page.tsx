@@ -71,15 +71,20 @@ function PerfilDados() {
     const RetornaConteudoInicial = () => {
         if (width! > 1386) {
             return (
-                <StyledRow gutter={[64, 16]}>
+                <StyledRow 
+                    key={"RowMain"}
+                    gutter={[64, 16]}
+                >
                     <StyledCol
+                        key={"ColMain1"}
                         flex="50%"
                         style={{
                             marginRight: 0,
                         }}
                     >
-                        <h1 style={{color: '#1DC0A9', marginBottom: 20 }}>{localeSel?.languageJson.page_3_title_1}</h1>
+                        <h1 key={"h1Main"} style={{color: '#1DC0A9', marginBottom: 20 }}>{localeSel?.languageJson.page_3_title_1}</h1>
                         <h2
+                            key={"h2Main"} 
                             style={{
                                 textAlign: "justify",
                                 lineHeight: 1.5,
@@ -90,6 +95,7 @@ function PerfilDados() {
                             {localeSel?.languageJson.page_3_t1_content_1}
                         </h2>
                         <h2
+                            key={"h22Main"} 
                             style={{
                                 textAlign: "justify",
                                 lineHeight: 1.5,
@@ -101,6 +107,7 @@ function PerfilDados() {
                         </h2>
                     </StyledCol>
                     <StyledCol
+                        key={"ColMain2"}
                         flex="50%"
                         style={{
                             height: "100%",
@@ -115,15 +122,19 @@ function PerfilDados() {
             );
         } else {
             return (
-                <StyledRow>
+                <StyledRow
+                    key={"RowMain"}
+                >
                     <StyledCol
+                        key={"ColMain1"}
                         flex="100%"
                         style={{
                             marginRight: 0,
                         }}
                     >
-                        <h1 style={{color: '#1DC0A9', marginBottom: 20 }}>{localeSel?.languageJson.page_3_title_1}</h1>
+                        <h1 key={"h1Main"} style={{color: '#1DC0A9', marginBottom: 20 }}>{localeSel?.languageJson.page_3_title_1}</h1>
                         <h2
+                            key={"h2Main"} 
                             style={{
                                 textAlign: "justify",
                                 lineHeight: 1.5,
@@ -134,6 +145,7 @@ function PerfilDados() {
                             {localeSel?.languageJson.page_3_t1_content_1}
                         </h2>
                         <h2
+                            key={"h22Main"} 
                             style={{
                                 textAlign: "justify",
                                 lineHeight: 1.5,
@@ -243,225 +255,248 @@ function PerfilDados() {
     ];
 
     const RetornaDadosDimensoes = (infoDimensao: InfoDimensao) => {
-        if (width! > 1030) {
-            return (
-                <div style={{ backgroundColor: (infoDimensao.position === 'L'? '#fff' : '#f7f7f7')}}>
-                    <DivDimensoesDados key={`DD${infoDimensao.title}`}>
-                        <StyledRow 
-                            key={`R${infoDimensao.title}`}
-                            gutter={[64, 16]}
-                            style={{ margin: 0, padding: 0 }}
-                        >
-                            {
-                                infoDimensao.position === 'L'? 
-                                <>
-                                    <StyledCol 
-                                        key={`R1${infoDimensao.title}`}
-                                        flex="50%"
-                                        style={{ 
-                                            margin: 0, 
-                                            paddingLeft: 0,
-                                            paddingTop: 0,
-                                            paddingRight: 30,
-                                            display: 'flex',                                    
-                                            alignItems: 'center',
-                                            justifyContent: 'center'
-                                        }}
-                                    >
-                                        <div>
-                                            <div
-                                                style={{ 
-                                                    display: 'flex',
-                                                    flexDirection: 'row',
-                                                    marginBottom: 20,
-                                                    verticalAlign: 'center'
-                                                }}
-                                            >
-                                                <Image
-                                                    src={infoDimensao.ico_title.src}
-                                                    width={100}
-                                                    height={100}
-                                                    alt="Logo header"
-                                                />
-                                                <h1
-                                                    style={{
-                                                        color: infoDimensao.title_color,
-                                                        fontSize: 24,
-                                                        fontWeight: 700,
-                                                        marginLeft: 20,
-                                                        height: 25,
-                                                        paddingTop: 35
-                                                    }}    
-                                                >
-                                                    {infoDimensao.title}
-                                                </h1>
-                                            </div>                        
-                                            <h2>{infoDimensao.content}</h2>
-                                        </div>                        
-                                    </StyledCol>
-                                    <StyledCol flex="50%"
-                                        key={`R2${infoDimensao.title}`}
-                                        style={{ padding: 0 }}
-                                    >
-                                        <Image
-                                            src={infoDimensao.bg_col.src}
-                                            width={0}
-                                            height={0}
-                                            sizes="100vw"
+        if (width! > 0){
+            if (width! > 1030) {
+                return (
+                    <div 
+                        key={`divMainDimensoes${infoDimensao.title}`} 
+                        style={{ backgroundColor: (infoDimensao.position === 'L'? '#fff' : '#f7f7f7')}}
+                    >
+                        <DivDimensoesDados key={`DD${infoDimensao.title}`}>
+                            <StyledRow 
+                                key={`R${infoDimensao.title}`}
+                                gutter={[64, 16]}
+                                style={{ margin: 0, padding: 0 }}
+                            >
+                                {
+                                    infoDimensao.position === 'L'? 
+                                    <>
+                                        <StyledCol 
+                                            key={`R1${infoDimensao.title}`}
+                                            flex="50%"
                                             style={{ 
-                                                width: '100%', 
-                                                height: 'auto',
-                                                backgroundSize: 'cover'
-                                            }} 
-                                            alt="Logo atlas oportunidades"
-                                        />
-                                    </StyledCol>
-                                </> 
-                                : 
-                                <>                                    
-                                    <StyledCol flex="50%"
-                                        key={`R1${infoDimensao.title}`}
-                                        style={{ padding: 0 }}
-                                    >
-                                        <Image
-                                            src={infoDimensao.bg_col.src}
-                                            width={0}
-                                            height={0}
-                                            sizes="100vw"
-                                            style={{ 
-                                                width: '100%', 
-                                                height: 'auto',
-                                                backgroundSize: 'cover'
-                                            }} 
-                                            alt="Logo atlas oportunidades"
-                                        />
-                                    </StyledCol>  
-                                    <StyledCol 
-                                        key={`R2${infoDimensao.title}`}
-                                        flex="50%"
-                                        style={{ 
-                                            margin: 0, 
-                                            paddingRight: 0,
-                                            paddingTop: 0,
-                                            paddingLeft: 30,
-                                            display: 'flex',                                    
-                                            alignItems: 'center',
-                                            justifyContent: 'center'
-                                        }}
-                                    >
-                                        <div>
+                                                margin: 0, 
+                                                paddingLeft: 0,
+                                                paddingTop: 0,
+                                                paddingRight: 30,
+                                                display: 'flex',                                    
+                                                alignItems: 'center',
+                                                justifyContent: 'center'
+                                            }}
+                                        >
                                             <div
-                                                style={{ 
-                                                    display: 'flex',
-                                                    flexDirection: 'row-reverse',
-                                                    marginBottom: 20,
-                                                    verticalAlign: 'center'
-                                                }}
+                                                key={`D1${infoDimensao.title}`}   
                                             >
-                                                <Image
-                                                    src={infoDimensao.ico_title.src}
-                                                    width={100}
-                                                    height={100}
-                                                    alt="Logo header"
-                                                />
-                                                <h1
-                                                    style={{
-                                                        color: infoDimensao.title_color,
-                                                        fontSize: 24,
-                                                        fontWeight: 700,
-                                                        marginRight: 20,
-                                                        height: 25,
-                                                        paddingTop: 35
-                                                    }}    
+                                                <div
+                                                    key={`D2${infoDimensao.title}`}   
+                                                    style={{ 
+                                                        display: 'flex',
+                                                        flexDirection: 'row',
+                                                        marginBottom: 20,
+                                                        verticalAlign: 'center'
+                                                    }}
                                                 >
-                                                    {infoDimensao.title}
-                                                </h1>
+                                                    <Image
+                                                        key={`I1${infoDimensao.title}`}   
+                                                        src={infoDimensao.ico_title.src}
+                                                        width={100}
+                                                        height={100}
+                                                        alt="Logo header"
+                                                    />
+                                                    <h1
+                                                        style={{
+                                                            color: infoDimensao.title_color,
+                                                            fontSize: 24,
+                                                            fontWeight: 700,
+                                                            marginLeft: 20,
+                                                            height: 25,
+                                                            paddingTop: 35
+                                                        }}    
+                                                    >
+                                                        {infoDimensao.title}
+                                                    </h1>
+                                                </div>                        
+                                                <h2>{infoDimensao.content}</h2>
                                             </div>                        
-                                            <h2>{infoDimensao.content}</h2>
-                                        </div>                        
-                                    </StyledCol>                              
-                                </>
-                            }
-                        </StyledRow>
-                    </DivDimensoesDados>
-                </div>
-                
-            );
-
-        } else {
-            return (
-                <div style={{ backgroundColor: (infoDimensao.position === 'L'? '#fff' : '#f7f7f7')}}>
-                    <DivDimensoesDados>
-                        <StyledRow 
-                            gutter={[64, 16]}
-                            style={{
-                                margin: 0, 
-                                paddingLeft: 0,
-                                paddingRight: 0,
-                                paddingTop: 30,
-                                paddingBottom: 30
-                            }}
-                        >
-                            <StyledCol 
-                                flex="100%"
-                                style={{ 
+                                        </StyledCol>
+                                        <StyledCol flex="50%"
+                                            key={`R2${infoDimensao.title}`}
+                                            style={{ padding: 0 }}
+                                        >
+                                            <Image
+                                                key={`I2${infoDimensao.title}`}   
+                                                src={infoDimensao.bg_col.src}
+                                                width={0}
+                                                height={0}
+                                                sizes="100vw"
+                                                style={{ 
+                                                    width: '100%', 
+                                                    height: 'auto',
+                                                    backgroundSize: 'cover'
+                                                }} 
+                                                alt="Logo atlas oportunidades"
+                                            />
+                                        </StyledCol>
+                                    </> 
+                                    : 
+                                    <>                                    
+                                        <StyledCol flex="50%"
+                                            key={`R1${infoDimensao.title}`}
+                                            style={{ padding: 0 }}
+                                        >
+                                            <Image
+                                                key={`I1${infoDimensao.title}`}   
+                                                src={infoDimensao.bg_col.src}
+                                                width={0}
+                                                height={0}
+                                                sizes="100vw"
+                                                style={{ 
+                                                    width: '100%', 
+                                                    height: 'auto',
+                                                    backgroundSize: 'cover'
+                                                }} 
+                                                alt="Logo atlas oportunidades"
+                                            />
+                                        </StyledCol>  
+                                        <StyledCol 
+                                            key={`R2${infoDimensao.title}`}
+                                            flex="50%"
+                                            style={{ 
+                                                margin: 0, 
+                                                paddingRight: 0,
+                                                paddingTop: 0,
+                                                paddingLeft: 30,
+                                                display: 'flex',                                    
+                                                alignItems: 'center',
+                                                justifyContent: 'center'
+                                            }}
+                                        >
+                                            <div
+                                                key={`D1${infoDimensao.title}`}   
+                                            >
+                                                <div
+                                                    key={`D2${infoDimensao.title}`}   
+                                                    style={{ 
+                                                        display: 'flex',
+                                                        flexDirection: 'row-reverse',
+                                                        marginBottom: 20,
+                                                        verticalAlign: 'center'
+                                                    }}
+                                                >
+                                                    <Image
+                                                        key={`I1${infoDimensao.title}`}   
+                                                        src={infoDimensao.ico_title.src}
+                                                        width={100}
+                                                        height={100}
+                                                        alt="Logo header"
+                                                    />
+                                                    <h1
+                                                        style={{
+                                                            color: infoDimensao.title_color,
+                                                            fontSize: 24,
+                                                            fontWeight: 700,
+                                                            marginRight: 20,
+                                                            height: 25,
+                                                            paddingTop: 35
+                                                        }}    
+                                                    >
+                                                        {infoDimensao.title}
+                                                    </h1>
+                                                </div>                        
+                                                <h2>{infoDimensao.content}</h2>
+                                            </div>                        
+                                        </StyledCol>                              
+                                    </>
+                                }
+                            </StyledRow>
+                        </DivDimensoesDados>
+                    </div>                
+                );
+            } else {
+                return (
+                    <div 
+                        key={`divMainDimensoes${infoDimensao.title}`}
+                        style={{ backgroundColor: (infoDimensao.position === 'L'? '#fff' : '#f7f7f7')}}
+                    >
+                        <DivDimensoesDados key={`DD${infoDimensao.title}`}>
+                            <StyledRow 
+                                key={`R${infoDimensao.title}`}
+                                gutter={[64, 16]}
+                                style={{
                                     margin: 0, 
-                                    padding: 0,
-                                    display: 'flex',                                    
-                                    alignItems: 'center',
-                                    justifyContent: 'center'
+                                    paddingLeft: 0,
+                                    paddingRight: 0,
+                                    paddingTop: 30,
+                                    paddingBottom: 30
                                 }}
                             >
-                                <div>
+                                <StyledCol 
+                                    key={`R1${infoDimensao.title}`}
+                                    flex="100%"
+                                    style={{ 
+                                        margin: 0, 
+                                        padding: 0,
+                                        display: 'flex',                                    
+                                        alignItems: 'center',
+                                        justifyContent: 'center'
+                                    }}
+                                >
                                     <div
-                                        style={{ 
-                                            display: 'flex',
-                                            flexDirection: 'row',
-                                            marginBottom: 20,
-                                            verticalAlign: 'center'
-                                        }}
+                                        key={`D1${infoDimensao.title}`}                                
                                     >
-                                        <Image
-                                            src={infoDimensao.ico_title.src}
-                                            width={100}
-                                            height={100}
-                                            alt="Logo header"
-                                        />
-                                        <h1
-                                            style={{
-                                                color: infoDimensao.title_color,
-                                                fontSize: 24,
-                                                fontWeight: 700,
-                                                marginLeft: 20,
-                                                height: 25,
-                                                paddingTop: 35,
-                                            }}    
+                                        <div
+                                            key={`D2${infoDimensao.title}`}   
+                                            style={{ 
+                                                display: 'flex',
+                                                flexDirection: 'row',
+                                                marginBottom: 20,
+                                                verticalAlign: 'center'
+                                            }}
                                         >
-                                            {infoDimensao.title}
-                                        </h1>
-                                    </div>                        
-                                    <h2>{infoDimensao.content}</h2>
-                                    <Image
-                                        src={infoDimensao.bg_col.src}
-                                        width="0"
-                                        height="0"
-                                        style={{
-                                            marginTop: 20,
-                                            width: '100%',
-                                            height: '240px',
-                                            objectFit: 'cover',
-                                            objectPosition: 'center center',                                            
-                                        }}
-                                        
-                                        alt="Logo atlas oportunidades"
-                                    /> 
-                                </div>               
-                            </StyledCol>
-                        </StyledRow>
-                    </DivDimensoesDados>
-                </div>
-            );
+                                            <Image
+                                                key={`I1${infoDimensao.title}`}   
+                                                src={infoDimensao.ico_title.src}
+                                                width={50}
+                                                height={50}
+                                                alt="Logo header"
+                                            />
+                                            <h1
+                                                style={{
+                                                    color: infoDimensao.title_color,
+                                                    fontSize: 20,
+                                                    fontWeight: 700,
+                                                    marginLeft: 20,
+                                                    height: 25,
+                                                    paddingTop: 10,
+                                                }}    
+                                            >
+                                                {infoDimensao.title}
+                                            </h1>
+                                        </div>                        
+                                        <h2>{infoDimensao.content}</h2>
+                                        <Image
+                                            key={`I2${infoDimensao.title}`}   
+                                            src={infoDimensao.bg_col.src}
+                                            width="0"
+                                            height="0"
+                                            style={{
+                                                marginTop: 20,
+                                                width: '100%',
+                                                height: '240px',
+                                                objectFit: 'cover',
+                                                objectPosition: 'center center',                                            
+                                            }}                                        
+                                            alt="Logo atlas oportunidades"
+                                        /> 
+                                    </div>               
+                                </StyledCol>
+                            </StyledRow>
+                        </DivDimensoesDados>
+                    </div>
+                );
+            }
         }
+        
     }
 
     return (
@@ -470,13 +505,13 @@ function PerfilDados() {
                 key={"main"}
                 style={{
                     backgroundColor: "#001228",
-                    backgroundImage: width! > 1386? `url(${bg_perfil_dados.src})` : `url(${bg_perfil_dados_sem_foto.src})`,
-                    backgroundSize: "1440px 862px",
+                    backgroundImage: width! > 1386? `url(${bg_perfil_dados.src})` : `linear-gradient(278deg, rgba(0,3,9,1) 0%, rgba(0,14,30,1) 100%)`,
+                    backgroundSize:  width! > 1386? "1440px 862px" : "100%",
                     backgroundPosition: "center right",
                     backgroundRepeat: "no-repeat",
                 }}
             >
-                <DivTelaInicialCenter>{RetornaConteudoInicial()}</DivTelaInicialCenter>
+                <DivTelaInicialCenter key={"mainTelaInicial"}>{RetornaConteudoInicial()}</DivTelaInicialCenter>
             </DivTelaInicial>
             <DivTelaInicial
                 key={"dimensoes"}
@@ -490,6 +525,7 @@ function PerfilDados() {
                 }}                
             >
                 <DivTelaInicialCenter
+                    key={"dimensoesTelaInicial"}
                     style={{ verticalAlign: 'center', paddingTop: 35 }}
                 >
                     <h1 
