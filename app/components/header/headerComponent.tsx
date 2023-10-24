@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { useRouter, usePathname } from 'next/navigation';
 import { Layout, Space, Button } from 'antd';
 import { 
     DivHeader,
@@ -21,27 +20,9 @@ import en from "@/public/static/locales/en.json";
 import pt from "@/public/static/locales/pt.json";
 import en_pu from "@/public/static/publications/en.json";
 import pt_pu from "@/public/static/publications/pt.json";
-
-import type { MenuProps, MenuTheme } from 'antd/es/menu';
-
-type MenuItem = Required<MenuProps>['items'][number];
-
-function getItem(
-    label: React.ReactNode,
-    key?: React.Key | null,
-    icon?: React.ReactNode,
-    children?: MenuItem[],
-): MenuItem {
-    return {
-        key,
-        icon,
-        children,
-        label,
-    } as MenuItem;
-}
+import MenuComponent from '@/app/components/menu/menu';
 
 export default function HeaderComponent(props: any){
-    const pathname_src = usePathname();
     const [openMenu, setOpenMenu] = useState<boolean>(false);
     const [localeSel, setLocaleSel] = useState<LocaleLang>();
     const [menuS, setMenuS] = useState<MenuSelected>();
@@ -56,43 +37,6 @@ export default function HeaderComponent(props: any){
     useEffect(() => {
         setMenuS(menuSel!);        
     }, [menuSel])
-
-    const items: MenuItem[] = [
-        getItem(
-            <>
-                <a href={`${pathname_src.substring(0, pathname_src.lastIndexOf("/") + 1)}index.html`}>
-                    {localeSel?.languageJson.menu_1}
-                </a>
-            </>,
-            'projeto'
-        ),
-        getItem(
-            <>
-                <a href={`${pathname_src.substring(0, pathname_src.lastIndexOf("/") + 1)}colaboradores.html`}>
-                    {localeSel?.languageJson.menu_2}
-                </a>
-            </>,
-            'colaboradores'
-        ),
-        getItem(
-            <>
-                <a href={`${pathname_src.substring(0, pathname_src.lastIndexOf("/") + 1)}perfil_dados.html`}>
-                    {localeSel?.languageJson.menu_3}
-                </a>
-            </>,
-            'perfil_dados'
-        ),
-        getItem(
-            localeSel?.languageJson.menu_4,
-            'tutorial'
-        ),
-        getItem(
-            <Link href="https://www.ufrgs.br/gpmc/papers-in-journals/" rel="noopener noreferrer" target="_blank">
-                {localeSel?.languageJson.menu_5}
-            </Link>,
-            'grupo_pesquisa'
-        )
-    ];
 
     const onClickChangeLocale = () => {
         if(localeSel?.language === 'en'){
@@ -137,57 +81,56 @@ export default function HeaderComponent(props: any){
                 {
                     props.windows[0] > 1300 ? (
                     <>
-                        <StyledMenu 
-                            selectedKeys={[menuS!.keyName]}
-                            mode={"horizontal"} 
-                            items={items}
+                        <MenuComponent
+                            keySel={menuS!.keyName}
+                            modo={"horizontal"}
                         />
-                            <Link href="https://github.com/gpmc-lab-ufrgs/atlas-of-opportunity" rel="noopener noreferrer" target="_blank">
-                                <Button
-                                    style={{ background: "#0A74A638", border: 0 }}
-                                    icon={<GithubOutlined style={{ color: "#fff" }} />}
-                                />
-                            </Link>
+                        <Link href="https://github.com/gpmc-lab-ufrgs/atlas-of-opportunity" rel="noopener noreferrer" target="_blank">
+                            <Button
+                                style={{ background: "#0A74A638", border: 0 }}
+                                icon={<GithubOutlined style={{ color: "#fff" }} />}
+                            />
+                        </Link>
+                        <Button
+                            style={{
+                                width: 32,
+                                height: 32,
+                                background: "#0A74A638",
+                                border: 0,
+                                padding: 0,
+                                display: 'flex',
+                                alignItems: 'center',
+                                justifyContent: 'space-between'
+                            }}
+                            onClick={onClickChangeLocale}
+                        >
+                            <Image
+                                src={(localeSel?.language === 'en'? enIcon.src : ptIcon.src)}
+                                width={21}
+                                height={18.7}
+                                style={{ 
+                                    marginLeft: 'auto',
+                                    marginRight: 'auto'
+                                }}
+                                alt="Logo header"
+                            />
+                        </Button>
+                        <Link href="http://3.92.188.34:3000/" rel="noopener noreferrer" target="_blank">
                             <Button
                                 style={{
-                                    width: 32,
-                                    height: 32,
-                                    background: "#0A74A638",
+                                    background: "#0A74A6",
+                                    textTransform: "uppercase",
+                                    color: "#fff",
                                     border: 0,
-                                    padding: 0,
-                                    display: 'flex',
-                                    alignItems: 'center',
-                                    justifyContent: 'space-between'
+                                    paddingLeft: 30,
+                                    paddingRight: 30,
+                                    fontSize: 13,
                                 }}
-                                onClick={onClickChangeLocale}
                             >
-                                <Image
-                                    src={(localeSel?.language === 'en'? enIcon.src : ptIcon.src)}
-                                    width={21}
-                                    height={18.7}
-                                    style={{ 
-                                        marginLeft: 'auto',
-                                        marginRight: 'auto'
-                                    }}
-                                    alt="Logo header"
-                                />
+                                {localeSel?.languageJson.btn_ir_atlas}
                             </Button>
-                            <Link href="http://3.92.188.34:3000/" rel="noopener noreferrer" target="_blank">
-                                <Button
-                                    style={{
-                                        background: "#0A74A6",
-                                        textTransform: "uppercase",
-                                        color: "#fff",
-                                        border: 0,
-                                        paddingLeft: 30,
-                                        paddingRight: 30,
-                                        fontSize: 13,
-                                    }}
-                                >
-                                    {localeSel?.languageJson.btn_ir_atlas}
-                                </Button>
-                            </Link>
-                        </>
+                        </Link>
+                    </>
                     ) : ( <></> )
                 }
                 {
@@ -255,11 +198,9 @@ export default function HeaderComponent(props: any){
                                 </Space>
                             }
                         >
-                            <StyledMenu 
-                                selectedKeys={[menuS!.keyName]}
-                                mode={"vertical"} 
-                                items={items}
-                                // onClick={(e: any) => onClickMenu(e.key)}
+                            <MenuComponent
+                                keySel={menuS!.keyName}
+                                modo={"vertical"}
                             />
                         </StyledDrawer>
                     </>

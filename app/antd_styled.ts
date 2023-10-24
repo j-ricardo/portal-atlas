@@ -32,6 +32,29 @@ export const DivHeader = styled.div`
     justify-content: space-between;
 `;
 
+export const DivMenu = styled.div`
+    width: 167px;
+    .ant-menu-item-selected{
+        background: #0A74A6 !important;
+    }
+    .goRgDq{
+        max-width: 167px;
+        min-width: 167px;
+    }
+    .ant-menu-vertical .ant-menu-item{
+        width: 167px;
+        height: 30px;
+        line-height: 30px;
+        border-radius: 0px;
+        padding: 0px 0px 0px 5px !important;
+        margin: 0px !important;
+        color: #fff;
+        font-size: 12px;
+        font-weight: 500;
+        font-family: 'Montserrat', sans-serif;
+    }
+`;
+
 export const StyledMenu = styled(Menu)`
     margin-top: auto;
     margin-bottom: auto;
@@ -50,7 +73,6 @@ export const StyledMenu = styled(Menu)`
     .ant-menu-item:hover{
         color: #fff !important;
     }
-
 `
 export const StyledDrawer = styled(Drawer)`
     background: #00406F;

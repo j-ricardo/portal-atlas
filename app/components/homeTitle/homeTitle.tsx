@@ -3,6 +3,7 @@ import React, { useState, useEffect } from "react";
 
 import { useAppDispatch, useAppSelector } from "@/app/hooks";
 import { LocaleLang, changeLocale, langSelector } from "@/app/features/localeSlice";
+import ico from "@/public/favicon.ico";
 
  
 export function HomeTitleComponent() {
@@ -15,6 +16,7 @@ export function HomeTitleComponent() {
 
     return (
         <Head>
+            <link rel="shortcut icon" href={ico.src} />
             <title>{localeSel?.languageJson.app_title}</title>
         </Head>
     )

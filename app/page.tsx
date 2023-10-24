@@ -88,8 +88,8 @@ function Home() {
   
   useEffect(() => {
     const m: MenuSelected = {
-      idMenu: 1,
-      keyName: 'projeto'
+      idMenu: 0,
+      keyName: 'inicio'
     };
     dispatch(changePage(m));
   }, [])

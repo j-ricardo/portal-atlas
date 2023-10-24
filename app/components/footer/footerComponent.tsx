@@ -1,25 +1,34 @@
 import React, { useState, useEffect } from "react";
 import { Layout, Space, Button, Col, Row } from "antd";
 import Image from 'next/image';
+import Link from 'next/link';
 import logoFinal_pt from '@/public/ico/pt/LOGO_logo_final.png';
 import logoFinal_en from '@/public/ico/en/LOGO_logo_final.png';
 import {
-  StyledDivFooter,
-  StyledDivFooterContent,
-  StyledDivDireitosReservados,
+    DivMenu,
+    StyledDivFooter,
+    StyledDivFooterContent,
+    StyledDivDireitosReservados,
 } from "@/app/antd_styled";
 const { Footer } = Layout;
 import { useAppDispatch, useAppSelector } from "@/app/hooks";
 import { LocaleLang, changeLocale, langSelector } from "@/app/features/localeSlice";
+import { MenuSelected, changePage, menuSelector } from '@/app/features/menuSlice';
+import MenuComponent from "@/app/components/menu/menu";
 
 export default function FooterComponent(props: any) {
     const [localeSel, setLocaleSel] = useState<LocaleLang>();
-    const selectedLocale = useAppSelector(langSelector);
-    const dispatch = useAppDispatch();
+    const [menuS, setMenuS] = useState<MenuSelected>();
+    const selectedLang = useAppSelector(langSelector);
+    const menuSel = useAppSelector(menuSelector);
 
     useEffect(() => {
-        setLocaleSel(selectedLocale);
-    }, [selectedLocale]);
+        setLocaleSel(selectedLang);
+    }, [selectedLang]);
+
+    useEffect(() => {
+        setMenuS(menuSel!);        
+    }, [menuSel])
 
     const retornaConteudoFooter = () => {
         var quant = 3;
@@ -37,12 +46,6 @@ export default function FooterComponent(props: any) {
 
         var columnsFooter = [
             <Col key={"colmain1"}>
-                {/* <img
-                    src={(localeSel?.language === 'en'? logoFinal_en.src : logoFinal_pt.src)}
-                    style={{ 
-                        width: "auto", height: 198 
-                    }}
-                /> */}
                 <Image
                     src={(localeSel?.language === 'en'? logoFinal_en.src : logoFinal_pt.src)}
                     width={0}
@@ -117,26 +120,29 @@ export default function FooterComponent(props: any) {
                     </Space>
                 </Space>
             </Col>,
-            <Col key={"colmain3"} style={{ alignItems: "right" }}>
-                <Space direction="vertical" size="middle">
-                    <p style={{ textTransform: "uppercase" }}>{localeSel?.languageJson.menu_1}</p>
-                    <p style={{ textTransform: "uppercase" }}>{localeSel?.languageJson.menu_2}</p>
-                    <p style={{ textTransform: "uppercase" }}>{localeSel?.languageJson.menu_3}</p>
-                    <p style={{ textTransform: "uppercase" }}>{localeSel?.languageJson.menu_4}</p>
-                    <p style={{ textTransform: "uppercase" }}>{localeSel?.languageJson.menu_5}</p>
-                    <Button
-                        style={{
-                        background: "#0A74A6",
-                        textTransform: "uppercase",
-                        color: "#fff",
-                        border: 0,
-                        paddingLeft: 30,
-                        paddingRight: 30,
-                        fontSize: 13,
-                        }}
-                    >
-                        {localeSel?.languageJson.btn_ir_atlas}
-                    </Button>
+            <Col key={"colmain3"} style={{ alignItems: "right", marginLeft: 'auto' }}>
+                <Space direction="vertical" size="small">
+                    <DivMenu>
+                        <MenuComponent
+                            keySel={(menuS === undefined? '0' : menuS!.keyName!)}
+                            modo={"vertical"}
+                        />
+                    </DivMenu>
+                    <Link href="http://3.92.188.34:3000/" rel="noopener noreferrer" target="_blank">
+                        <Button
+                            style={{
+                            background: "#0A74A6",
+                            textTransform: "uppercase",
+                            color: "#fff",
+                            border: 0,
+                            paddingLeft: 30,
+                            paddingRight: 30,
+                            fontSize: 13,
+                            }}
+                        >
+                            {localeSel?.languageJson.btn_ir_atlas}
+                        </Button>
+                    </Link>
                 </Space>
             </Col>,
         ];

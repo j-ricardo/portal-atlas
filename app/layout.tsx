@@ -26,10 +26,7 @@ export default function RootLayout({
     <html lang="pt">
       <Providers>
         <HomeTitleComponent />
-        <body 
-          // className={mont.className}
-          style={{ margin: 0 }}
-        >          
+        <body style={{ margin: 0 }}>          
           <GlobalStyle />
           <Layout className="layout">
             <HeaderComponent windows={[width, height]} />
