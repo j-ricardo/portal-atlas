@@ -47,8 +47,6 @@ export default function MenuComponent(props: any){
 
     useEffect(() => {
         setPathName(pathname_src);
-        console.log('alterado');
-        console.log(pathname_src);
     }, [pathname_src])
 
     const ReturnMenuItem = (): MenuItem[] => {
@@ -62,7 +60,11 @@ export default function MenuComponent(props: any){
                 'inicio'
             ),
             getItem(
-                localeSel?.languageJson.menu_1,
+                <>
+                    <a href={`${pathName!.substring(0, pathName!.lastIndexOf("/") + 1)}projeto.html`}>
+                        {localeSel?.languageJson.menu_1}
+                    </a>
+                </>,
                 'projeto'
             ),
             getItem(

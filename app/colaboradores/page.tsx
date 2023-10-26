@@ -14,6 +14,7 @@ import { MenuSelected, changePage, menuSelector } from '@/app/features/menuSlice
 import { LocaleLang, langSelector } from "@/app/features/localeSlice";
 import RetornaFoto from '../helper/returnFotoById';
 import { Button, Space } from 'antd';
+
 interface Colaboradores {
     id: string;
     nome_col: string;
@@ -28,12 +29,10 @@ interface Colaboradores {
 
 import ListaColaboradores from "@/public/colaboradores.json";
 
-function Colaboradores(){
+export default function Colaboradores(){
     const [localeSel, setLocaleSel] = useState<LocaleLang>();
     const selectedLocale = useAppSelector(langSelector);
     const dispatch = useAppDispatch();
-    const [menuS, setMenuS] = useState<MenuSelected>();
-    const menuSel = useAppSelector(menuSelector);
     const [hoverId, setHoverId] = useState<string>("0");
 
     const lstColaboradoresAtuais = () => {
@@ -353,5 +352,3 @@ function Colaboradores(){
       </>
     );
 }
-
-export default Colaboradores;

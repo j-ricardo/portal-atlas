@@ -88,6 +88,12 @@ export const DivTelaInicial = styled.div`
     margin: 0;
 `;
 
+export const DivTelaInicialProjeto = styled.div`
+    height: auto;
+    padding: 92px 0 20px 0;
+    margin: 0;
+`;
+
 export const DivTelaInicialColaboradores = styled.div`
     height: auto;
     background: #00406F;
@@ -172,6 +178,14 @@ export const DivTelaInicialCenter = styled.div`
         font-weight: 500;
         font-size: 14px;
         line-height: 17.07px;
+    }
+
+    span{
+        font-family: 'Montserrat', sans-serif;
+        font-weight: 800;
+        font-size: 18px;
+        line-height: 17.07px;
+        color: #1DC0A9;
     }
 `;
 
