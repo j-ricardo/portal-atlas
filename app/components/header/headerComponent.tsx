@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
+import { useRouter, usePathname } from 'next/navigation';
 import { Layout, Space, Button } from 'antd';
 import { 
     DivHeader,
@@ -23,6 +24,8 @@ import pt_pu from "@/public/static/publications/pt.json";
 import MenuComponent from '@/app/components/menu/menu';
 
 export default function HeaderComponent(props: any){
+    const pathname_src = usePathname();
+    const [pathName, setPathName] = useState<string>('');
     const [openMenu, setOpenMenu] = useState<boolean>(false);
     const [localeSel, setLocaleSel] = useState<LocaleLang>();
     const [menuS, setMenuS] = useState<MenuSelected>();
@@ -37,6 +40,10 @@ export default function HeaderComponent(props: any){
     useEffect(() => {
         setMenuS(menuSel!);        
     }, [menuSel])
+
+    useEffect(() => {
+        setPathName(pathname_src);
+    }, [pathname_src])
 
     const onClickChangeLocale = () => {
         if(localeSel?.language === 'en'){
@@ -70,13 +77,15 @@ export default function HeaderComponent(props: any){
             }}
         >
             <DivHeader>
-                <Image
-                    src={(localeSel?.language === 'en'? headerIconEn.src : headerIconPt.src)}
-                    width={159}
-                    height={80}
-                    style={{ marginRight: 0 }}
-                    alt="Logo header"
-                />
+                <Link href={`${pathName!.substring(0, pathName!.lastIndexOf("/") + 1)}index.html`} rel="noopener noreferrer" target="_blank">
+                    <Image
+                        src={(localeSel?.language === 'en'? headerIconEn.src : headerIconPt.src)}
+                        width={159}
+                        height={80}
+                        style={{ marginRight: 0 }}
+                        alt="Logo header"
+                    />
+                </Link>
                 <Space size={"middle"}>
                 {
                     props.windows[0] > 1300 ? (

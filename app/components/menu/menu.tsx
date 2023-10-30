@@ -84,10 +84,6 @@ export default function MenuComponent(props: any){
                 'perfil_dados'
             ),
             getItem(
-                localeSel?.languageJson.menu_4,
-                'tutorial'
-            ),
-            getItem(
                 <Link href="https://www.ufrgs.br/gpmc/papers-in-journals/" rel="noopener noreferrer" target="_blank">
                     {localeSel?.languageJson.menu_5}
                 </Link>,

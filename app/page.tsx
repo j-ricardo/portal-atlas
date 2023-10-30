@@ -65,7 +65,7 @@ const Sul_australia_adelaide_pt: string = 'Governo do Sul da Austrália - AU';
 
 const Mit_cambridge_en: string = 'Massachusetts Institute of Technology - USA';
 const Ufrgs_porto_alegre_en: string = 'Federal University of Rio Grande do Sul - BR';
-const Fgv_rio_de_janeiro_en: string = 'Fundação Getúlio Vargas - BR';
+const Fgv_rio_de_janeiro_en: string = 'Fundation Getúlio Vargas - BR';
 const Ubn_brasilia_en: string = 'University of Brasilia - BR';
 const Ufg_goiania_en: string = 'Federal University of Goiás - BR';
 const Bocconi_milan_en: string = 'Bocconi University - IT';
@@ -75,6 +75,7 @@ const Sul_australia_adelaide_en: string = 'Government of South Australia - AU';
 
 function Home() {
   const pathname_src = usePathname();
+  const [pathName, setPathName] = useState<string>('');
   const { width, height } = useWindowDimensions();
   const mapRef = React.useRef<HTMLInputElement>() as React.MutableRefObject<HTMLInputElement>;
   const [heightMap, setHeightMap] = useState<number | null>(null);
@@ -94,17 +95,21 @@ function Home() {
     dispatch(changePage(m));
   }, [])
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     setLocaleSel(selectedLocale);
   }, [selectedLocale]);
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     if(mapRef.current !== undefined ){
       setHeightMap(mapRef.current.clientHeight!);
       setWidthMap(mapRef.current.clientWidth!);
       setPosition(mapRef.current.clientHeight!*(-1));
     }    
   }, [width, height]);
+
+  useEffect(() => {
+    setPathName(pathname_src);
+  }, [pathname_src]);
 
   const RetornaConteudoInicial = () => {
     if(width! > 1030){
@@ -128,19 +133,27 @@ function Home() {
             >
               {localeSel?.languageJson.page_1_header_sub}
             </h2>
-            <Button 
-              style={{
-                textTransform: 'uppercase',
-                marginTop: 10,
-                color: '#0A74A6',
-                borderColor: '#0A74A6',
-                fontSize: 14,
-                fontWeight: 500,
-              }}
-              type="primary" ghost
-            >
-              {localeSel?.languageJson.btn_saiba_mais}
-            </Button>
+            <Link href={`${pathName!.substring(0, pathName!.lastIndexOf("/") + 1)}projeto.html`} rel="noopener noreferrer" target="_blank">
+              <Button 
+                style={{
+                  textTransform: 'uppercase',
+                  marginTop: 20,
+                  color: '#0A74A6',
+                  borderColor: '#0A74A6',
+                  fontSize: 14,
+                  fontWeight: 500,
+                }}
+                type="primary" ghost
+              >
+                <span
+                  style={{
+                      color: '#0A74A6',
+                  }}
+                >
+                  {localeSel?.languageJson.btn_saiba_mais}
+                </span>                
+              </Button>
+            </Link>
           </StyledCol>
           <StyledCol
             flex="50%"
@@ -151,12 +164,6 @@ function Home() {
               flexDirection: 'row-reverse'
             }}
           >
-            {/* <img
-              src={(localeSel?.language === 'en'? logoFinalEn.src : logoFinalPt.src)}
-              style={{ 
-                width: '100%', maxWidth: 489, height: 'auto', marginRight: 0
-              }}
-            /> */}
             <Image
               src={(localeSel?.language === 'en'? logoFinalEn.src : logoFinalPt.src)}
               width={0}
@@ -187,19 +194,27 @@ function Home() {
             >
               {localeSel?.languageJson.page_1_header_sub}
             </h2>
-            <Button 
-              style={{
-                textTransform: 'uppercase',
-                marginTop: 10,
-                color: '#0A74A6',
-                borderColor: '#0A74A6',
-                fontSize: 14,
-                fontWeight: 500,
-              }}
-              type="primary" ghost
-            >
-              {localeSel?.languageJson.btn_saiba_mais}
-            </Button>
+            <Link href={`${pathName!.substring(0, pathName!.lastIndexOf("/") + 1)}projeto.html`} rel="noopener noreferrer" target="_blank">
+              <Button 
+                style={{
+                  textTransform: 'uppercase',
+                  marginTop: 20,
+                  color: '#0A74A6',
+                  borderColor: '#0A74A6',
+                  fontSize: 14,
+                  fontWeight: 500,
+                }}
+                type="primary" ghost
+              >
+                <span
+                  style={{
+                      color: '#0A74A6',
+                  }}
+                >
+                  {localeSel?.languageJson.btn_saiba_mais}
+                </span>                
+              </Button>
+            </Link>
           </StyledCol>
         </StyledRow>
       );
@@ -231,11 +246,11 @@ function Home() {
               >
                 {localeSel?.languageJson.page_1_perfil_title_1}
               </h2>
-              <a href={`${pathname_src.substring(0, pathname_src.lastIndexOf("/") + 1)}perfil_dados.html`}>
+              <Link href={`${pathName!.substring(0, pathName!.lastIndexOf("/") + 1)}perfil_dados.html`} rel="noopener noreferrer" target="_blank">
                 <Button 
                   style={{
                     textTransform: 'uppercase',
-                    marginTop: 80,
+                    marginTop: 20,
                     color: '#0A74A6',
                     borderColor: '#0A74A6',
                     fontSize: 14,
@@ -243,10 +258,15 @@ function Home() {
                   }}
                   type="primary" ghost
                 >
-                  {localeSel?.languageJson.btn_saiba_mais}
+                  <span
+                    style={{
+                        color: '#0A74A6',
+                    }}
+                  >
+                    {localeSel?.languageJson.btn_saiba_mais}
+                  </span>                
                 </Button>
-              </a>
-              
+              </Link>              
             </StyledCol>
             <StyledCol
               flex="50%"
@@ -257,14 +277,6 @@ function Home() {
               }}
             >
               <StyledDivImg>
-                {/* <img
-                  src={(localeSel?.language === 'en'? ColaboradoresEn.src : ColaboradoresPt.src)}
-                  style={{ 
-                    width: '100%', 
-                    maxWidth: 637, 
-                    height: 'auto',
-                  }}
-                /> */}
                 <Image
                   src={(localeSel?.language === 'en'? ColaboradoresEn.src : ColaboradoresPt.src)}
                   width={0}
@@ -274,13 +286,10 @@ function Home() {
                   alt="Logo atlas oportunidades"
                 />
               </StyledDivImg>
-              
-              
             </StyledCol>
           </StyledRow>
         </DivTelaInicialCenter>        
       );
-
     } else {
       return (
         <DivTelaInicialCenter style={{ marginBottom: 0}}>
@@ -306,18 +315,27 @@ function Home() {
               >
                 {localeSel?.languageJson.page_1_perfil_title_1}
               </h2>
-              <Button 
-                style={{
-                  textTransform: 'uppercase',
-                  marginTop: 10,
-                  color: '#0A74A6',
-                  fontSize: 14,
-                  fontWeight: 500,
-                }}
-                type="primary" ghost
-              >
-                {localeSel?.languageJson.btn_saiba_mais}
-              </Button>
+              <Link href={`${pathName!.substring(0, pathName!.lastIndexOf("/") + 1)}perfil_dados.html`} rel="noopener noreferrer" target="_blank">
+                <Button 
+                  style={{
+                    textTransform: 'uppercase',
+                    marginTop: 20,
+                    color: '#0A74A6',
+                    borderColor: '#0A74A6',
+                    fontSize: 14,
+                    fontWeight: 500,
+                  }}
+                  type="primary" ghost
+                >
+                  <span
+                    style={{
+                        color: '#0A74A6',
+                    }}
+                  >
+                    {localeSel?.languageJson.btn_saiba_mais}
+                  </span>                
+                </Button>
+              </Link>
             </StyledCol>
           </StyledRow>
         </DivTelaInicialCenter>

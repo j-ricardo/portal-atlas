@@ -1,11 +1,13 @@
 'use client'
 import React, { useState, useLayoutEffect, useRef, useEffect } from 'react';
+import { useRouter, usePathname } from 'next/navigation';
 import { 
     DivTelaInicialColaboradores,
     DivTelaInicialProjeto,
     StyledCol,
     StyledRow,
-    DivTelaInicialCenter
+    DivTelaInicialCenter,
+    DivTelaInicial
 } from "@/app/antd_styled";
 import Image, { StaticImageData } from 'next/image';
 import Link from 'next/link';
@@ -15,9 +17,21 @@ import { LocaleLang, langSelector } from "@/app/features/localeSlice";
 import RetornaFoto from '../helper/returnFotoById';
 import { Button, Space } from 'antd';
 import bg_fundo_projeto from '@/public/ico/fundo_projeto.png';
+import ft_brasil_pt from '@/public/ico/ft_brasil_pt.png';
+import ft_brasil_en from '@/public/ico/ft_brasil_en.png';
+import ft_nova_york_pt from '@/public/ico/ft_nova_york_pt.png';
+import ft_nova_york_en from '@/public/ico/ft_nova_york_en.png';
+import ft_sul_australia_pt from '@/public/ico/ft_sul_australia_pt.png';
+import ft_sul_australia_en from '@/public/ico/ft_sul_australia_en.png';
+import bg_fundo_instituicoes from '@/public/ico/fundo_instituicoes.png';
+import ico_instituicoes_pt from '@/public/ico/ico_instituicoes_pt.png';
+import ico_instituicoes_en from '@/public/ico/ico_instituicoes_pt.png';
+
 import useWindowDimensions from "@/app/helper/useWindowDimension";
 
 export default function Projeto(){
+    const pathname_src = usePathname();
+    const [pathName, setPathName] = useState<string>('');
     const { width, height } = useWindowDimensions();
     const [localeSel, setLocaleSel] = useState<LocaleLang>();    
     const selectedLocale = useAppSelector(langSelector);
@@ -35,14 +49,17 @@ export default function Projeto(){
         setLocaleSel(selectedLocale);
     }, [selectedLocale]);
 
+    useEffect(() => {
+        setPathName(pathname_src);
+    }, [pathname_src])
+
     return (
         <>
             <DivTelaInicialColaboradores />
             <DivTelaInicialProjeto
                 key={"main"}
                 style={{
-                    height: 700,
-                    background: width! > 1386? `no-repeat 80% center / contain url(${bg_fundo_projeto.src}), linear-gradient(90deg, #fff 80%, #53bfaf 20%)` : `no-repeat 90% center / contain url(${bg_fundo_projeto.src}), linear-gradient(90deg, #fff 90%, #54bcb4 10%)`,
+                    background: width! > 1588? `no-repeat center right / contain url(${bg_fundo_projeto.src}), linear-gradient(90deg, #fff 80%, #44a192 20%)` : `linear-gradient(90deg, #fff 80%, #fff 20%)`,
                 }}
             >
                 <DivTelaInicialCenter>
@@ -50,9 +67,9 @@ export default function Projeto(){
                         gutter={[64, 16]}                        
                     >
                         <StyledCol
-                            flex="60%"
+                            flex={(width! > 1588? "60%" : "100%")}
                             style={{
-                                marginRight: 0,
+                                margin: 0,
                             }}
                         >
                             <h1 key={"h1Main"} style={{color: '#0A74A6', marginBottom: 20 }}>{localeSel?.languageJson.page_4_title_1}</h1>
@@ -93,7 +110,7 @@ export default function Projeto(){
                                 {localeSel?.languageJson.page_4_t1_content_2_pt4}                       
                             </h2>
                             <h2
-                                key={"h22Main"} 
+                                key={"h23Main"} 
                                 style={{
                                     color: '#4E4E4E',
                                     textAlign: "justify",
@@ -112,8 +129,102 @@ export default function Projeto(){
                             <></>
                         </StyledCol>
                     </StyledRow>
+                    <StyledRow
+                        style={{ marginTop: 20 }}
+                        gutter={[16, 16]}
+                    >
+                        <StyledCol
+                            key={"ColMain21"}
+                            flex="33.33%"
+                        >
+                            <Image
+                                src={(localeSel?.language === 'en'? ft_brasil_en.src : ft_brasil_pt.src)}
+                                width={0}
+                                height={0}
+                                sizes="100vw"
+                                style={{ width: '100%'}} 
+                                alt="Mapa brasil"
+                            />
+                        </StyledCol>
+                        <StyledCol
+                            key={"ColMain22"}
+                            flex="33.33%"
+                        >
+                            <Image
+                                src={(localeSel?.language === 'en'? ft_nova_york_en.src : ft_nova_york_pt.src)}
+                                width={0}
+                                height={0}
+                                sizes="100vw"
+                                style={{ width: '100%'}} 
+                                alt="Mapa Nova York"
+                            />
+                        </StyledCol>
+                        <StyledCol
+                            key={"ColMain23"}
+                            flex="33.33%"
+                        >
+                            <Image
+                                src={(localeSel?.language === 'en'? ft_sul_australia_en : ft_sul_australia_pt.src)}
+                                width={0}
+                                height={0}
+                                sizes="100vw"
+                                style={{ width: '100%'}} 
+                                alt="Mapa Sul Australia"
+                            />
+                        </StyledCol>
+                    </StyledRow>
                 </DivTelaInicialCenter>
             </DivTelaInicialProjeto>
+            <DivTelaInicial
+                key={"dimensoes"}
+                style={{
+                    backgroundImage: `url(${bg_fundo_instituicoes.src})`,
+                    backgroundSize: "cover",
+                    backgroundPosition: "center center",
+                    backgroundRepeat: "no-repeat",
+                    padding: 0,
+                    paddingTop: 30,
+                    paddingBottom: 30
+                }}                
+            >
+                <DivTelaInicialCenter
+                    key={"dimensoesTelaInicial"}
+                    style={{ verticalAlign: 'center', marginBottom: 0 }}
+                >
+                    <Image
+                        src={(localeSel?.language === 'en'? ico_instituicoes_en.src : ico_instituicoes_pt.src)}
+                        width={0}
+                        height={0}
+                        sizes="100vw"
+                        style={{ width: '100%'}} 
+                        alt="Instituicoes"
+                    />
+                    
+                </DivTelaInicialCenter>
+                <Link href={`${pathName!.substring(0, pathName!.lastIndexOf("/") + 1)}colaboradores.html`} rel="noopener noreferrer" target="_blank">                
+                    <Button 
+                        style={{
+                            textTransform: 'uppercase',
+                            borderColor: '#fff',
+                            marginTop: 30,
+                            fontSize: 14,
+                            fontWeight: 500,
+                            marginLeft: 'auto',
+                            marginRight: 'auto',
+                            display: 'block'
+                        }}
+                        type="primary" ghost
+                    >
+                        <span
+                            style={{
+                                color: '#fff',
+                            }}
+                        >
+                            {localeSel?.languageJson.page_4_t2}
+                        </span>                        
+                    </Button>
+                </Link>
+            </DivTelaInicial>
             
         </>
     );
