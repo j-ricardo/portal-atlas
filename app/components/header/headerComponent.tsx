@@ -86,8 +86,6 @@ export default function HeaderComponent(props: any){
     const retornaPage = () => {
         const raiz = pathname_src!.substring(0, pathname_src!.lastIndexOf("/") + 1);
         var pagina = pathname_src!.substring(pathname_src!.lastIndexOf("/") + 1);
-        console.log(raiz);
-        console.log(pagina);
         if(pagina === "" || pagina === "/" || pagina.includes("index_en") || pagina.includes("index.html")){
             if(menuS?.language === 'pt'){
                 pagina = `index_en${(process.env.NEXT_PUBLIC_IS_LOCAL === "true"? "" : ".html")}`;
@@ -95,9 +93,8 @@ export default function HeaderComponent(props: any){
                 pagina = `/${(process.env.NEXT_PUBLIC_IS_LOCAL === "true"? "" : "index.html")}`;
             }
         } else {
-            pagina = `${pagina.replace('_en', '')}${(menuS?.language === "pt"? "_en" : "")}${(process.env.NEXT_PUBLIC_IS_LOCAL === "true"? "" : ".html")}`
+            pagina = `${pagina.replace('_en', '').replace('.html', '')}${(process.env.NEXT_PUBLIC_IS_LOCAL === "true"? (menuS?.language === "pt"? "_en" : "") : (menuS?.language === "pt"? "_en.html" : ".html"))}`
         }
-        console.log(pagina);
         return `${raiz}${pagina}`.replace('//', '/');
     }
 
