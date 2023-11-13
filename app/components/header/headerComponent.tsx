@@ -29,21 +29,41 @@ export default function HeaderComponent(props: any){
     const [openMenu, setOpenMenu] = useState<boolean>(false);
     const [localeSel, setLocaleSel] = useState<LocaleLang>();
     const [menuS, setMenuS] = useState<MenuSelected>();
+    const [linkMenu, setLinkMenu] = useState<string>('');
     const selectedLang = useAppSelector(langSelector);
     const menuSel = useAppSelector(menuSelector);
     const dispatch = useAppDispatch();
 
-    useEffect(() => {
-        setLocaleSel(selectedLang);
-    }, [selectedLang]);
+    // useEffect(() => {
+    //     setLocaleSel(selectedLang);
+    // }, [selectedLang]);
 
     useEffect(() => {
-        setMenuS(menuSel!);        
-    }, [menuSel])
+        setMenuS(menuSel!);   
+        if(menuSel.language === "en"){
+            setLocaleSel({
+                ...localeSel,
+                language : 'en',
+                languageJson : en,
+                publish: en_pu
+            });
+        } else {
+            setLocaleSel({
+                ...localeSel,
+                language : 'pt',
+                languageJson : pt,
+                publish: pt_pu
+            });
+        }        
+    }, [menuSel]);
 
     useEffect(() => {
         setPathName(pathname_src);
     }, [pathname_src])
+
+    useEffect(() => {
+        setLinkMenu(retornaPage());
+    }, [localeSel])
 
     const onClickChangeLocale = () => {
         if(localeSel?.language === 'en'){
@@ -63,6 +83,24 @@ export default function HeaderComponent(props: any){
         }
     }
 
+    const retornaPage = () => {
+        const raiz = pathname_src!.substring(0, pathname_src!.lastIndexOf("/") + 1);
+        var pagina = pathname_src!.substring(pathname_src!.lastIndexOf("/") + 1);
+        console.log(raiz);
+        console.log(pagina);
+        if(pagina === "" || pagina === "/" || pagina.includes("index_en") || pagina.includes("index.html")){
+            if(menuS?.language === 'pt'){
+                pagina = `index_en${(process.env.NEXT_PUBLIC_IS_LOCAL === "true"? "" : ".html")}`;
+            } else {
+                pagina = `/${(process.env.NEXT_PUBLIC_IS_LOCAL === "true"? "" : "index.html")}`;
+            }
+        } else {
+            pagina = `${pagina.replace('_en', '')}${(menuS?.language === "pt"? "_en" : "")}${(process.env.NEXT_PUBLIC_IS_LOCAL === "true"? "" : ".html")}`
+        }
+        console.log(pagina);
+        return `${raiz}${pagina}`.replace('//', '/');
+    }
+
     return (
         <Header
             style={{
@@ -77,7 +115,7 @@ export default function HeaderComponent(props: any){
             }}
         >
             <DivHeader>
-                <Link href={`${pathName!.substring(0, pathName!.lastIndexOf("/") + 1)}index.html`} rel="noopener noreferrer" target="_blank">
+                <a href={`${pathName!.substring(0, pathName!.lastIndexOf("/") + 1)}${(process.env.NEXT_PUBLIC_IS_LOCAL === "true"? `${(menuS?.language === "en"? "index_en" : "")}` : `index${(menuS?.language === "en"? "_en" : "")}.html`)}`}>
                     <Image
                         src={(localeSel?.language === 'en'? headerIconEn.src : headerIconPt.src)}
                         width={159}
@@ -85,7 +123,7 @@ export default function HeaderComponent(props: any){
                         style={{ marginRight: 0 }}
                         alt="Logo header"
                     />
-                </Link>
+                </a>
                 <Space size={"middle"}>
                 {
                     props.windows[0] > 1300 ? (
@@ -100,30 +138,32 @@ export default function HeaderComponent(props: any){
                                 icon={<GithubOutlined style={{ color: "#fff" }} />}
                             />
                         </Link>
-                        <Button
-                            style={{
-                                width: 32,
-                                height: 32,
-                                background: "#0A74A638",
-                                border: 0,
-                                padding: 0,
-                                display: 'flex',
-                                alignItems: 'center',
-                                justifyContent: 'space-between'
-                            }}
-                            onClick={onClickChangeLocale}
-                        >
-                            <Image
-                                src={(localeSel?.language === 'en'? enIcon.src : ptIcon.src)}
-                                width={21}
-                                height={18.7}
-                                style={{ 
-                                    marginLeft: 'auto',
-                                    marginRight: 'auto'
+                        <a href={linkMenu}>
+                            <Button
+                                style={{
+                                    width: 32,
+                                    height: 32,
+                                    background: "#0A74A638",
+                                    border: 0,
+                                    padding: 0,
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                    justifyContent: 'space-between'
                                 }}
-                                alt="Logo header"
-                            />
-                        </Button>
+                                //onClick={onClickChangeLocale}
+                            >
+                                <Image
+                                    src={(localeSel?.language === 'en'? enIcon.src : ptIcon.src)}
+                                    width={21}
+                                    height={18.7}
+                                    style={{ 
+                                        marginLeft: 'auto',
+                                        marginRight: 'auto'
+                                    }}
+                                    alt="Logo header"
+                                />
+                            </Button>
+                        </a>  
                         <Link href="http://3.92.188.34:3000/" rel="noopener noreferrer" target="_blank">
                             <Button
                                 style={{
@@ -165,30 +205,32 @@ export default function HeaderComponent(props: any){
                                             icon={<GithubOutlined style={{ color: "#fff" }} />}
                                         />
                                     </Link>
-                                    <Button
-                                        style={{
-                                            width: 32,
-                                            height: 32,
-                                            background: "#0A74A638",
-                                            border: 0,
-                                            padding: 0,
-                                            display: 'flex',
-                                            alignItems: 'center',
-                                            justifyContent: 'space-between'
-                                        }}
-                                        onClick={onClickChangeLocale}
-                                    >
-                                        <Image
-                                            src={(localeSel?.language === 'en'? enIcon.src : ptIcon.src)}
-                                            width={21}
-                                            height={18.7}
-                                            style={{ 
-                                                marginLeft: 'auto',
-                                                marginRight: 'auto'
+                                    <a href={linkMenu}>
+                                        <Button
+                                            style={{
+                                                width: 32,
+                                                height: 32,
+                                                background: "#0A74A638",
+                                                border: 0,
+                                                padding: 0,
+                                                display: 'flex',
+                                                alignItems: 'center',
+                                                justifyContent: 'space-between'
                                             }}
-                                            alt="Logo header"
-                                        />
-                                    </Button>
+                                            //onClick={onClickChangeLocale}
+                                        >
+                                            <Image
+                                                src={(localeSel?.language === 'en'? enIcon.src : ptIcon.src)}
+                                                width={21}
+                                                height={18.7}
+                                                style={{ 
+                                                    marginLeft: 'auto',
+                                                    marginRight: 'auto'
+                                                }}
+                                                alt="Logo header"
+                                            />
+                                        </Button>
+                                    </a>                                    
                                     <Link href="http://3.92.188.34:3000/" rel="noopener noreferrer" target="_blank">
                                         <Button
                                             style={{

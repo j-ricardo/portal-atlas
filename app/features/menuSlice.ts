@@ -4,11 +4,15 @@ import { RootState } from "./../../app/store";
 export interface MenuSelected {
     idMenu: number;
     keyName: string;
+    language: string;
+    link: string;
 }
 
 const initialState: MenuSelected = {
     idMenu: 1,
-    keyName: 'projeto'
+    keyName: 'projeto',
+    language: 'pt',
+    link: ''
 }
 
 export const menuSlice = createSlice({
@@ -18,6 +22,8 @@ export const menuSlice = createSlice({
         changePage: (state, action: PayloadAction<MenuSelected>) => {
             state.idMenu = action.payload.idMenu;
             state.keyName = action.payload.keyName;
+            state.language = action.payload.language;
+            state.link = action.payload.link;
         },
     }
 });

@@ -15,6 +15,10 @@ import { useAppDispatch, useAppSelector } from "@/app/hooks";
 import { LocaleLang, changeLocale, langSelector } from "@/app/features/localeSlice";
 import { MenuSelected, changePage, menuSelector } from '@/app/features/menuSlice';
 import MenuComponent from "@/app/components/menu/menu";
+import en from "@/public/static/locales/en.json";
+import pt from "@/public/static/locales/pt.json";
+import en_pu from "@/public/static/publications/en.json";
+import pt_pu from "@/public/static/publications/pt.json";
 
 export default function FooterComponent(props: any) {
     const [localeSel, setLocaleSel] = useState<LocaleLang>();
@@ -22,13 +26,26 @@ export default function FooterComponent(props: any) {
     const selectedLang = useAppSelector(langSelector);
     const menuSel = useAppSelector(menuSelector);
 
-    useEffect(() => {
-        setLocaleSel(selectedLang);
-    }, [selectedLang]);
+    // useEffect(() => {
+    //     setLocaleSel(selectedLang);
+    // }, [selectedLang]);
 
     useEffect(() => {
-        setMenuS(menuSel!);        
-    }, [menuSel])
+        setMenuS(menuSel!);   
+        if(menuSel.language === "en"){
+            setLocaleSel({
+                language : 'en',
+                languageJson : en,
+                publish: en_pu
+            });
+        } else {
+            setLocaleSel({
+                language : 'pt',
+                languageJson : pt,
+                publish: pt_pu
+            });
+        }
+    }, [menuSel]);
 
     const retornaConteudoFooter = () => {
         var quant = 3;

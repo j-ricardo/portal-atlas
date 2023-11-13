@@ -1,5 +1,6 @@
 'use client'
 import React, { useState, useLayoutEffect, useRef, useEffect } from 'react';
+import { useRouter, usePathname } from 'next/navigation';
 import { 
     DivTelaInicialColaboradores,
     DivColaboradoresCenter,
@@ -29,7 +30,14 @@ interface Colaboradores {
 
 import ListaColaboradores from "@/public/colaboradores.json";
 
+import en from "@/public/static/locales/en.json";
+import pt from "@/public/static/locales/pt.json";
+import en_pu from "@/public/static/publications/en.json";
+import pt_pu from "@/public/static/publications/pt.json";
+
 export default function Colaboradores(){
+    const pathname_src = usePathname();
+    const [pathName, setPathName] = useState<string>('');
     const [localeSel, setLocaleSel] = useState<LocaleLang>();
     const selectedLocale = useAppSelector(langSelector);
     const dispatch = useAppDispatch();
@@ -54,13 +62,23 @@ export default function Colaboradores(){
     useEffect(() => {
         const m: MenuSelected = {
             idMenu: 2,
-            keyName: 'colaboradores'
+            keyName: 'colaboradores',
+            language: 'pt',
+            link: `${pathName!.substring(0, pathName!.lastIndexOf("/") + 1)}colaboradores_en${(process.env.NEXT_PUBLIC_IS_LOCAL === "true"? "" : ".html")}`
         };
         dispatch(changePage(m));
     }, [])
 
+    useEffect(() => {
+        setPathName(pathname_src);
+    }, [pathname_src]);
+
     useLayoutEffect(() => {
-        setLocaleSel(selectedLocale);
+        setLocaleSel({
+            language : 'pt',
+            languageJson : pt,
+            publish: pt_pu
+        });
     }, [selectedLocale]);
 
     return (

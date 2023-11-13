@@ -2,6 +2,7 @@
 import React, { useState, useLayoutEffect, useRef, useEffect } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
+import type { InferGetStaticPropsType, GetStaticProps } from 'next';
 import { useRouter, usePathname } from 'next/navigation';
 import { Button, Card, Row, Col, Space } from 'antd';
 import Icon, { LeftOutlined, RightOutlined } from '@ant-design/icons';
@@ -30,8 +31,7 @@ import logoFinalEn from '@/public/ico/en/LOGO_logo_final.png';
 import ColaboradoresEn from "@/public/ico/en/COLABORADORES.png";
 import VideoEn from "@/public/ico/en/VIDEO.png";
 import ApoioEn from "@/public/ico/en/apoio.png";
-import { 
-  ComposableMap, 
+import {
   Geographies, 
   Geography,
   Marker
@@ -73,6 +73,9 @@ const Bologna_en: string = 'University of Bologna - IT';
 const Sabanci_tuzla_en: string = 'Sabancı University - TR';
 const Sul_australia_adelaide_en: string = 'Government of South Australia - AU';
 
+import pt from "@/public/static/locales/pt.json";
+import pt_pu from "@/public/static/publications/pt.json";
+
 function Home() {
   const pathname_src = usePathname();
   const [pathName, setPathName] = useState<string>('');
@@ -90,13 +93,19 @@ function Home() {
   useEffect(() => {
     const m: MenuSelected = {
       idMenu: 0,
-      keyName: 'inicio'
+      keyName: 'inicio',
+      language: 'pt',
+      link: `${pathName!.substring(0, pathName!.lastIndexOf("/") + 1)}${(process.env.NEXT_PUBLIC_IS_LOCAL === "true"? `${(menuS?.language === "en"? "" : "index_en")}` : `index${(menuS?.language === "en"? "" : "_en")}.html`)}`
     };
     dispatch(changePage(m));
   }, [])
 
   useEffect(() => {
-    setLocaleSel(selectedLocale);
+    setLocaleSel({
+      language : 'pt',
+      languageJson : pt,
+      publish: pt_pu
+    });
   }, [selectedLocale]);
 
   useEffect(() => {
@@ -133,7 +142,7 @@ function Home() {
             >
               {localeSel?.languageJson.page_1_header_sub}
             </h2>
-            <Link href={`${pathName!.substring(0, pathName!.lastIndexOf("/") + 1)}projeto.html`} rel="noopener noreferrer" target="_blank">
+            <a href={`${pathName!.substring(0, pathName!.lastIndexOf("/") + 1)}projeto${(menuS?.language === "en"? "_en" : "")}${(process.env.NEXT_PUBLIC_IS_LOCAL === "true"? "" : ".html")}`}>
               <Button 
                 style={{
                   textTransform: 'uppercase',
@@ -153,7 +162,7 @@ function Home() {
                   {localeSel?.languageJson.btn_saiba_mais}
                 </span>                
               </Button>
-            </Link>
+            </a>
           </StyledCol>
           <StyledCol
             flex="50%"
@@ -194,7 +203,7 @@ function Home() {
             >
               {localeSel?.languageJson.page_1_header_sub}
             </h2>
-            <Link href={`${pathName!.substring(0, pathName!.lastIndexOf("/") + 1)}projeto.html`} rel="noopener noreferrer" target="_blank">
+            <a href={`${pathName!.substring(0, pathName!.lastIndexOf("/") + 1)}projeto${(menuS?.language === "en"? "_en" : "")}${(process.env.NEXT_PUBLIC_IS_LOCAL === "true"? "" : ".html")}`}>
               <Button 
                 style={{
                   textTransform: 'uppercase',
@@ -214,7 +223,7 @@ function Home() {
                   {localeSel?.languageJson.btn_saiba_mais}
                 </span>                
               </Button>
-            </Link>
+            </a>
           </StyledCol>
         </StyledRow>
       );
@@ -246,7 +255,7 @@ function Home() {
               >
                 {localeSel?.languageJson.page_1_perfil_title_1}
               </h2>
-              <Link href={`${pathName!.substring(0, pathName!.lastIndexOf("/") + 1)}perfil_dados.html`} rel="noopener noreferrer" target="_blank">
+              <a href={`${pathName!.substring(0, pathName!.lastIndexOf("/") + 1)}perfil_dados${(menuS?.language === "en"? "_en" : "")}${(process.env.NEXT_PUBLIC_IS_LOCAL === "true"? "" : ".html")}`}>
                 <Button 
                   style={{
                     textTransform: 'uppercase',
@@ -266,7 +275,7 @@ function Home() {
                     {localeSel?.languageJson.btn_saiba_mais}
                   </span>                
                 </Button>
-              </Link>              
+              </a>              
             </StyledCol>
             <StyledCol
               flex="50%"
@@ -315,7 +324,7 @@ function Home() {
               >
                 {localeSel?.languageJson.page_1_perfil_title_1}
               </h2>
-              <Link href={`${pathName!.substring(0, pathName!.lastIndexOf("/") + 1)}perfil_dados.html`} rel="noopener noreferrer" target="_blank">
+              <a href={`${pathName!.substring(0, pathName!.lastIndexOf("/") + 1)}perfil_dados${(menuS?.language === "en"? "_en" : "")}${(process.env.NEXT_PUBLIC_IS_LOCAL === "true"? "" : ".html")}`}>
                 <Button 
                   style={{
                     textTransform: 'uppercase',
@@ -335,7 +344,7 @@ function Home() {
                     {localeSel?.languageJson.btn_saiba_mais}
                   </span>                
                 </Button>
-              </Link>
+              </a>
             </StyledCol>
           </StyledRow>
         </DivTelaInicialCenter>
@@ -662,7 +671,7 @@ function Home() {
       <DivTelaSplit style={{ marginBottom: 0 }}>
         {RetornaSaibaMais()}
       </DivTelaSplit>
-      <StyledDivTwoColors>
+      {/* <StyledDivTwoColors>
         <DivTelaInicialCenter style={{ marginBottom: 0 }}>
           <Image
             src={(localeSel?.language === 'en'? VideoEn.src : VideoPt.src)}
@@ -678,7 +687,7 @@ function Home() {
             alt="Logo atlas oportunidades"
           />
         </DivTelaInicialCenter>        
-      </StyledDivTwoColors>
+      </StyledDivTwoColors> */}
       <div style={{ background: '#fff', paddingBottom: 20 }}>
         <StyledDivPublicacoes>
             <h1>{localeSel?.languageJson.page_1_publications}</h1>

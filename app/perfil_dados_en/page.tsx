@@ -56,35 +56,35 @@ import pt_pu from "@/public/static/publications/pt.json";
 
 function PerfilDados() {
     const pathname_src = usePathname();
-    const [pathName, setPathName] = useState<string>('');
     const { width, height } = useWindowDimensions();
     const [localeSel, setLocaleSel] = useState<LocaleLang>();
+    const [pathName, setPathName] = useState<string>('');
     const dispatch = useAppDispatch();
     const [menuS, setMenuS] = useState<MenuSelected>();
     const menuSel = useAppSelector(menuSelector);
-    const selectedLocale = useAppSelector(langSelector);    
+    const selectedLocale = useAppSelector(langSelector);
+
+    useEffect(() => {
+        setPathName(pathname_src);
+    }, [pathname_src]);
 
     useEffect(() => {
         const m: MenuSelected = {
             idMenu: 3,
             keyName: "perfil_dados",
-            language: 'pt',
-            link: `${pathName!.substring(0, pathName!.lastIndexOf("/") + 1)}perfil_dados_en${(process.env.NEXT_PUBLIC_IS_LOCAL === "true"? "" : ".html")}`
+            language: 'en',
+            link: `${pathName!.substring(0, pathName!.lastIndexOf("/") + 1)}perfil_dados${(process.env.NEXT_PUBLIC_IS_LOCAL === "true"? "" : ".html")}`
         };
         dispatch(changePage(m));
     }, []);
 
     useLayoutEffect(() => {
         setLocaleSel({
-            language : 'pt',
-            languageJson : pt,
-            publish: pt_pu
+            language : 'en',
+            languageJson : en,
+            publish: en_pu
         });
     }, [selectedLocale]);
-
-    useEffect(() => {
-        setPathName(pathname_src);
-    }, [pathname_src])
 
     const RetornaConteudoInicial = () => {
         if (width! > 1386) {

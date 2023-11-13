@@ -25,7 +25,7 @@ import ft_sul_australia_pt from '@/public/ico/ft_sul_australia_pt.png';
 import ft_sul_australia_en from '@/public/ico/ft_sul_australia_en.png';
 import bg_fundo_instituicoes from '@/public/ico/fundo_instituicoes.png';
 import ico_instituicoes_pt from '@/public/ico/ico_instituicoes_pt.png';
-import ico_instituicoes_en from '@/public/ico/ico_instituicoes_pt.png';
+import ico_instituicoes_en from '@/public/ico/ico_instituicoes_en.png';
 
 import useWindowDimensions from "@/app/helper/useWindowDimension";
 
@@ -46,17 +46,17 @@ export default function Projeto(){
         const m: MenuSelected = {
             idMenu: 1,
             keyName: 'projeto',
-            language: 'pt',
-            link: `${pathName!.substring(0, pathName!.lastIndexOf("/") + 1)}projeto_en${(process.env.NEXT_PUBLIC_IS_LOCAL === "true"? "" : ".html")}`
+            language: 'en',
+            link: `${pathName!.substring(0, pathName!.lastIndexOf("/") + 1)}projeto${(process.env.NEXT_PUBLIC_IS_LOCAL === "true"? "" : ".html")}`            
         };
         dispatch(changePage(m));
     }, [])
 
     useLayoutEffect(() => {
         setLocaleSel({
-            language : 'pt',
-            languageJson : pt,
-            publish: pt_pu
+            language : 'en',
+            languageJson : en,
+            publish: en_pu
         });
     }, [selectedLocale]);
 
@@ -212,7 +212,7 @@ export default function Projeto(){
                     />
                     
                 </DivTelaInicialCenter>
-                <a href={`${pathName!.substring(0, pathName!.lastIndexOf("/") + 1)}colaboradores${(localeSel?.language === "en"? "_en" : "")}${(process.env.NEXT_PUBLIC_IS_LOCAL === "true"? "" : ".html")}`}>                
+                <a href={`${pathName!.substring(0, pathName!.lastIndexOf("/") + 1)}colaboradores_en${(process.env.NEXT_PUBLIC_IS_LOCAL === "true"? "" : ".html")}`}>                
                     <Button 
                         style={{
                             textTransform: 'uppercase',
